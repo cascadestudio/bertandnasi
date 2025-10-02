@@ -6,12 +6,10 @@ import { schemaTypes } from './src/sanity/schemaTypes'
 export default defineConfig({
   name: 'default',
   title: 'Bertandnasi',
-
   projectId: 'xp5syjl9',
   dataset: 'production',
-
+  basePath: '/studio',
   plugins: [structureTool(), visionTool()],
-
   schema: {
     types: schemaTypes,
   },
