@@ -1,27 +1,28 @@
 import Link from 'next/link'
-import { fetchAllProjects } from '../sanity/lib/queries'
+import { fetchAllShows } from '../sanity/lib/queries'
 
 export default async function Home() {
-  const projects = await fetchAllProjects()
+  const shows = await fetchAllShows()
 
   return (
     <div>
       <header>
-        <h1>Next.js + Sanity Boilerplate</h1>
+        <h1>Bertandnasi Theater Company</h1>
         <nav>
-          <Link href="/studio">Got to Sanity Studio</Link>
+          <Link href="/studio">Go to Sanity Studio</Link>
         </nav>
       </header>
 
       <main>
-        <h2>Projects in Sanity : </h2>
-        {projects.length === 0 ? (
-          <p>No projects found. <Link href="/studio">Create your first project</Link></p>
+        <h2>Our Shows:</h2>
+        {shows.length === 0 ? (
+          <p>No shows found. <Link href="/studio">Create your first show</Link></p>
         ) : (
           <ul>
-            {projects.map((project) => (
-              <li key={project._id}>
-                <h3>{project.name}</h3>
+            {shows.map((show) => (
+              <li key={show._id}>
+                <h3>{show.title}</h3>
+                <p>Year: {show.year}</p>
               </li>
             ))}
           </ul>

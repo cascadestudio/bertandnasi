@@ -24,31 +24,31 @@ export const show = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-        name: 'description',
-        title: 'Description',
-        type: 'array',
-        of: [
-          {
-            type: 'block',
-            styles: [
-              { title: 'Normal', value: 'normal' },
-              { title: 'H3', value: 'h3' },
-              { title: 'Quote', value: 'blockquote' },
+      name: 'description',
+      title: 'Description',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'H3', value: 'h3' },
+            { title: 'Quote', value: 'blockquote' },
+          ],
+          lists: [
+            { title: 'Bullet', value: 'bullet' },
+            { title: 'Number', value: 'number' },
+          ],
+          marks: {
+            decorators: [
+              { title: 'Strong', value: 'strong' },
+              { title: 'Emphasis', value: 'em' },
             ],
-            lists: [
-              { title: 'Bullet', value: 'bullet' },
-              { title: 'Number', value: 'number' },
-            ],
-            marks: {
-              decorators: [
-                { title: 'Strong', value: 'strong' },
-                { title: 'Emphasis', value: 'em' },
-              ],
-            },
           },
-        ],
-        validation: (Rule) => Rule.required(),
-      },
+        },
+      ],
+      validation: (Rule) => Rule.required(),
+    },
     {
       name: 'year',
       title: 'Year',
@@ -111,23 +111,28 @@ export const show = defineType({
         },
       ],
     },
-        {
-          name: 'url',
-          title: 'YouTube Video URL',
-          type: 'url',
-          description: 'Paste the YouTube video URL here',
-          validation: (Rule) => Rule.required().uri({ scheme: ['https'] }),
-        },
+    {
+      name: 'trailer',
+      title: 'YouTube Video URL',
+      type: 'url',
+      description: 'Paste the YouTube video URL here',
+      validation: (Rule) => Rule.uri({ scheme: ['https'] }),
+    },
     {
       name: 'collaborators',
       title: 'Collaborators',
       type: 'array',
       of: [
         {
+          type: 'object',
+          fields: [
+            {
               name: 'name',
               title: 'Name',
               type: 'string',
-              validation: (Rule) => Rule.required(),          
+              validation: (Rule) => Rule.required(),
+            },
+          ],
           preview: {
             select: {
               title: 'name',
