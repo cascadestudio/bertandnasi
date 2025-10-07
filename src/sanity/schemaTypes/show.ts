@@ -47,7 +47,7 @@ export const show = defineType({
             },
           },
         ],
-        validation: (Rule) => Rule.required().max(3),
+        validation: (Rule) => Rule.required(),
       },
     {
       name: 'year',
@@ -78,6 +78,7 @@ export const show = defineType({
       name: 'credits',
       title: 'Credits',
       type: 'array',
+      description: 'Add the creative team members. Each credit will display as "Role → Name" (e.g., "Director → John Smith").',
       of: [
         {
           type: 'object',
@@ -123,21 +124,12 @@ export const show = defineType({
       type: 'array',
       of: [
         {
-          type: 'object',
-          fields: [
-            {
+
               name: 'name',
               title: 'Name',
               type: 'string',
               validation: (Rule) => Rule.required(),
-            },
-            {
-              name: 'role',
-              title: 'Role',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            },
-          ],
+
           preview: {
             select: {
               title: 'name',
@@ -161,11 +153,6 @@ export const show = defineType({
             {
               name: 'alt',
               title: 'Alt Text',
-              type: 'string',
-            },
-            {
-              name: 'caption',
-              title: 'Caption',
               type: 'string',
             },
           ],
@@ -245,7 +232,7 @@ export const show = defineType({
       const { title, subtitle, media } = selection
       return {
         title,
-        subtitle: subtitle ? `Year: ${subtitle}` : 'No year set',
+        subtitle: subtitle ? `${subtitle}` : 'No year set',
         media,
       }
     },
