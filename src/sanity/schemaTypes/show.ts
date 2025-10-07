@@ -24,12 +24,31 @@ export const show = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-      rows: 3,
-      validation: (Rule) => Rule.required().max(200),
-    },
+        name: 'description',
+        title: 'Description',
+        type: 'array',
+        of: [
+          {
+            type: 'block',
+            styles: [
+              { title: 'Normal', value: 'normal' },
+              { title: 'H3', value: 'h3' },
+              { title: 'Quote', value: 'blockquote' },
+            ],
+            lists: [
+              { title: 'Bullet', value: 'bullet' },
+              { title: 'Number', value: 'number' },
+            ],
+            marks: {
+              decorators: [
+                { title: 'Strong', value: 'strong' },
+                { title: 'Emphasis', value: 'em' },
+              ],
+            },
+          },
+        ],
+        validation: (Rule) => Rule.required().max(3),
+      },
     {
       name: 'year',
       title: 'Year',
@@ -91,11 +110,6 @@ export const show = defineType({
         },
       ],
     },
-    {
-      name: 'trailer',
-      title: 'Trailer Video',
-      type: 'object',
-      fields: [
         {
           name: 'url',
           title: 'YouTube Video URL',
@@ -103,16 +117,6 @@ export const show = defineType({
           description: 'Paste the YouTube video URL here',
           validation: (Rule) => Rule.required().uri({ scheme: ['https'] }),
         },
-        {
-          name: 'thumbnail',
-          title: 'Thumbnail Image',
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-        },
-      ],
-    },
     {
       name: 'collaborators',
       title: 'Collaborators',
@@ -143,8 +147,6 @@ export const show = defineType({
         },
       ],
     },
-
-   
     {
       name: 'imageGallery',
       title: 'Image Gallery',
@@ -214,27 +216,20 @@ export const show = defineType({
       type: 'object',
       fields: [
         {
-          name: 'metaTitle',
-          title: 'Meta Title',
-          type: 'string',
-          validation: (Rule) => Rule.max(60),
-        },
-        {
-          name: 'metaDescription',
-          title: 'Meta Description',
-          type: 'text',
-          rows: 2,
-          validation: (Rule) => Rule.max(160),
-        },
-        {
-          name: 'keywords',
-          title: 'Keywords',
-          type: 'array',
-          of: [{ type: 'string' }],
-          options: {
-            layout: 'tags',
+            name: 'metaTitle',
+            title: 'Meta Title',
+            type: 'string',
+            validation: (Rule) => Rule.max(60),
+            description: 'The title that appears in search results and browser tabs. Keep it under 60 characters. Include the show name and year. Example: "Hamlet: A Modern Retelling (2024)"',
           },
-        },
+          {
+            name: 'metaDescription',
+            title: 'Meta Description',
+            type: 'text',
+            rows: 2,
+            validation: (Rule) => Rule.max(160),
+            description: 'A brief summary that appears in search results. Write 150-160 characters. Hook readers with what makes this production unique. Example: "A haunting reimagining of Shakespeare\'s classic, set in modern corporate boardrooms. Directed by [Name]."',
+          },
       ],
     },
   ],
