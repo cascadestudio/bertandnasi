@@ -124,12 +124,10 @@ export const show = defineType({
       type: 'array',
       of: [
         {
-
               name: 'name',
               title: 'Name',
               type: 'string',
-              validation: (Rule) => Rule.required(),
-
+              validation: (Rule) => Rule.required(),          
           preview: {
             select: {
               title: 'name',
