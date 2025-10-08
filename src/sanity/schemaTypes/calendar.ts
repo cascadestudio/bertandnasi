@@ -13,7 +13,7 @@ export const calendar = defineType({
       type: 'reference',
       to: [{ type: 'show' }],
       validation: (Rule) => Rule.required(),
-      description: 'Select the show from your shows list. This will automatically pull the show title and main image.',
+      description: 'Select the show from your shows list. The main image will be taken from the show.',
     },
     {
       name: 'dates',
@@ -21,11 +21,14 @@ export const calendar = defineType({
       type: 'array',
       of: [
         {
-          type: 'datetime',
+          type: 'date',
+          options: {
+            dateFormat: 'DD-MM-YYYY',
+          },
         },
       ],
       validation: (Rule) => Rule.required().min(1),
-      description: 'Add all the dates and times for this event. You can add multiple dates for the same show.',
+      description: 'Click "Add item" and use the calendar picker to select performance dates. You can add multiple dates for the same show.',
     },
     {
       name: 'venue',
@@ -35,34 +38,18 @@ export const calendar = defineType({
       description: 'The name of the theater or venue where the show will be performed.',
     },
     {
-      name: 'city',
-      title: 'City',
+      name: 'location',
+      title: 'City, Country',
       type: 'string',
       validation: (Rule) => Rule.required(),
-      description: 'The city where the venue is located.',
+      description: 'The location where the show will be performed (e.g., "Paris, France" or "New York, USA").',
+      placeholder: 'Paris, France',
     },
     {
       name: 'ticketUrl',
       title: 'Ticket Page URL',
       type: 'url',
       description: 'Link to where people can buy tickets.',
-    },
-    {
-      name: 'mainImage',
-      title: 'Main Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: 'alt',
-          title: 'Alt Text',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        },
-      ],
-      description: 'The main image for this calendar event. You can use the show\'s main image or upload a different one.',
     },
     {
       name: 'additionalImages',
@@ -80,15 +67,13 @@ export const calendar = defineType({
               title: 'Alt Text',
               type: 'string',
             },
-            {
-              name: 'caption',
-              title: 'Caption',
-              type: 'string',
-            },
           ],
         },
       ],
-      description: 'Additional images from the show\'s gallery or event-specific photos.',
+      options: {
+        layout: 'grid',
+      },
+      description: 'Upload additional images specific to this calendar event. The show\'s main image will be used automatically, these are extra images.',
     },
   ],
 
@@ -96,14 +81,27 @@ export const calendar = defineType({
   preview: {
     select: {
       title: 'show.title',
-      subtitle: 'venue',
-      media: 'mainImage',
+      venue: 'venue',
+      media: 'show.mainImage',
+      dates: 'dates',
     },
     prepare(selection) {
-      const { title, subtitle, media } = selection
+      const { title, venue, media, dates } = selection
+      
+      // Format the first date
+      let dateText = 'No date'
+      if (dates && dates.length > 0) {
+        const sortedDates = [...dates].sort()
+        dateText = new Date(sortedDates[0]).toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: '2-digit',
+        })
+      }
+      
       return {
         title: title || 'No show selected',
-        subtitle: subtitle ? `at ${subtitle}` : 'No venue set',
+        subtitle: `${venue || 'No venue'} • ${dateText}`,
         media,
       }
     },
