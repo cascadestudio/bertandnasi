@@ -78,7 +78,7 @@ export const show = defineType({
       name: 'credits',
       title: 'Credits',
       type: 'array',
-      description: 'Add the creative team members. Each credit will display as "Role → Name" (e.g., "Director → John Smith").',
+      description: 'Each credit will display as "Role → Name" (e.g., "Director → John Smith").',
       of: [
         {
           type: 'object',
@@ -115,7 +115,7 @@ export const show = defineType({
       name: 'trailer',
       title: 'YouTube Video URL',
       type: 'url',
-      description: 'Paste the YouTube video URL here',
+      description: 'Paste the YouTube video URL',
       validation: (Rule) => Rule.uri({ scheme: ['https'] }),
     },
     {
