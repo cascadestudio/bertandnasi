@@ -107,6 +107,78 @@ export const getShowById = groq`
   }
 `
 
+// Calendar Event type definition
+export interface CalendarEvent {
+  _id: string
+  _createdAt: string
+  _updatedAt: string
+  show: {
+    _id: string
+    title: string
+    slug: {
+      current: string
+    }
+    mainImage: {
+      asset: {
+        _ref: string
+        _type: string
+      }
+      alt: string
+    }
+  }
+  dates: string[]
+  venue: string
+  location: string
+  ticketUrl?: string
+  additionalImages?: Array<{
+    asset: {
+      _ref: string
+      _type: string
+    }
+    alt?: string
+  }>
+}
+
+// Query to get next 6 upcoming events
+export const getUpcomingEvents = groq`
+  *[_type == "calendar" && dates[0] >= now()] | order(dates[0] asc) [0...6] {
+    _id,
+    _createdAt,
+    _updatedAt,
+    show-> {
+      _id,
+      title,
+      slug,
+      mainImage
+    },
+    dates,
+    venue,
+    location,
+    ticketUrl,
+    additionalImages
+  }
+`
+
+// Query to get all calendar events
+export const getAllCalendarEvents = groq`
+  *[_type == "calendar"] | order(dates[0] desc) {
+    _id,
+    _createdAt,
+    _updatedAt,
+    show-> {
+      _id,
+      title,
+      slug,
+      mainImage
+    },
+    dates,
+    venue,
+    location,
+    ticketUrl,
+    additionalImages
+  }
+`
+
 // Data fetching functions
 export async function fetchAllShows(): Promise<Show[]> {
   return await client.fetch(getAllShows)
@@ -118,4 +190,12 @@ export async function fetchShowBySlug(slug: string): Promise<Show> {
 
 export async function fetchShowById(id: string): Promise<Show> {
   return await client.fetch(getShowById, { id })
+}
+
+export async function fetchUpcomingEvents(): Promise<CalendarEvent[]> {
+  return await client.fetch(getUpcomingEvents)
+}
+
+export async function fetchAllCalendarEvents(): Promise<CalendarEvent[]> {
+  return await client.fetch(getAllCalendarEvents)
 }

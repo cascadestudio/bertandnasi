@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { fetchAllShows } from '../sanity/lib/queries'
+import { fetchUpcomingEvents } from '../sanity/lib/queries'
 
 export default async function Home() {
-  const shows = await fetchAllShows()
+  const upcomingEvents = await fetchUpcomingEvents()
 
   return (
     <div>
@@ -14,15 +14,28 @@ export default async function Home() {
       </header>
 
       <main>
-        <h2>Our Shows:</h2>
-        {shows.length === 0 ? (
-          <p>No shows found. <Link href="/studio">Create your first show</Link></p>
+        <h2>Upcoming Events:</h2>
+        {upcomingEvents.length === 0 ? (
+          <p>No upcoming events. <Link href="/studio">Create your first event</Link></p>
         ) : (
           <ul>
-            {shows.map((show) => (
-              <li key={show._id}>
-                <h3>{show.title}</h3>
-                <p>Year: {show.year}</p>
+            {upcomingEvents.map((event) => (
+              <li key={event._id}>
+                <p>
+                  <strong>{event.show.title}</strong> - {event.venue}, {event.location}
+                </p>
+                <p>
+                  Dates: {event.dates.map((date) => 
+                    new Date(date).toLocaleDateString('en-GB', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                    })
+                  ).join(', ')}
+                </p>
+                {event.ticketUrl && (
+                  <p><a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">Get Tickets</a></p>
+                )}
               </li>
             ))}
           </ul>
