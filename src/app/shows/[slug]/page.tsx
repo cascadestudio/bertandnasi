@@ -12,9 +12,10 @@ export async function generateStaticParams() {
 export default async function ShowDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const show = await fetchShowBySlug(params.slug)
+  const { slug } = await params
+  const show = await fetchShowBySlug(slug)
 
   if (!show) {
     notFound()
@@ -59,7 +60,7 @@ export default async function ShowDetailPage({
             <h2>Reviews</h2>
             {show.reviews.map((review, index) => (
               <blockquote key={index}>
-                <p>"{review.quote}"</p>
+                <p>&ldquo;{review.quote}&rdquo;</p>
                 <cite>— {review.media}</cite>
               </blockquote>
             ))}
