@@ -10,7 +10,7 @@ export interface Show {
   slug: {
     current: string
   }
-  description?: any[]
+  description?: unknown[]
   year: number
   mainImage: {
     asset: {

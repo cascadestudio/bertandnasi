@@ -1,10 +1,11 @@
 import { defineType } from 'sanity'
+import { DocumentIcon } from '@sanity/icons'
 
 export const show = defineType({
   name: 'show',
   title: 'Show',
   type: 'document',
-  icon: () => '🎭',
+  icon: DocumentIcon,
   fields: [
     // Basic Information
     {

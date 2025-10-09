@@ -1,10 +1,11 @@
 import { defineType } from 'sanity'
+import { PlayIcon } from '@sanity/icons'
 
 export const video = defineType({
   name: 'video',
   title: 'Video',
   type: 'document',
-  icon: () => '🎬',
+  icon: PlayIcon,
   fields: [
     {
       name: 'title',
@@ -45,14 +46,10 @@ export const video = defineType({
       url: 'url',
     },
     prepare(selection) {
-      const { title, category, url } = selection
-      
-      // Extract video ID for thumbnail
-      const videoId = url?.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/)?.[1]
-      const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : undefined
+      const { title, category } = selection
       
       // Format category for display
-      const categoryLabels = {
+      const categoryLabels: Record<string, string> = {
         'online-content': 'Online Content',
         'trailers': 'Trailers',
         'short-films': 'Short Films',
@@ -61,7 +58,6 @@ export const video = defineType({
       return {
         title: title || 'Untitled Video',
         subtitle: categoryLabels[category] || category,
-        media: thumbnailUrl ? { url: thumbnailUrl } : undefined,
       }
     },
   },
