@@ -9,20 +9,27 @@ export default async function Home() {
       <header>
         <h1>Bertandnasi Theater Company</h1>
         <nav>
-          <Link href="/studio">Go to Sanity Studio</Link>
+          <Link href="/shows">Shows</Link> | 
+          <Link href="/calendar">Calendar</Link> | 
+          <Link href="/videos">Videos</Link> | 
+          <Link href="/about">About</Link> | 
         </nav>
       </header>
 
       <main>
         <h2>Upcoming Events:</h2>
         {upcomingEvents.length === 0 ? (
-          <p>No upcoming events. <Link href="/studio">Create your first event</Link></p>
+          <p>No upcoming events.</p>
         ) : (
           <ul>
             {upcomingEvents.map((event) => (
               <li key={event._id}>
                 <p>
-                  <strong>{event.show.title}</strong> - {event.venue}, {event.location}
+                  <strong>
+                    <Link href={`/shows/${event.show.slug.current}`}>
+                      {event.show.title}
+                    </Link>
+                  </strong> - {event.venue}, {event.location}
                 </p>
                 <p>
                   Dates: {event.dates.map((date) => 
