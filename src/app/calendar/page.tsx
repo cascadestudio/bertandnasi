@@ -1,44 +1,53 @@
-import Link from 'next/link'
-import { fetchAllCalendarEvents } from '@/sanity/lib/queries'
+import Link from "next/link";
+import { fetchAllCalendarEvents } from "@/sanity/lib/queries";
 
 export default async function CalendarPage() {
-  const events = await fetchAllCalendarEvents()
+  const events = await fetchAllCalendarEvents();
 
   return (
-    <div>
-      <header>
-        <h1>Calendar</h1>
-        <nav>
-          <Link href="/">Home</Link> | <Link href="/shows">Shows</Link> | <Link href="/videos">Videos</Link>
-        </nav>
-      </header>
-
+    <div className="px-layout py-16">
       <main>
+        <h1 className="text-4xl md:text-5xl font-bold mb-12">Calendar</h1>
         {events.length === 0 ? (
           <p>No events scheduled.</p>
         ) : (
-          <div style={{ display: 'grid', gap: '2rem' }}>
+          <div className="space-y-8">
             {events.map((event) => (
-              <article key={event._id}>
-                <h2>
-                  <Link href={`/shows/${event.show.slug.current}`}>
+              <article
+                key={event._id}
+                className="border-b border-gray-200 pb-8"
+              >
+                <h2 className="text-2xl md:text-3xl font-normal uppercase mb-2">
+                  <Link
+                    href={`/shows/${event.show.slug.current}`}
+                    className="hover:text-[var(--color-green)] transition-colors"
+                  >
                     {event.show.title}
                   </Link>
                 </h2>
-                <p><strong>{event.venue}</strong> - {event.location}</p>
-                <p>
-                  <strong>Dates:</strong>{' '}
-                  {event.dates.map((date) =>
-                    new Date(date).toLocaleDateString('en-GB', {
-                      day: '2-digit',
-                      month: 'short',
-                      year: 'numeric',
-                    })
-                  ).join(', ')}
+                <p className="text-lg mb-2">
+                  <strong>{event.venue}</strong> - {event.location}
+                </p>
+                <p className="mb-4">
+                  <strong>Dates:</strong>{" "}
+                  {event.dates
+                    .map((date) =>
+                      new Date(date).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
+                    )
+                    .join(", ")}
                 </p>
                 {event.ticketUrl && (
                   <p>
-                    <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={event.ticketUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--color-green)] hover:opacity-80 transition-opacity"
+                    >
                       Get Tickets →
                     </a>
                   </p>
@@ -49,6 +58,5 @@ export default async function CalendarPage() {
         )}
       </main>
     </div>
-  )
+  );
 }
-

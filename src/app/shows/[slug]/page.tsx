@@ -1,45 +1,52 @@
-import { fetchShowBySlug, fetchAllShows } from '@/sanity/lib/queries'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { fetchShowBySlug, fetchAllShows } from "@/sanity/lib/queries";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const shows = await fetchAllShows()
+  const shows = await fetchAllShows();
   return shows.map((show) => ({
     slug: show.slug.current,
-  }))
+  }));
 }
 
 export default async function ShowDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params
-  const show = await fetchShowBySlug(slug)
+  const { slug } = await params;
+  const show = await fetchShowBySlug(slug);
 
   if (!show) {
-    notFound()
+    notFound();
   }
 
   return (
-    <div>
-      <header>
-        <nav>
-          <Link href="/">Home</Link> | <Link href="/shows">← Back to Shows</Link>
-        </nav>
-      </header>
+    <div className="px-layout py-16">
+      <nav className="mb-8">
+        <Link
+          href="/shows"
+          className="text-[var(--color-green)] hover:opacity-80 transition-opacity"
+        >
+          ← Back to Shows
+        </Link>
+      </nav>
 
       <main>
-        <h1>{show.title}</h1>
-        <p><strong>Year:</strong> {show.year}</p>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-4">
+          {show.title}
+        </h1>
+        <p className="text-xl mb-12">
+          <strong>Year:</strong> {show.year}
+        </p>
 
         {show.credits && show.credits.length > 0 && (
-          <section>
-            <h2>Credits</h2>
-            <ul>
+          <section className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">Credits</h2>
+            <ul className="space-y-2">
               {show.credits.map((credit, index) => (
-                <li key={index}>
-                  {credit.role} → {credit.name}
+                <li key={index} className="text-lg">
+                  <strong>{credit.role}:</strong> {credit.name}
                 </li>
               ))}
             </ul>
@@ -47,27 +54,38 @@ export default async function ShowDetailPage({
         )}
 
         {show.trailer && (
-          <section>
-            <h2>Trailer</h2>
-            <a href={show.trailer} target="_blank" rel="noopener noreferrer">
-              Watch Trailer
+          <section className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">Trailer</h2>
+            <a
+              href={show.trailer}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--color-green)] hover:opacity-80 transition-opacity text-lg"
+            >
+              Watch Trailer →
             </a>
           </section>
         )}
 
         {show.reviews && show.reviews.length > 0 && (
-          <section>
-            <h2>Reviews</h2>
-            {show.reviews.map((review, index) => (
-              <blockquote key={index}>
-                <p>&ldquo;{review.quote}&rdquo;</p>
-                <cite>— {review.media}</cite>
-              </blockquote>
-            ))}
+          <section className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8">Reviews</h2>
+            <div className="space-y-8">
+              {show.reviews.map((review, index) => (
+                <blockquote
+                  key={index}
+                  className="border-l-4 border-[var(--color-green)] pl-6"
+                >
+                  <p className="text-lg italic mb-2">
+                    &ldquo;{review.quote}&rdquo;
+                  </p>
+                  <cite className="text-base not-italic">— {review.media}</cite>
+                </blockquote>
+              ))}
+            </div>
           </section>
         )}
       </main>
     </div>
-  )
+  );
 }
-
