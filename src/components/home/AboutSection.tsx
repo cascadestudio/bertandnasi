@@ -29,16 +29,16 @@ export default function AboutSection() {
   }
 
   return (
-    <section className="w-full px-6 md:px-12 lg:px-16 py-16 md:py-24">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+    <section className="w-full px-6 md:px-12 lg:px-16 xl:px-24 py-16 md:py-20 lg:py-24">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-start">
         {/* Text Content */}
-        <div className="space-y-6">
-          <p className="text-lg md:text-xl leading-relaxed">
-            Bert and Nasi are a contemporary performance duo that met in 2015 and have since created an entire repertoire of shows in the midst of a period of national and international austerity. Their work, in turn, is stripped back and minimalist, whilst dealing with complex ideas and emotions. Their shows lie somewhere between performance, dance and theatre but if you had to pin them down on it, they'd probably say it's theatre.
+        <div className="space-y-8">
+          <p className="text-base md:text-lg lg:text-xl leading-relaxed md:leading-loose font-light">
+            Bert and Nasi are a contemporary performance duo that met in 2015 and have since created an entire repertoire of shows in the midst of a period of national and international austerity. Their work, in turn, is stripped back and minimalist, whilst dealing with complex ideas and emotions. Their shows lie somewhere between performance, dance and theatre but if you had to pin them down on it, they&apos;d probably say it&apos;s theatre.
           </p>
           <Link 
             href="/about"
-            className="inline-flex items-center gap-2 text-lg text-[var(--color-green)] hover:underline transition-all"
+            className="inline-flex items-center gap-2 text-base md:text-lg text-[var(--color-green)] hover:opacity-80 transition-opacity font-normal"
           >
             → See more
           </Link>
@@ -57,22 +57,22 @@ export default function AboutSection() {
           </div>
           
           {/* Navigation Arrows - Bottom Right */}
-          <div className="flex gap-4 justify-end mt-4">
+          <div className="flex gap-6 justify-end mt-6">
             <button
               onClick={prevImage}
-              className="text-black hover:text-[var(--color-green)] transition-colors"
+              className="text-black hover:text-[var(--color-green)] transition-colors p-1"
               aria-label="Previous image"
             >
-              <svg width="48" height="48" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
             <button
               onClick={nextImage}
-              className="text-black hover:text-[var(--color-green)] transition-colors"
+              className="text-black hover:text-[var(--color-green)] transition-colors p-1"
               aria-label="Next image"
             >
-              <svg width="48" height="48" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </button>

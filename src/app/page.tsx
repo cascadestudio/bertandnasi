@@ -1,8 +1,8 @@
-import HeroSection from '@/components/HeroSection'
-import Marquee from '@/components/Marquee'
-import AboutSection from '@/components/AboutSection'
-import CalendarSection from '@/components/CalendarSection'
-import ReviewsSection from '@/components/ReviewsSection'
+import HeroSection from '@/components/home/HeroSection'
+import Marquee from '@/components/home/Marquee'
+import AboutSection from '@/components/home/AboutSection'
+import CalendarSection from '@/components/home/CalendarSection'
+import ReviewsSection from '@/components/home/ReviewsSection'
 
 export default function Home() {
   return (

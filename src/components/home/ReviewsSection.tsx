@@ -27,13 +27,13 @@ export default function ReviewsSection() {
   }
 
   return (
-    <section className="w-full px-6 md:px-12 lg:px-16 py-16 md:py-24">
-      <div className="relative max-w-4xl mx-auto">
-        <div className="text-center space-y-6 px-16">
-          <blockquote className="text-xl md:text-2xl lg:text-3xl italic leading-relaxed">
-            "{reviews[currentIndex].quote}"
+    <section className="w-full px-6 md:px-12 lg:px-16 xl:px-24 py-16 md:py-20 lg:py-24">
+      <div className="relative max-w-5xl mx-auto">
+        <div className="text-center space-y-8 px-12 md:px-20">
+          <blockquote className="text-lg md:text-xl lg:text-2xl xl:text-3xl italic leading-relaxed font-light">
+            &ldquo;{reviews[currentIndex].quote}&rdquo;
           </blockquote>
-          <cite className="block text-lg md:text-xl not-italic font-medium">
+          <cite className="block text-base md:text-lg not-italic font-normal">
             {reviews[currentIndex].source}
           </cite>
         </div>
@@ -41,19 +41,19 @@ export default function ReviewsSection() {
         {/* Navigation Arrows */}
         <button
           onClick={prevReview}
-          className="absolute left-0 top-1/2 -translate-y-1/2 hover:text-[var(--color-green)] transition-colors p-2"
+          className="absolute left-0 top-1/2 -translate-y-1/2 text-black hover:text-[var(--color-green)] transition-colors p-1"
           aria-label="Previous review"
         >
-          <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
         <button
           onClick={nextReview}
-          className="absolute right-0 top-1/2 -translate-y-1/2 hover:text-[var(--color-green)] transition-colors p-2"
+          className="absolute right-0 top-1/2 -translate-y-1/2 text-black hover:text-[var(--color-green)] transition-colors p-1"
           aria-label="Next review"
         >
-          <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
             <path d="M9 18l6-6-6-6" />
           </svg>
         </button>
