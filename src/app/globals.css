@@ -75,3 +75,36 @@ img {
 img[src$=".svg"] {
   fill: unset !important;
 }
+
+/* Navigation typography and styling */
+.nav-item {
+  font-family: var(--font-nav);
+  font-weight: 500;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  color: var(--color-green);
+}
+
+.nav-item-active {
+  font-family: var(--font-nav);
+  font-weight: 500;
+  font-size: 20px;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.nav-item-active:hover {
+  color: var(--color-green);
+  -webkit-text-stroke: none;
+}

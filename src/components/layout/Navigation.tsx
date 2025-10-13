@@ -2,12 +2,33 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Navigation() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolledDown, setIsScrolledDown] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down
+        setIsScrolledDown(true);
+      } else {
+        // Scrolling up
+        setIsScrolledDown(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const navLinks = [
     { href: "/calendar", label: "Calendar" },
@@ -21,13 +42,15 @@ export default function Navigation() {
       {/* Desktop Navigation - 7 Column Grid */}
       <div className="hidden md:block">
         <div
-          className="grid-7 gap-6 px-layout py-4"
+          className={`grid-7 gap-6 px-layout py-4 transition-all duration-300 ease-in-out ${
+            isScrolledDown ? "h-12" : "h-16"
+          }`}
           style={{ fontFamily: "var(--font-nav)" }}
         >
           {/* Logo - Column 1 */}
           <Link
             href="/"
-            className="col-span-1 hover:opacity-80 transition-opacity"
+            className="col-span-1 hover:opacity-80 transition-opacity flex items-center"
           >
             <Image
               src="/images/logo.svg"
@@ -41,8 +64,8 @@ export default function Navigation() {
           {/* Calendar - Column 2 */}
           <Link
             href="/calendar"
-            className={`col-span-1 text-sm uppercase tracking-wide hover:text-[var(--color-green)] transition-colors ${
-              pathname === "/calendar" ? "text-[var(--color-green)]" : ""
+            className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
+              pathname === "/calendar" ? "nav-item-active" : ""
             }`}
           >
             Calendar
@@ -51,8 +74,8 @@ export default function Navigation() {
           {/* Shows - Column 3 */}
           <Link
             href="/shows"
-            className={`col-span-1 text-sm uppercase tracking-wide hover:text-[var(--color-green)] transition-colors ${
-              pathname === "/shows" ? "text-[var(--color-green)]" : ""
+            className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
+              pathname === "/shows" ? "nav-item-active" : ""
             }`}
           >
             Shows
@@ -61,8 +84,8 @@ export default function Navigation() {
           {/* Videos - Column 4 */}
           <Link
             href="/videos"
-            className={`col-span-1 text-sm uppercase tracking-wide hover:text-[var(--color-green)] transition-colors ${
-              pathname === "/videos" ? "text-[var(--color-green)]" : ""
+            className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
+              pathname === "/videos" ? "nav-item-active" : ""
             }`}
           >
             Videos
@@ -71,20 +94,23 @@ export default function Navigation() {
           {/* About - Column 5 */}
           <Link
             href="/about"
-            className={`col-span-1 text-sm uppercase tracking-wide hover:text-[var(--color-green)] transition-colors ${
-              pathname === "/about" ? "text-[var(--color-green)]" : ""
+            className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
+              pathname === "/about" ? "nav-item-active" : ""
             }`}
           >
             About
           </Link>
 
           {/* Language Selector - Column 6 */}
-          <button className="col-span-1 text-sm uppercase tracking-wide hover:text-[var(--color-green)] transition-colors text-left">
-            Fr
-          </button>
+          <div className="col-span-1 flex items-center justify-center h-full gap-2">
+            <button className="nav-item hover:text-[var(--color-green)] transition-colors">
+              Fr
+            </button>
+            <button className="nav-item-active">En</button>
+          </div>
 
           {/* Social Icons - Column 7 */}
-          <div className="col-span-1 flex items-center gap-4">
+          <div className="col-span-1 flex items-center justify-center gap-4 h-full">
             <a
               href="https://instagram.com/bertandnasi"
               target="_blank"

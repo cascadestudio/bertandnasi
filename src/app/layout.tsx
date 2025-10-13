@@ -1,26 +1,34 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, Roboto } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 
 const ibmPlexSans = IBM_Plex_Sans({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-ibm-plex-sans',
-  display: 'swap',
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-ibm-plex-sans",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-ibm-plex-mono",
+  display: "swap",
 });
 
 const roboto = Roboto({
-  weight: ['400', '500', '700'],
-  subsets: ['latin'],
-  variable: '--font-roboto',
-  display: 'swap',
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-roboto",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Bert&Nasi - Contemporary Performance Duo",
-  description: "Bert and Nasi are a contemporary performance duo creating minimalist shows that blend performance, dance, and theatre.",
+  description:
+    "Bert and Nasi are a contemporary performance duo creating minimalist shows that blend performance, dance, and theatre.",
 };
 
 export default function RootLayout({
@@ -30,7 +38,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ibmPlexSans.variable} ${roboto.variable} antialiased`}>
+      <body
+        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} ${roboto.variable} antialiased`}
+      >
         <Navigation />
         {children}
         <Footer />
