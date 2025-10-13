@@ -1,6 +1,9 @@
-"use client";
+import { fetchMarquee } from "@/sanity/lib/queries";
 
-export default function Marquee() {
+export default async function Marquee() {
+  const marqueeData = await fetchMarquee();
+  const marqueeText =
+    marqueeData?.text || "THE CONTEMPORARY PERFORMANCE DUO ↓↓↓↓↓";
   return (
     <div className="bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center">
       <div
@@ -18,7 +21,7 @@ export default function Marquee() {
                 className="text-base font-bold tracking-wider uppercase"
                 style={{ fontFamily: "var(--font-ibm-plex-mono)" }}
               >
-                THE CONTEMPORARY PERFORMANCE DUO ↓↓↓↓↓
+                {marqueeText}
               </span>
             ))}
         </div>
@@ -31,22 +34,11 @@ export default function Marquee() {
                 className="text-base font-bold tracking-wider uppercase"
                 style={{ fontFamily: "var(--font-ibm-plex-mono)" }}
               >
-                THE CONTEMPORARY PERFORMANCE DUO ↓↓↓↓↓
+                {marqueeText}
               </span>
             ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
     </div>
   );
 }

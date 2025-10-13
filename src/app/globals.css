@@ -108,3 +108,13 @@ img[src$=".svg"] {
   color: var(--color-green);
   -webkit-text-stroke: none;
 }
+
+/* Marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

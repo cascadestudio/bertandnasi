@@ -1,50 +1,50 @@
-import { groq } from 'next-sanity'
-import { client } from '../../../sanity'
+import { groq } from "next-sanity";
+import { client } from "../../../sanity";
 
 // Show type definition
 export interface Show {
-  _id: string
-  _createdAt: string
-  _updatedAt: string
-  title: string
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  title: string;
   slug: {
-    current: string
-  }
-  description?: unknown[]
-  year: number
+    current: string;
+  };
+  description?: unknown[];
+  year: number;
   mainImage: {
     asset: {
-      _ref: string
-      _type: string
-    }
-    alt: string
-  }
+      _ref: string;
+      _type: string;
+    };
+    alt: string;
+  };
   credits?: Array<{
-    role: string
-    name: string
-  }>
-  trailer?: string
+    role: string;
+    name: string;
+  }>;
+  trailer?: string;
   collaborators?: Array<{
-    name: string
-    role: string
-  }>
+    name: string;
+    role: string;
+  }>;
   imageGallery?: Array<{
     asset: {
-      _ref: string
-      _type: string
-    }
-    alt?: string
-    caption?: string
-  }>
+      _ref: string;
+      _type: string;
+    };
+    alt?: string;
+    caption?: string;
+  }>;
   reviews?: Array<{
-    quote: string
-    media: string
-  }>
+    quote: string;
+    media: string;
+  }>;
   seo?: {
-    metaTitle?: string
-    metaDescription?: string
-    keywords?: string[]
-  }
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string[];
+  };
 }
 
 // Query to get all shows
@@ -65,7 +65,7 @@ export const getAllShows = groq`
     reviews,
     seo
   }
-`
+`;
 
 // Query to get a single show by slug
 export const getShowBySlug = groq`
@@ -85,7 +85,7 @@ export const getShowBySlug = groq`
     reviews,
     seo
   }
-`
+`;
 
 // Query to get a single show by ID
 export const getShowById = groq`
@@ -105,38 +105,38 @@ export const getShowById = groq`
     reviews,
     seo
   }
-`
+`;
 
 // Calendar Event type definition
 export interface CalendarEvent {
-  _id: string
-  _createdAt: string
-  _updatedAt: string
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
   show: {
-    _id: string
-    title: string
+    _id: string;
+    title: string;
     slug: {
-      current: string
-    }
+      current: string;
+    };
     mainImage: {
       asset: {
-        _ref: string
-        _type: string
-      }
-      alt: string
-    }
-  }
-  dates: string[]
-  venue: string
-  location: string
-  ticketUrl?: string
+        _ref: string;
+        _type: string;
+      };
+      alt: string;
+    };
+  };
+  dates: string[];
+  venue: string;
+  location: string;
+  ticketUrl?: string;
   additionalImages?: Array<{
     asset: {
-      _ref: string
-      _type: string
-    }
-    alt?: string
-  }>
+      _ref: string;
+      _type: string;
+    };
+    alt?: string;
+  }>;
 }
 
 // Query to get next 6 upcoming events
@@ -157,7 +157,7 @@ export const getUpcomingEvents = groq`
     ticketUrl,
     additionalImages
   }
-`
+`;
 
 // Query to get all calendar events
 export const getAllCalendarEvents = groq`
@@ -177,25 +177,48 @@ export const getAllCalendarEvents = groq`
     ticketUrl,
     additionalImages
   }
-`
+`;
 
 // Data fetching functions
 export async function fetchAllShows(): Promise<Show[]> {
-  return await client.fetch(getAllShows)
+  return await client.fetch(getAllShows);
 }
 
 export async function fetchShowBySlug(slug: string): Promise<Show> {
-  return await client.fetch(getShowBySlug, { slug })
+  return await client.fetch(getShowBySlug, { slug });
 }
 
 export async function fetchShowById(id: string): Promise<Show> {
-  return await client.fetch(getShowById, { id })
+  return await client.fetch(getShowById, { id });
 }
 
 export async function fetchUpcomingEvents(): Promise<CalendarEvent[]> {
-  return await client.fetch(getUpcomingEvents)
+  return await client.fetch(getUpcomingEvents);
 }
 
 export async function fetchAllCalendarEvents(): Promise<CalendarEvent[]> {
-  return await client.fetch(getAllCalendarEvents)
+  return await client.fetch(getAllCalendarEvents);
+}
+
+// Marquee type definition
+export interface Marquee {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  text: string;
+}
+
+// Query to get marquee text (singleton)
+export const getMarquee = groq`
+  *[_type == "marquee" && _id == "marquee-singleton"][0] {
+    _id,
+    _createdAt,
+    _updatedAt,
+    text
+  }
+`;
+
+// Data fetching function for marquee
+export async function fetchMarquee(): Promise<Marquee | null> {
+  return await client.fetch(getMarquee);
 }
