@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const reviews = [
   {
@@ -25,52 +26,58 @@ export default function ReviewsSection() {
     setCurrentIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
   };
 
+  // Get the two quotes to display based on current index
+  const firstQuote = reviews[currentIndex];
+  const secondQuote = reviews[(currentIndex + 1) % reviews.length];
+
   return (
-    <section className="w-full py-16 md:py-20 lg:py-24">
+    <section className="w-full py-20">
       <div className="px-4 md:px-8">
-        <div className="relative max-w-5xl mx-auto">
-          <div className="text-center space-y-8 px-12 md:px-20">
-            <blockquote className="text-lg md:text-xl lg:text-2xl xl:text-3xl italic leading-relaxed font-light">
-              &ldquo;{reviews[currentIndex].quote}&rdquo;
+        <div className="grid grid-cols-7 gap-4 md:gap-6 items-center max-w-7xl mx-auto">
+          <div className="col-start-2 col-span-2 space-y-4 text-center">
+            <blockquote className="text-xl italic font-medium leading-relaxed text-black">
+              &ldquo;{firstQuote.quote}&rdquo;
             </blockquote>
-            <cite className="block text-base md:text-lg not-italic font-normal">
-              {reviews[currentIndex].source}
+            <cite className="block text-base not-italic font-normal text-black">
+              {firstQuote.source}
             </cite>
           </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevReview}
-            className="absolute left-0 top-1/2 -translate-y-1/2 text-black hover:text-[var(--color-green)] transition-colors p-1"
-            aria-label="Previous review"
-          >
-            <svg
-              width="40"
-              height="40"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
+          <div className="col-span-1 flex items-end h-full justify-center gap-5">
+            <button
+              onClick={prevReview}
+              className="hover:opacity-80 transition-opacity"
+              aria-label="Previous image"
             >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <button
-            onClick={nextReview}
-            className="absolute right-0 top-1/2 -translate-y-1/2 text-black hover:text-[var(--color-green)] transition-colors p-1"
-            aria-label="Next review"
-          >
-            <svg
-              width="40"
-              height="40"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
+              <Image
+                src="/icons/left-arrow.svg"
+                alt=""
+                width={43}
+                height={35}
+                className="w-[43px] h-[35px] [&_path]:fill-current"
+              />
+            </button>
+            <button
+              onClick={nextReview}
+              className="hover:opacity-80 transition-opacity"
+              aria-label="Next image"
             >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
+              <Image
+                src="/icons/right-arrow.svg"
+                alt=""
+                width={43}
+                height={35}
+                className="w-[43px] h-[35px] [&_path]:fill-current"
+              />
+            </button>
+          </div>
+          <div className="col-span-2 space-y-4 text-center">
+            <blockquote className="text-xl italic font-medium leading-relaxed text-black">
+              &ldquo;{secondQuote.quote}&rdquo;
+            </blockquote>
+            <cite className="block text-base not-italic font-normal text-black">
+              {secondQuote.source}
+            </cite>
+          </div>
         </div>
       </div>
     </section>
