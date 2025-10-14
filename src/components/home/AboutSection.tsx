@@ -29,11 +29,11 @@ export default function AboutSection() {
   };
 
   return (
-    <section className="w-full pt-8 pb-16 md:py-20 lg:py-24">
-      <div className="grid grid-cols-7 gap-6 md:gap-6 gap-y-8 px-4 md:px-8">
+    <section className="w-full">
+      <div className="grid grid-cols-7 gap-5 px-4 md:px-8">
         {/* Text Content - Spans 3 columns */}
-        <div className="col-span-7 md:col-span-3 space-y-8">
-          <p className="text-base md:text-lg lg:text-xl leading-relaxed md:leading-loose font-light">
+        <div className="col-span-7 md:col-span-3 space-y-8 pt-5">
+          <p className="text-base md:text-lg lg:text-xl leading-relaxed md:leading-7 font-light">
             Bert and Nasi are a contemporary performance duo that met in 2015
             and have since created an entire repertoire of shows in the midst of
             a period of national and international austerity. Their work, in
@@ -44,14 +44,21 @@ export default function AboutSection() {
           </p>
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-base md:text-lg text-[var(--color-green)] hover:opacity-80 transition-opacity font-normal"
+            className="inline-flex items-center gap-2 text-[var(--color-green)] hover:opacity-80 transition-opacity font-bold text-sm"
           >
-            → See more
+            <Image
+              src="/icons/link-arrow.svg"
+              alt=""
+              width={11}
+              height={13}
+              className="w-[11px] h-[13px] [&_path]:fill-current [&_line]:stroke-current"
+            />
+            See more
           </Link>
         </div>
 
-        {/* Image Carousel - Spans 4 columns */}
-        <div className="col-span-7 md:col-span-4 relative">
+        {/* Image Carousel - Spans 3 columns */}
+        <div className="col-span-7 md:col-span-3 relative p-5 pr-0 border-l-4 border-[var(--color-green)]">
           <div className="relative aspect-[4/3] overflow-hidden">
             <Image
               src={carouselImages[currentImageIndex].src}
@@ -61,40 +68,36 @@ export default function AboutSection() {
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
+        </div>
 
-          {/* Navigation Arrows - Bottom Right */}
-          <div className="flex gap-6 justify-end mt-6">
+        {/* Navigation Arrows - Last column */}
+        <div className="col-span-7 md:col-span-1 flex items-end justify-center md:justify-end pb-5">
+          <div className="flex gap-5">
             <button
               onClick={prevImage}
-              className="text-black hover:text-[var(--color-green)] transition-colors p-1"
+              className="hover:opacity-80 transition-opacity"
               aria-label="Previous image"
             >
-              <svg
-                width="40"
-                height="40"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-              >
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
+              <Image
+                src="/icons/left-arrow.svg"
+                alt=""
+                width={43}
+                height={35}
+                className="w-[43px] h-[35px] [&_path]:fill-current"
+              />
             </button>
             <button
               onClick={nextImage}
-              className="text-black hover:text-[var(--color-green)] transition-colors p-1"
+              className="hover:opacity-80 transition-opacity"
               aria-label="Next image"
             >
-              <svg
-                width="40"
-                height="40"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-              >
-                <path d="M9 18l6-6-6-6" />
-              </svg>
+              <Image
+                src="/icons/right-arrow.svg"
+                alt=""
+                width={43}
+                height={35}
+                className="w-[43px] h-[35px] [&_path]:fill-current"
+              />
             </button>
           </div>
         </div>

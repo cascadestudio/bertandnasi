@@ -14,10 +14,6 @@
   box-sizing: border-box;
 }
 
-* {
-  margin: 0;
-}
-
 /* Only reset padding on specific elements that commonly have unwanted padding */
 p,
 h1,
@@ -44,7 +40,6 @@ body {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
   transition: color 0.2s ease;
 }

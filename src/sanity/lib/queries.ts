@@ -179,25 +179,80 @@ export const getAllCalendarEvents = groq`
   }
 `;
 
-// Data fetching functions
+// Data fetching functions with error handling and caching
 export async function fetchAllShows(): Promise<Show[]> {
-  return await client.fetch(getAllShows);
+  try {
+    return await client.fetch(
+      getAllShows,
+      {},
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching shows:", error);
+    return [];
+  }
 }
 
 export async function fetchShowBySlug(slug: string): Promise<Show> {
-  return await client.fetch(getShowBySlug, { slug });
+  try {
+    return await client.fetch(
+      getShowBySlug,
+      { slug },
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching show by slug:", error);
+    throw error;
+  }
 }
 
 export async function fetchShowById(id: string): Promise<Show> {
-  return await client.fetch(getShowById, { id });
+  try {
+    return await client.fetch(
+      getShowById,
+      { id },
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching show by id:", error);
+    throw error;
+  }
 }
 
 export async function fetchUpcomingEvents(): Promise<CalendarEvent[]> {
-  return await client.fetch(getUpcomingEvents);
+  try {
+    return await client.fetch(
+      getUpcomingEvents,
+      {},
+      {
+        next: { revalidate: 1800 }, // Cache for 30 minutes
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching upcoming events:", error);
+    return [];
+  }
 }
 
 export async function fetchAllCalendarEvents(): Promise<CalendarEvent[]> {
-  return await client.fetch(getAllCalendarEvents);
+  try {
+    return await client.fetch(
+      getAllCalendarEvents,
+      {},
+      {
+        next: { revalidate: 1800 }, // Cache for 30 minutes
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching all calendar events:", error);
+    return [];
+  }
 }
 
 // Marquee type definition
