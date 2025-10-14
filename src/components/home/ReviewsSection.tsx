@@ -27,7 +27,7 @@ export default function ReviewsSection() {
 
   return (
     <section className="w-full py-16 md:py-20 lg:py-24">
-      <div className="px-layout">
+      <div className="px-4 md:px-8">
         <div className="relative max-w-5xl mx-auto">
           <div className="text-center space-y-8 px-12 md:px-20">
             <blockquote className="text-lg md:text-xl lg:text-2xl xl:text-3xl italic leading-relaxed font-light">

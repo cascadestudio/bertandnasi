@@ -22,7 +22,7 @@ export default async function ShowDetailPage({
   }
 
   return (
-    <div className="px-layout py-16">
+    <div className="px-4 md:px-8 py-16">
       <nav className="mb-8">
         <Link
           href="/shows"

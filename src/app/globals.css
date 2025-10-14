@@ -8,9 +8,24 @@
   --font-nav: var(--font-roboto);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+* {
   margin: 0;
+}
+
+/* Only reset padding on specific elements that commonly have unwanted padding */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   padding: 0;
 }
 
@@ -47,25 +62,6 @@ img {
   display: block;
 }
 
-/* Custom 7-Column Grid Container */
-.grid-7 {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-}
-
-/* Custom horizontal spacing following design system */
-.px-layout {
-  padding-left: 32px;
-  padding-right: 32px;
-}
-
-@media (max-width: 768px) {
-  .px-layout {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-}
-
 /* Preserve original SVG colors */
 .logo-svg {
   fill: unset !important;
@@ -86,6 +82,7 @@ img[src$=".svg"] {
   justify-content: center;
   height: 100%;
   transition: all 0.2s ease;
+  padding: 0;
 }
 
 .nav-item:hover {
@@ -102,6 +99,7 @@ img[src$=".svg"] {
   align-items: center;
   justify-content: center;
   height: 100%;
+  padding: 0;
 }
 
 .nav-item-active:hover {

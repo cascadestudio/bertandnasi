@@ -29,8 +29,8 @@ export default function AboutSection() {
   };
 
   return (
-    <section className="w-full py-16 md:py-20 lg:py-24">
-      <div className="grid-7 gap-6 md:gap-6 gap-y-8 px-layout">
+    <section className="w-full pt-8 pb-16 md:py-20 lg:py-24">
+      <div className="grid grid-cols-7 gap-6 md:gap-6 gap-y-8 px-4 md:px-8">
         {/* Text Content - Spans 3 columns */}
         <div className="col-span-7 md:col-span-3 space-y-8">
           <p className="text-base md:text-lg lg:text-xl leading-relaxed md:leading-loose font-light">

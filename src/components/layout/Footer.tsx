@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="bg-black text-white py-12 mt-24">
-      <div className="px-layout">
+      <div className="px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
           {/* Logo */}
           <div>

@@ -13,7 +13,7 @@ export default async function CalendarSection() {
 
   return (
     <section className="w-full py-16 md:py-20 lg:py-24">
-      <div className="px-layout space-y-6 md:space-y-8">
+      <div className="px-4 md:px-8 space-y-6 md:space-y-8">
         {events.map((event) => {
           const { month, days } = formatDateRange(event.dates);
           const mainImageUrl = event.show.mainImage
@@ -23,7 +23,7 @@ export default async function CalendarSection() {
           return (
             <div
               key={event._id}
-              className="grid-7 gap-6 border-b border-gray-300 pb-6 md:pb-8 last:border-b-0"
+              className="grid grid-cols-7 gap-6 border-b border-gray-300 pb-6 md:pb-8 last:border-b-0"
             >
               {/* Date - 1 column */}
               <div className="col-span-7 md:col-span-1 text-left pt-1">

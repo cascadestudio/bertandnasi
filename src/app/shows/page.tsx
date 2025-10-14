@@ -5,7 +5,7 @@ export default async function ShowsPage() {
   const shows = await fetchAllShows();
 
   return (
-    <div className="px-layout py-16">
+    <div className="px-4 md:px-8 py-16">
       <main>
         <h1 className="text-4xl md:text-5xl font-bold mb-12">Our Shows</h1>
         <div className="space-y-8">
