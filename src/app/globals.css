@@ -32,7 +32,6 @@ html {
 body {
   background: var(--color-white);
   color: var(--color-black);
-  font-family: var(--font-ibm-plex-sans);
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -69,7 +68,6 @@ img[src$=".svg"] {
 
 /* Navigation typography and styling */
 .nav-item {
-  font-family: var(--font-ibm-plex-sans);
   font-weight: 500;
   font-size: 20px;
   display: flex;
@@ -85,7 +83,6 @@ img[src$=".svg"] {
 }
 
 .nav-item-active {
-  font-family: var(--font-ibm-plex-sans);
   font-weight: 500;
   font-size: 20px;
   color: transparent;

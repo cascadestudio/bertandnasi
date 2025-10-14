@@ -1,31 +1,37 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-12 mt-24">
+    <footer className="bg-black text-white py-5">
       <div className="px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-12 items-start">
           {/* Logo */}
-          <div>
-            <h2 className="text-6xl md:text-7xl font-bold tracking-tight">
-              B&N
-            </h2>
+          <div className="col-span-2">
+            <Image
+              src="/images/footer-logo.svg"
+              alt="Bert & Nasi"
+              width={120}
+              height={80}
+              className="w-auto h-auto"
+            />
           </div>
 
           {/* Contact */}
-          <div>
-            <h3 className="text-[var(--color-green)] text-sm uppercase tracking-wide mb-3">
+          <div className="col-span-2">
+            <h3 className="text-[var(--color-green)] font-mono font-medium text-sm tracking-wide mb-1.5">
               Contact us
             </h3>
             <a
               href="mailto:bertandnasi@gmail.com"
-              className="hover:text-[var(--color-green)] transition-colors text-lg"
+              className="hover:text-[var(--color-green)] transition-colors text-xl"
             >
               bertandnasi@gmail.com
             </a>
           </div>
 
           {/* Follow Us */}
-          <div>
-            <h3 className="text-[var(--color-green)] text-sm uppercase tracking-wide mb-3">
+          <div className="col-span-1">
+            <h3 className="text-[var(--color-green)] font-mono font-medium text-sm tracking-wide mb-3">
               Follow us
             </h3>
             <div className="flex gap-4">
@@ -37,8 +43,8 @@ export default function Footer() {
                 aria-label="Instagram"
               >
                 <svg
-                  width="24"
-                  height="24"
+                  width="32"
+                  height="32"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -53,8 +59,8 @@ export default function Footer() {
                 aria-label="YouTube"
               >
                 <svg
-                  width="24"
-                  height="24"
+                  width="32"
+                  height="32"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -63,22 +69,25 @@ export default function Footer() {
               </a>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Credits */}
-        <div className="mt-12 pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
-          <p>© Bertandnasi 2025</p>
-          <p>
-            Legal notice | Website by{" "}
+          {/* Legal & Credits */}
+          <div className="col-span-2 flex flex-col items-end justify-end h-full gap-2 font-mono font-medium text-xs">
             <a
-              href="https://cascade-studio.com"
+              href="/legal-notice"
+              className="hover:text-[var(--color-green)] transition-colors"
+            >
+              Legal notice
+            </a>
+            <p>© Bertandnasi. 2025</p>
+            <a
+              href="https://cascadestudio.fr"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[var(--color-green)] transition-colors"
             >
-              Cascade studio
+              Website by Cascade studio
             </a>
-          </p>
+          </div>
         </div>
       </div>
     </footer>

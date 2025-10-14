@@ -29,10 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      className={`${ibmPlexSans.variable} ${ibmPlexMono.variable}`}
+    >
+      <body className={`${ibmPlexSans.className} antialiased`}>
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>

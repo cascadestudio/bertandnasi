@@ -44,7 +44,7 @@ export default function AboutSection() {
           </p>
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-[var(--color-green)] hover:opacity-80 transition-opacity font-bold text-sm"
+            className="inline-flex items-center font-mono gap-2 text-[var(--color-green)] hover:opacity-80 transition-opacity font-bold text-sm"
           >
             <Image
               src="/icons/link-arrow.svg"

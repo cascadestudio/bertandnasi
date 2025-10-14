@@ -18,8 +18,7 @@ export default async function Marquee() {
             .map((_, i) => (
               <span
                 key={i}
-                className="text-base font-bold tracking-wider uppercase"
-                style={{ fontFamily: "var(--font-ibm-plex-mono)" }}
+                className="text-base font-mono font-bold tracking-wider uppercase"
               >
                 {marqueeText}
               </span>
@@ -31,8 +30,7 @@ export default async function Marquee() {
             .map((_, i) => (
               <span
                 key={i}
-                className="text-base font-bold tracking-wider uppercase"
-                style={{ fontFamily: "var(--font-ibm-plex-mono)" }}
+                className="text-base font-mono font-bold tracking-wider uppercase"
               >
                 {marqueeText}
               </span>
