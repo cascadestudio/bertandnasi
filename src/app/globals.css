@@ -5,7 +5,7 @@
   --color-white: #ffffff;
   --color-green: #23d530;
   --font-body: var(--font-ibm-plex-sans);
-  --font-nav: var(--font-roboto);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
 *,
@@ -32,7 +32,7 @@ html {
 body {
   background: var(--color-white);
   color: var(--color-black);
-  font-family: var(--font-body);
+  font-family: var(--font-ibm-plex-sans);
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -69,7 +69,7 @@ img[src$=".svg"] {
 
 /* Navigation typography and styling */
 .nav-item {
-  font-family: var(--font-nav);
+  font-family: var(--font-ibm-plex-sans);
   font-weight: 500;
   font-size: 20px;
   display: flex;
@@ -85,7 +85,7 @@ img[src$=".svg"] {
 }
 
 .nav-item-active {
-  font-family: var(--font-nav);
+  font-family: var(--font-ibm-plex-sans);
   font-weight: 500;
   font-size: 20px;
   color: transparent;
@@ -110,4 +110,8 @@ img[src$=".svg"] {
   100% {
     transform: translateX(-50%);
   }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
 }

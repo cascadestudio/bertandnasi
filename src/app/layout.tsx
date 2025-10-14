@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Mono, Roboto } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
@@ -17,13 +17,6 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const roboto = Roboto({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-  variable: "--font-roboto",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: "Bert&Nasi - Contemporary Performance Duo",
   description:
@@ -38,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} ${roboto.variable} antialiased`}
+        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} antialiased`}
       >
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
