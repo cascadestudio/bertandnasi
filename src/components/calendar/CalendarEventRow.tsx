@@ -19,6 +19,7 @@ export default function CalendarEventRow({
   const { month, days } = formatDateRange(event.dates);
   const [needsMarquee, setNeedsMarquee] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [slideDistance, setSlideDistance] = useState(0);
   const rowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +29,14 @@ export default function CalendarEventRow({
       if (rowRef.current && contentRef.current) {
         const rowWidth = rowRef.current.offsetWidth;
         const contentWidth = contentRef.current.scrollWidth;
-        setNeedsMarquee(contentWidth > rowWidth);
+        const needsAnimation = contentWidth > rowWidth;
+        setNeedsMarquee(needsAnimation);
+
+        if (needsAnimation) {
+          // Calculate how much to slide to align right edge of content with right edge of container
+          const slideAmount = contentWidth - rowWidth;
+          setSlideDistance(slideAmount);
+        }
       }
     };
 
@@ -65,11 +73,12 @@ export default function CalendarEventRow({
     >
       <div
         ref={contentRef}
-        className={`flex items-center h-full whitespace-nowrap ${
-          needsMarquee && isHovered ? "animate-marquee" : ""
-        }`}
+        className="flex items-center h-full whitespace-nowrap transition-transform duration-3000 ease-linear"
         style={{
-          animationDuration: needsMarquee && isHovered ? "15s" : "none",
+          transform:
+            needsMarquee && isHovered
+              ? `translateX(-${slideDistance}px)`
+              : "translateX(0)",
         }}
       >
         {/* Date */}
@@ -138,69 +147,6 @@ export default function CalendarEventRow({
             {event.location}
           </span>
         </div>
-
-        {/* Repeat content for seamless marquee */}
-        {needsMarquee && (
-          <>
-            <div className="flex-shrink-0 px-4">
-              <div className="text-2xl uppercase tracking-wide text-black font-mono">
-                {month}
-              </div>
-              <div className="text-2xl font-normal leading-tight font-mono">
-                {days}
-              </div>
-            </div>
-            <div className="flex-shrink-0 px-4">
-              <Link
-                href={`/shows/${event.show.slug.current}`}
-                className="text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
-              >
-                {event.show.title}
-              </Link>
-            </div>
-            {allImages.length > 0 && (
-              <div className="flex-shrink-0 flex items-center gap-8 py-4">
-                {allImages.map((img, index) => (
-                  <div
-                    key={`repeat-${index}`}
-                    className="relative h-[88px] w-auto flex-shrink-0"
-                  >
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      width={200}
-                      height={88}
-                      className="h-full w-auto object-cover"
-                      style={{ height: "100%", width: "auto" }}
-                      sizes="(max-width: 768px) 100vw, 200px"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-            <div className="flex-shrink-0 px-4">
-              {event.ticketUrl ? (
-                <a
-                  href={event.ticketUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
-                >
-                  {event.venue}
-                </a>
-              ) : (
-                <span className="text-5xl font-regular uppercase leading-none">
-                  {event.venue}
-                </span>
-              )}
-            </div>
-            <div className="flex-shrink-0 px-4">
-              <span className="text-5xl font-regular uppercase leading-none">
-                {event.location}
-              </span>
-            </div>
-          </>
-        )}
       </div>
     </div>
   );
