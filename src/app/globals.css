@@ -99,6 +99,25 @@ img[src$=".svg"] {
   -webkit-text-stroke: none;
 }
 
+/* Month header styling for calendar accordion */
+.month-header {
+  font-weight: 500;
+  font-size: 84px;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.month-header:hover {
+  color: var(--color-green);
+  -webkit-text-stroke: none;
+}
+
 /* Marquee animation */
 @keyframes marquee {
   0% {
