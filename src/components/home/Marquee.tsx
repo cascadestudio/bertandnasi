@@ -9,14 +9,17 @@ interface MarqueeProps {
 
 export default function Marquee({ pageName }: MarqueeProps) {
   const [marqueeText, setMarqueeText] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [animationDuration, setAnimationDuration] = useState<number>(20);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchText = async () => {
+      setIsLoading(true);
       const text = await fetchMarqueeForPage(pageName);
       setMarqueeText(text || "THE CONTEMPORARY PERFORMANCE DUO");
+      setIsLoading(false);
     };
     fetchText();
   }, [pageName]);
@@ -34,6 +37,19 @@ export default function Marquee({ pageName }: MarqueeProps) {
       setAnimationDuration(duration);
     }
   }, [marqueeText]);
+
+  // Don't render anything while loading to avoid the glitch
+  if (isLoading) {
+    return (
+      <div className="bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center">
+        <div className="flex whitespace-nowrap">
+          <div className="flex items-center gap-3">
+            {/* Empty content while loading */}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const displayText = marqueeText || "THE CONTEMPORARY PERFORMANCE DUO";
 
