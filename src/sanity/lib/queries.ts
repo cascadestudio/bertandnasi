@@ -277,3 +277,44 @@ export const getMarquee = groq`
 export async function fetchMarquee(): Promise<Marquee | null> {
   return await client.fetch(getMarquee);
 }
+
+// PageSettings type definition
+export interface PageSettings {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  pageName: string;
+  marqueeText?: string;
+}
+
+// Query to get page settings by page name
+export const getPageSettings = groq`
+  *[_type == "pageSettings" && pageName == $pageName][0] {
+    _id,
+    _createdAt,
+    _updatedAt,
+    pageName,
+    marqueeText
+  }
+`;
+
+// Function to get marquee text for a specific page
+export async function fetchMarqueeForPage(
+  pageName?: string
+): Promise<string | null> {
+  if (!pageName) {
+    // Fallback to global marquee
+    const globalMarquee = await fetchMarquee();
+    return globalMarquee?.text || null;
+  }
+
+  const pageSettings = await client.fetch(getPageSettings, { pageName });
+
+  if (pageSettings?.marqueeText) {
+    return pageSettings.marqueeText;
+  }
+
+  // Fallback to global marquee
+  const globalMarquee = await fetchMarquee();
+  return globalMarquee?.text || null;
+}

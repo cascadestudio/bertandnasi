@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { fetchAllCalendarEvents } from "@/sanity/lib/queries";
+import Marquee from "@/components/home/Marquee";
 
 export default async function CalendarPage() {
   const events = await fetchAllCalendarEvents();
 
   return (
     <div className="px-4 md:px-8 py-16">
+      <Marquee pageName="calendar" />
       <main>
         <h1 className="text-4xl md:text-5xl font-bold mb-12">Calendar</h1>
         {events.length === 0 ? (

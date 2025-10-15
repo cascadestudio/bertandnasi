@@ -1,15 +1,18 @@
-import { fetchMarquee } from "@/sanity/lib/queries";
+import { fetchMarqueeForPage } from "@/sanity/lib/queries";
 
-export default async function Marquee() {
-  const marqueeData = await fetchMarquee();
-  const marqueeText =
-    marqueeData?.text || "THE CONTEMPORARY PERFORMANCE DUO ↓↓↓↓↓";
+interface MarqueeProps {
+  pageName?: string;
+}
+
+export default async function Marquee({ pageName }: MarqueeProps) {
+  const marqueeText = await fetchMarqueeForPage(pageName);
+  const displayText = marqueeText || "THE CONTEMPORARY PERFORMANCE DUO ↓↓↓↓↓";
   return (
     <div className="bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center">
       <div
         className="flex whitespace-nowrap"
         style={{
-          animation: "marquee 35s linear infinite",
+          animation: "marquee 120s linear infinite",
         }}
       >
         <div className="flex items-center gap-12 pr-12">
@@ -20,7 +23,7 @@ export default async function Marquee() {
                 key={i}
                 className="text-base font-mono font-bold tracking-wider uppercase"
               >
-                {marqueeText}
+                {displayText}
               </span>
             ))}
         </div>
@@ -32,7 +35,7 @@ export default async function Marquee() {
                 key={i}
                 className="text-base font-mono font-bold tracking-wider uppercase"
               >
-                {marqueeText}
+                {displayText}
               </span>
             ))}
         </div>

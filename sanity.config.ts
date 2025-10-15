@@ -23,8 +23,12 @@ export default defineConfig({
                   .documentId("marquee-singleton")
                   .title("Marquee Text")
               ),
+            S.listItem()
+              .title("Page Settings")
+              .child(S.documentTypeList("pageSettings").title("Page Settings")),
             ...S.documentTypeListItems().filter(
-              (listItem) => !["marquee"].includes(listItem.getId()!)
+              (listItem) =>
+                !["marquee", "pageSettings"].includes(listItem.getId()!)
             ),
           ]),
     }),
