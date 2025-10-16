@@ -9,13 +9,11 @@ interface CalendarAccordionProps {
 }
 
 export default function CalendarAccordion({ events }: CalendarAccordionProps) {
-  const [openMonths, setOpenMonths] = useState<Set<string>>(new Set());
-
   // Group events by month
   const eventsByMonth = events.reduce(
     (acc, event) => {
       const firstDate = new Date(event.dates[0]);
-      const monthKey = `${firstDate.getFullYear()}-${firstDate.getMonth()}`;
+      const monthKey = `${firstDate.getFullYear()}-${String(firstDate.getMonth()).padStart(2, "0")}`;
       const monthName = firstDate.toLocaleDateString("en-GB", {
         month: "long",
       });
@@ -34,7 +32,11 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
 
   // Sort months by date (most recent first)
   const sortedMonths = Object.entries(eventsByMonth).sort(([a], [b]) =>
-    b.localeCompare(a)
+    a.localeCompare(b)
+  );
+
+  const [openMonths, setOpenMonths] = useState<Set<string>>(
+    new Set(sortedMonths.length > 0 ? [sortedMonths[0][0]] : [])
   );
 
   const toggleMonth = (monthKey: string) => {
