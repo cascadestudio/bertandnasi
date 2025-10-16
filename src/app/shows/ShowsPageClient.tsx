@@ -17,7 +17,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
     <div>
       <Marquee pageName="shows" />
       <div className="hidden lg:grid lg:grid-cols-7 gap-5 mx-8 py-8">
-        <div className="col-span-4 flex flex-col">
+        <div className="col-span-4 flex flex-col border-4 border-[var(--color-green)]">
           {shows.map((show, index) => (
             <div key={show._id}>
               <Link
@@ -61,7 +61,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
                   </div>
                 )}
 
-                <div className="space-y-0 font-mono">
+                <div className="space-y-0 font-mono border-b-4 border-[var(--color-green)] pb-3">
                   <div className="flex items-start gap-4 border-b border-gray-200 py-3">
                     <span
                       className="text-gray-800 flex-shrink-0"
@@ -144,7 +144,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
                 </div>
               )}
 
-              <div className="space-y-0 font-mono">
+              <div className="space-y-0 font-mono border-b-4 border-[var(--color-green)] pb-3">
                 <div className="flex items-start gap-4 border-b border-gray-200 py-3">
                   <span
                     className="text-gray-800 flex-shrink-0"
