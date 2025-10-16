@@ -177,7 +177,7 @@ export default function ShowDetailClient({
               {show.reviews.map((review, index) => (
                 <div key={index}>
                   <p className="italic mb-2" style={{ fontSize: "16px" }}>
-                    "{review.quote}"
+                    &ldquo;{review.quote}&rdquo;
                   </p>
                   <p style={{ fontSize: "16px" }}>{review.media}</p>
                 </div>
