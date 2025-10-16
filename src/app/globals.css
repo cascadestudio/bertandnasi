@@ -124,6 +124,20 @@ img[src$=".svg"] {
   -webkit-text-stroke: none;
 }
 
+/* Show title styling for shows page */
+.show-title {
+  color: var(--color-black);
+}
+
+.show-title-hover {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-green);
+}
+
+.show-title-mobile {
+  color: var(--color-black);
+}
+
 /* Marquee animation */
 @keyframes marquee {
   0% {
