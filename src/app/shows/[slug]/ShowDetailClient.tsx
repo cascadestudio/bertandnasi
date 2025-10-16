@@ -7,6 +7,7 @@ import { Show } from "@/sanity/lib/queries";
 import Marquee from "@/components/home/Marquee";
 import { getImageUrl } from "@/lib/sanityImage";
 import { PortableText } from "@portabletext/react";
+import { TypedObject } from "sanity";
 
 interface ShowDetailClientProps {
   show: Show;
@@ -27,7 +28,6 @@ export default function ShowDetailClient({
       ? allShows[currentIndex + 1]
       : allShows[0];
 
-  // Extract YouTube video ID from URL
   const getYouTubeId = (url: string) => {
     const regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -41,15 +41,12 @@ export default function ShowDetailClient({
     <div>
       <Marquee pageName="shows" />
 
-      {/* Top Row: Title, Year & Navigation */}
-      <div className="grid grid-cols-7 gap-5 mx-8 py-8 items-start border-b-4 border-[var(--color-green)]">
-        <div className="col-span-1">
+      {/* Top bar with title, year, and nav */}
+      <div className="flex justify-between items-start mx-8 py-8 border-b-4 border-[var(--color-green)]">
+        <div>
           <h1
             className="font-bold uppercase show-title-detail mb-4"
-            style={{
-              fontSize: "48px",
-              lineHeight: "82px",
-            }}
+            style={{ fontSize: "48px", lineHeight: "82px" }}
           >
             {show.title}
           </h1>
@@ -61,9 +58,7 @@ export default function ShowDetailClient({
           </p>
         </div>
 
-        <div className="col-span-5"></div>
-
-        <div className="col-span-1 flex justify-end items-start gap-5">
+        <div className="flex justify-end items-start gap-5">
           <Link href={`/shows/${prevShow.slug.current}`}>
             <Image
               src="/icons/left-arrow.svg"
@@ -94,11 +89,10 @@ export default function ShowDetailClient({
         </div>
       </div>
 
-      {/* Main Content - 7 Column Grid */}
-      <div className="grid grid-cols-7 gap-5 mx-8 py-8">
-        {/* Columns 1-3: Trailer/Image & Description */}
+      {/* Content Grid */}
+      <div className="grid grid-cols-7 gap-5 mx-8 py-8 border-t-4 border-[var(--color-green)]">
+        {/* Columns 1-3: Video or Image + Description */}
         <div className="col-span-3 space-y-5">
-          {/* Trailer or Main Image */}
           {videoId ? (
             <div className="w-full aspect-video">
               <iframe
@@ -125,13 +119,12 @@ export default function ShowDetailClient({
             )
           )}
 
-          {/* Description */}
           {show.description && (
             <div
               className="prose prose-sm max-w-none leading-relaxed"
               style={{ fontSize: "16px", lineHeight: "1.6" }}
             >
-              <PortableText value={show.description} />
+              <PortableText value={show.description as TypedObject[]} />
             </div>
           )}
         </div>
@@ -155,9 +148,8 @@ export default function ShowDetailClient({
           )}
         </div>
 
-        {/* Columns 6-7: Credits, Quotes & Collaborators */}
-        <div className="col-span-2 space-y-8">
-          {/* Credits */}
+        {/* Columns 6-7: Credits, Quotes, Collaborators */}
+        <div className="col-span-2 border-l-4 border-[var(--color-green)] pl-5 space-y-8">
           {show.credits && show.credits.length > 0 && (
             <div className="space-y-0 font-mono">
               {show.credits.map((credit, index) => (
@@ -180,7 +172,6 @@ export default function ShowDetailClient({
             </div>
           )}
 
-          {/* Quotes */}
           {show.reviews && show.reviews.length > 0 && (
             <div className="space-y-5">
               {show.reviews.map((review, index) => (
@@ -194,7 +185,6 @@ export default function ShowDetailClient({
             </div>
           )}
 
-          {/* Collaborators */}
           {show.collaborators && show.collaborators.length > 0 && (
             <div>
               <h3 className="font-semibold mb-3" style={{ fontSize: "12px" }}>
