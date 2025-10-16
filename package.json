@@ -12,15 +12,16 @@
     "sanity:deploy": "sanity deploy"
   },
   "dependencies": {
-    "sanity": "^4.10.1",
-  "styled-components": "^6.1.18", 
+    "@portabletext/react": "^4.0.3",
     "@sanity/client": "^7.11.2",
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^4.10.1",
     "groq": "^4.10.2",
     "next-sanity": "^11.4.2",
     "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "react-dom": "^18.3.0",
+    "sanity": "^4.10.1",
+    "styled-components": "^6.1.18"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

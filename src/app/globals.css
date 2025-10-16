@@ -138,6 +138,12 @@ img[src$=".svg"] {
   color: var(--color-black);
 }
 
+/* Show detail page title */
+.show-title-detail {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-green);
+}
+
 /* Marquee animation */
 @keyframes marquee {
   0% {
