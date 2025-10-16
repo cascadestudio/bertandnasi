@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Show } from "@/sanity/lib/queries";
 import Marquee from "@/components/home/Marquee";
 import { getImageUrl } from "@/lib/sanityImage";
+import Image from "next/image";
 
 interface ShowsPageClientProps {
   shows: Show[];
@@ -16,15 +17,14 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
   return (
     <div>
       <Marquee pageName="shows" />
-      <div className="hidden lg:grid lg:grid-cols-7 gap-5 mx-8 py-8">
-        <div className="col-span-4 flex flex-col border-4 border-[var(--color-green)]">
+      <div className="hidden lg:grid lg:grid-cols-7 mr-8 gap-5">
+        <div className="col-span-4 flex flex-col py-8 border-r-4 border-[var(--color-green)]">
           {shows.map((show, index) => (
             <div key={show._id}>
               <Link
                 href={`/shows/${show.slug.current}`}
                 onMouseEnter={() => setHoveredShow(show)}
-                onMouseLeave={() => setHoveredShow(null)}
-                className="block px-8 py-12 group"
+                className="block px-8 py-12 group border-t-4 border-[var(--color-green)]"
               >
                 <h2
                   className={`font-bold uppercase ${
@@ -40,69 +40,67 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
                   {show.title}
                 </h2>
               </Link>
-              {index < shows.length - 1 && (
+              {index === shows.length - 1 && (
                 <div className="border-b-4 border-[var(--color-green)]" />
               )}
             </div>
           ))}
         </div>
 
-        <div className="col-span-3 sticky top-8 self-start max-h-[calc(100vh-4rem)] overflow-auto">
-          <div className={hoveredShow ? "opacity-100" : "opacity-0"}>
+        <div
+          className={`col-span-3 sticky top-8 self-start max-h-[calc(100vh-4rem)] overflow-auto -ml-5 pl-5 -mr-8 pr-8 ${hoveredShow ? "border-b-4 border-[var(--color-green)]" : ""}`}
+          onMouseEnter={() => hoveredShow && setHoveredShow(hoveredShow)}
+          onMouseLeave={() => setHoveredShow(null)}
+        >
+          <div className={`${hoveredShow ? "opacity-100" : "opacity-0"}`}>
             {hoveredShow && (
-              <div className="space-y-8">
+              <Link
+                href={`/shows/${hoveredShow.slug.current}`}
+                className="block space-y-8"
+              >
                 {hoveredShow.mainImage && (
                   <div className="w-full">
-                    <img
+                    <Image
                       src={getImageUrl(hoveredShow.mainImage, 1200)}
                       alt={hoveredShow.mainImage.alt || hoveredShow.title}
-                      className="w-full h-auto object-cover"
+                      className="object-cover"
+                      width={1200}
+                      height={1200}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
+                      quality={90}
                     />
                   </div>
                 )}
 
-                <div className="space-y-0 font-mono border-b-4 border-[var(--color-green)] pb-3">
-                  <div className="flex items-start gap-4 border-b border-gray-200 py-3">
-                    <span
-                      className="text-gray-800 flex-shrink-0"
-                      style={{ fontSize: "12px" }}
-                    >
-                      Year
-                    </span>
-                    <span
-                      className="text-[var(--color-green)] flex-shrink-0"
-                      style={{ fontSize: "12px" }}
-                    >
-                      →
-                    </span>
-                    <span
-                      className="text-gray-800 text-right flex-1"
-                      style={{ fontSize: "12px" }}
-                    >
+                <div className="space-y-0 font-mono pb-3">
+                  <div className="grid grid-cols-3 gap-5 py-3">
+                    <span style={{ fontSize: "12px" }}>Year</span>
+                    <Image
+                      src="/icons/small-arrow-right.svg"
+                      alt=""
+                      width={11}
+                      height={13}
+                      className="w-[11px] h-[13px] [&_path]:fill-current [&_line]:stroke-current"
+                    />
+                    <span className="text-right" style={{ fontSize: "12px" }}>
                       {hoveredShow.year}
                     </span>
                   </div>
 
                   {hoveredShow.credits &&
                     hoveredShow.credits.map((credit, index) => (
-                      <div
-                        key={index}
-                        className="flex items-start gap-4 border-b border-gray-200 py-3"
-                      >
+                      <div key={index} className="grid grid-cols-3 gap-5 py-3">
+                        <span style={{ fontSize: "12px" }}>{credit.role}</span>
+                        <Image
+                          src="/icons/small-arrow-right.svg"
+                          alt=""
+                          width={11}
+                          height={13}
+                          className="w-[11px] h-[13px] [&_path]:fill-current [&_line]:stroke-current"
+                        />
                         <span
-                          className="text-gray-800 flex-shrink-0"
-                          style={{ fontSize: "12px" }}
-                        >
-                          {credit.role}
-                        </span>
-                        <span
-                          className="text-[var(--color-green)] flex-shrink-0"
-                          style={{ fontSize: "12px" }}
-                        >
-                          →
-                        </span>
-                        <span
-                          className="text-gray-800 text-right flex-1"
+                          className="text-right"
                           style={{ fontSize: "12px" }}
                         >
                           {credit.name}
@@ -110,7 +108,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
                       </div>
                     ))}
                 </div>
-              </div>
+              </Link>
             )}
           </div>
         </div>
@@ -145,11 +143,8 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
               )}
 
               <div className="space-y-0 font-mono border-b-4 border-[var(--color-green)] pb-3">
-                <div className="flex items-start gap-4 border-b border-gray-200 py-3">
-                  <span
-                    className="text-gray-800 flex-shrink-0"
-                    style={{ fontSize: "12px" }}
-                  >
+                <div className="flex items-start gap-4 py-3">
+                  <span className="flex-shrink-0" style={{ fontSize: "12px" }}>
                     Year
                   </span>
                   <span
@@ -159,7 +154,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
                     →
                   </span>
                   <span
-                    className="text-gray-800 text-right flex-1"
+                    className="text-right flex-1"
                     style={{ fontSize: "12px" }}
                   >
                     {show.year}
@@ -168,12 +163,9 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
 
                 {show.credits &&
                   show.credits.map((credit, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-4 border-b border-gray-200 py-3"
-                    >
+                    <div key={index} className="flex items-start gap-4 py-3">
                       <span
-                        className="text-gray-800 flex-shrink-0"
+                        className="flex-shrink-0"
                         style={{ fontSize: "12px" }}
                       >
                         {credit.role}
@@ -185,7 +177,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
                         →
                       </span>
                       <span
-                        className="text-gray-800 text-right flex-1"
+                        className="text-right flex-1"
                         style={{ fontSize: "12px" }}
                       >
                         {credit.name}
