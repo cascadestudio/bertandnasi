@@ -118,6 +118,12 @@ img[src$=".svg"] {
   -webkit-text-stroke: none;
 }
 
+/* Month header hover when parent button is hovered */
+.group:hover .month-header {
+  color: var(--color-green);
+  -webkit-text-stroke: none;
+}
+
 /* Marquee animation */
 @keyframes marquee {
   0% {

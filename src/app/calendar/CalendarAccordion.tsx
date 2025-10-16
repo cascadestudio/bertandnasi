@@ -61,7 +61,7 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
           {/* Month Header */}
           <button
             onClick={() => toggleMonth(monthKey)}
-            className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+            className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group"
           >
             <h2 className="month-header">{monthName}</h2>
             <span
