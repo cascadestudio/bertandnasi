@@ -90,9 +90,9 @@ export default function ShowDetailClient({
       </div>
 
       {/* Content Grid */}
-      <div className="grid grid-cols-7 gap-5 mx-8 py-8 border-t-4 border-[var(--color-green)]">
+      <div className="grid grid-cols-7 gap-5 mx-8">
         {/* Columns 1-3: Video or Image + Description */}
-        <div className="col-span-3 space-y-5">
+        <div className="col-span-3 space-y-5 pt-5">
           {videoId ? (
             <div className="w-full aspect-video">
               <iframe
@@ -102,7 +102,7 @@ export default function ShowDetailClient({
                 title={show.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="w-full h-full"
+                className="w-full h-full outline-none"
               />
             </div>
           ) : (
@@ -132,7 +132,7 @@ export default function ShowDetailClient({
         {/* Columns 4-5: Image Gallery */}
         <div className="col-span-2">
           {show.imageGallery && show.imageGallery.length > 0 && (
-            <div className="space-y-5 p-5 border-4 border-[var(--color-green)]">
+            <div className="space-y-5 p-5 border-x-4 border-[var(--color-green)]">
               {show.imageGallery.map((image, index) => (
                 <div key={index} className="w-full">
                   <Image
@@ -149,23 +149,26 @@ export default function ShowDetailClient({
         </div>
 
         {/* Columns 6-7: Credits, Quotes, Collaborators */}
-        <div className="col-span-2 border-l-4 border-[var(--color-green)] pl-5 space-y-8">
+        <div className="col-span-2 border-l-4 border-[var(--color-green)] pl-5 space-y-8 pt-5">
           {show.credits && show.credits.length > 0 && (
             <div className="space-y-0 font-mono">
               {show.credits.map((credit, index) => (
-                <div key={index} className="py-3">
-                  <div className="flex items-center justify-between mb-1">
-                    <span style={{ fontSize: "12px" }}>{credit.role}</span>
+                <div
+                  key={index}
+                  className="pb-3 grid grid-cols-2 gap-2 items-baseline"
+                >
+                  <div className="flex items-baseline justify-between">
+                    <p style={{ fontSize: "12px" }}>{credit.role}</p>
                     <Image
                       src="/icons/small-arrow-right.svg"
                       alt=""
                       width={11}
                       height={13}
-                      className="w-[11px] h-[13px] [&_svg_path]:fill-[var(--color-green)]"
+                      className="w-[11px] h-[13px] ml-5"
                     />
                   </div>
                   <div className="text-right">
-                    <span style={{ fontSize: "12px" }}>{credit.name}</span>
+                    <p style={{ fontSize: "12px" }}>{credit.name}</p>
                   </div>
                 </div>
               ))}
