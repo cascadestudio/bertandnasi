@@ -42,30 +42,30 @@ export default function ShowDetailClient({
       <Marquee pageName="shows" />
 
       {/* Top bar with title, year, and nav */}
-      <div className="flex justify-between items-start mx-8 py-8 border-b-4 border-[var(--color-green)]">
-        <div>
+      <div className="flex justify-between items-end mx-8 py-5 border-b-4 border-[var(--color-green)]">
+        <div className="flex gap-5 items-baseline">
           <h1
-            className="font-bold uppercase show-title-detail mb-4"
-            style={{ fontSize: "48px", lineHeight: "82px" }}
+            className="font-bold uppercase show-title-detail"
+            style={{ fontSize: "48px", lineHeight: "1" }}
           >
             {show.title}
           </h1>
           <p
             className="font-mono text-[var(--color-green)]"
-            style={{ fontSize: "14px" }}
+            style={{ fontSize: "14px", lineHeight: "1" }}
           >
             {show.year}
           </p>
         </div>
 
-        <div className="flex justify-end items-start gap-5">
+        <div className="flex justify-end items-end gap-5">
           <Link href={`/shows/${prevShow.slug.current}`}>
             <Image
               src="/icons/left-arrow.svg"
               alt="Previous show"
               width={40}
               height={40}
-              className="w-10 h-10 text-[var(--color-green)] [&_path]:fill-current [&_line]:stroke-current"
+              className="w-10 h-10"
             />
           </Link>
           <Link href={`/shows/${nextShow.slug.current}`}>
@@ -74,16 +74,16 @@ export default function ShowDetailClient({
               alt="Next show"
               width={40}
               height={40}
-              className="w-10 h-10 text-[var(--color-green)] [&_path]:fill-current [&_line]:stroke-current"
+              className="w-10 h-10"
             />
           </Link>
           <Link href="/shows">
             <Image
               src="/icons/close.svg"
               alt="Close"
-              width={40}
-              height={40}
-              className="w-10 h-10 text-[var(--color-green)]"
+              width={37}
+              height={37}
+              className="w-8.5 h-8.5 ml-5"
             />
           </Link>
         </div>
@@ -161,7 +161,7 @@ export default function ShowDetailClient({
                       alt=""
                       width={11}
                       height={13}
-                      className="w-[11px] h-[13px] [&_path]:fill-current [&_line]:stroke-current"
+                      className="w-[11px] h-[13px] [&_svg_path]:fill-[var(--color-green)]"
                     />
                   </div>
                   <div className="text-right">
