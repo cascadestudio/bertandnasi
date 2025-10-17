@@ -2,33 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Navigation() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolledDown, setIsScrolledDown] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down
-        setIsScrolledDown(true);
-      } else {
-        // Scrolling up
-        setIsScrolledDown(false);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
 
   const navLinks = [
     { href: "/calendar", label: "Calendar" },
@@ -42,9 +21,7 @@ export default function Navigation() {
       {/* Desktop Navigation - 7 Column Grid */}
       <div className="hidden md:block">
         <div
-          className={`grid grid-cols-7 gap-6 px-4 md:px-8 transition-all duration-300 ease-in-out ${
-            isScrolledDown ? "h-12" : "h-16"
-          }`}
+          className="grid grid-cols-7 gap-6 px-4 md:px-8 h-16"
           style={{ fontFamily: "var(--font-nav)" }}
         >
           {/* Logo - Column 1 */}
