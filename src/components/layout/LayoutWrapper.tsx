@@ -19,10 +19,10 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   }
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navigation />
-      {children}
+      <main className="flex-1">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }

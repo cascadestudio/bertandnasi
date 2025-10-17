@@ -48,7 +48,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
         </div>
 
         <div
-          className={`col-span-3 sticky top-8 self-start max-h-[calc(100vh-4rem)] overflow-auto -ml-5 pl-5 -mr-8 pr-8 ${hoveredShow ? "border-b-4 border-[var(--color-green)]" : ""}`}
+          className={`col-span-3 sticky top-12 self-start max-h-[calc(100vh-4rem)] overflow-auto pt-5 -ml-5 pl-5 -mr-8 pr-8 ${hoveredShow ? "border-b-4 border-[var(--color-green)]" : ""}`}
           onMouseEnter={() => hoveredShow && setHoveredShow(hoveredShow)}
           onMouseLeave={() => setHoveredShow(null)}
         >

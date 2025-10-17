@@ -255,6 +255,44 @@ export async function fetchAllCalendarEvents(): Promise<CalendarEvent[]> {
   }
 }
 
+// Video type definition
+export interface Video {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  title: string;
+  url: string;
+  category: string;
+}
+
+// Query to get all videos
+export const getAllVideos = groq`
+  *[_type == "video"] | order(_createdAt desc) {
+    _id,
+    _createdAt,
+    _updatedAt,
+    title,
+    url,
+    category
+  }
+`;
+
+// Data fetching function for videos
+export async function fetchAllVideos(): Promise<Video[]> {
+  try {
+    return await client.fetch(
+      getAllVideos,
+      {},
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    return [];
+  }
+}
+
 // Marquee type definition
 export interface Marquee {
   _id: string;
