@@ -48,7 +48,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
         </div>
 
         <div
-          className={`col-span-3 sticky top-12 self-start max-h-[calc(100vh-4rem)] overflow-auto pt-5 -ml-5 pl-5 -mr-8 pr-8 ${hoveredShow ? "border-b-4 border-[var(--color-green)]" : ""}`}
+          className={`col-span-3 sticky top-24 self-start max-h-[calc(100vh-4rem)] overflow-auto pt-5 -ml-5 pl-5 -mr-8 pr-8 ${hoveredShow ? "border-b-4 border-[var(--color-green)]" : ""}`}
           onMouseEnter={() => hoveredShow && setHoveredShow(hoveredShow)}
           onMouseLeave={() => setHoveredShow(null)}
         >
@@ -74,37 +74,37 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
                 )}
 
                 <div className="space-y-0 font-mono pb-3">
-                  <div className="grid grid-cols-3 gap-5 py-3">
-                    <span style={{ fontSize: "12px" }}>Year</span>
+                  <div className="grid grid-cols-3 gap-5 items-baseline pb-2">
+                    <p style={{ fontSize: "12px" }}>Year</p>
                     <Image
                       src="/icons/small-arrow-right.svg"
                       alt=""
                       width={11}
                       height={13}
-                      className="w-[11px] h-[13px] [&_path]:fill-current [&_line]:stroke-current"
+                      className="w-[11px] h-[13px]"
                     />
-                    <span className="text-right" style={{ fontSize: "12px" }}>
+                    <p className="text-right" style={{ fontSize: "12px" }}>
                       {hoveredShow.year}
-                    </span>
+                    </p>
                   </div>
 
                   {hoveredShow.credits &&
                     hoveredShow.credits.map((credit, index) => (
-                      <div key={index} className="grid grid-cols-3 gap-5 py-3">
-                        <span style={{ fontSize: "12px" }}>{credit.role}</span>
+                      <div
+                        key={index}
+                        className="grid grid-cols-3 gap-5 items-baseline pb-2"
+                      >
+                        <p style={{ fontSize: "12px" }}>{credit.role}</p>
                         <Image
                           src="/icons/small-arrow-right.svg"
                           alt=""
                           width={11}
                           height={13}
-                          className="w-[11px] h-[13px] [&_path]:fill-current [&_line]:stroke-current"
+                          className="w-[11px] h-[13px]"
                         />
-                        <span
-                          className="text-right"
-                          style={{ fontSize: "12px" }}
-                        >
+                        <p className="text-right" style={{ fontSize: "12px" }}>
                           {credit.name}
-                        </span>
+                        </p>
                       </div>
                     ))}
                 </div>
