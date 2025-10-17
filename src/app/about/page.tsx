@@ -41,7 +41,8 @@ export default function AboutPage() {
                   Their work, in turn, is stripped back and minimalist, whilst
                   dealing with complex ideas and emotions. Their shows lie
                   somewhere between performance, dance and theatre but if you
-                  had to pin them down on it, they'd probably say it's theatre.
+                  had to pin them down on it, they&apos;d probably say it&apos;s
+                  theatre.
                 </p>
                 <p className="text-black text-base leading-relaxed">
                   Together they have performed their shows on the international

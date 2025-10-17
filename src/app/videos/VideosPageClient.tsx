@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Video } from "@/sanity/lib/queries";
 import Marquee from "@/components/home/Marquee";
-import Image from "next/image";
 
 interface VideosPageClientProps {
   videos: Video[];
