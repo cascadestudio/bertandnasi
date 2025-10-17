@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main>
       <HeroSection />
-      <Marquee pageName="home" />
+      <Marquee pageName="home" sticky={false} />
       <AboutSection />
       <CalendarSection />
       <ReviewsSection />

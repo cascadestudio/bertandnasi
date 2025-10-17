@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from "react";
 
 interface MarqueeProps {
   pageName?: string;
+  sticky?: boolean;
 }
 
-export default function Marquee({ pageName }: MarqueeProps) {
+export default function Marquee({ pageName, sticky = true }: MarqueeProps) {
   const [marqueeText, setMarqueeText] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [animationDuration, setAnimationDuration] = useState<number>(20);
@@ -54,7 +55,9 @@ export default function Marquee({ pageName }: MarqueeProps) {
   const displayText = marqueeText || "THE CONTEMPORARY PERFORMANCE DUO";
 
   return (
-    <div className="bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center">
+    <div
+      className={`bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center ${sticky && "sticky top-[64px] z-50"}`}
+    >
       <div
         ref={containerRef}
         className="flex whitespace-nowrap"
