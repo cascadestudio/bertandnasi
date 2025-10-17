@@ -61,28 +61,12 @@ export default function AboutPage() {
                 <div className="mt-8">
                   <h3 className="text-sm font-mono text-black mb-4">Team</h3>
                   <div className="space-y-4">
-                    <div className="text-xs">
+                    <div>
                       <h4 className="font-sans text-black font-normal">
-                        Emma Dupont
+                        Khénory Sok
                       </h4>
-                      <p className="text-black mt-1">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </p>
-                    </div>
-                    <div className="text-xs">
-                      <h4 className="font-sans text-black font-normal">
-                        Emma Dupont
-                      </h4>
-                      <p className="text-black mt-1">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </p>
-                    </div>
-                    <div className="text-xs">
-                      <h4 className="font-sans text-black font-normal">
-                        Emma Dupont
-                      </h4>
-                      <p className="text-black mt-1">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      <p className="text-black text-xs mt-1">
+                        Artistic Project Manager
                       </p>
                     </div>
                   </div>
