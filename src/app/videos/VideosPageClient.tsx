@@ -9,7 +9,7 @@ interface VideosPageClientProps {
 }
 
 export default function VideosPageClient({ videos }: VideosPageClientProps) {
-  const [hoveredVideo, setHoveredVideo] = useState<Video | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   const getYouTubeId = (url: string) => {
     const regExp =
@@ -24,24 +24,39 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
     "short-films": "Short Films",
   };
 
+  // Group videos by category
+  const videosByCategory = videos.reduce(
+    (acc, video) => {
+      if (!acc[video.category]) {
+        acc[video.category] = [];
+      }
+      acc[video.category].push(video);
+      return acc;
+    },
+    {} as Record<string, Video[]>
+  );
+
+  // Define category order
+  const categoryOrder = ["trailers", "online-content", "short-films"];
+  const categories = categoryOrder.filter(
+    (category) => videosByCategory[category]
+  );
+
   return (
     <div>
       <Marquee pageName="videos" />
       <div className="hidden lg:grid lg:grid-cols-7 mr-8 gap-5 min-h-[calc(100vh-200px)]">
         <div className="col-span-4 flex flex-col pt-8 border-r-4 border-[var(--color-green)] h-full">
-          <div className="flex-1 pb-5">
-            {videos.map((video, index) => (
-              <div key={video._id} className={index > 0 ? "pt-5" : ""}>
-                <a
-                  href={video.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={() => setHoveredVideo(video)}
+          <div className="flex-1 pb-8">
+            {categories.map((category, index) => (
+              <div key={category} className={index > 0 ? "pt-5" : ""}>
+                <div
+                  onMouseEnter={() => setHoveredCategory(category)}
                   className="block px-8 py-12 group border-t-4 border-[var(--color-green)]"
                 >
                   <h2
                     className={`font-bold uppercase ${
-                      hoveredVideo?._id === video._id
+                      hoveredCategory === category
                         ? "show-title-hover"
                         : "show-title"
                     }`}
@@ -50,10 +65,10 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
                       lineHeight: "82px",
                     }}
                   >
-                    {video.title}
+                    {categoryLabels[category] || category}
                   </h2>
-                </a>
-                {index === videos.length - 1 && (
+                </div>
+                {index === categories.length - 1 && (
                   <div className="border-b-4 border-[var(--color-green)]" />
                 )}
               </div>
@@ -62,26 +77,32 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
         </div>
 
         <div
-          className={`col-span-3 sticky top-12 self-start max-h-[calc(100vh-4rem)] overflow-auto -ml-5 pl-5 -mr-8 pr-8 pt-5 ${hoveredVideo ? "border-b-4 border-[var(--color-green)]" : ""}`}
-          onMouseEnter={() => hoveredVideo && setHoveredVideo(hoveredVideo)}
-          onMouseLeave={() => setHoveredVideo(null)}
+          className={`col-span-3 sticky top-12 self-start max-h-[calc(100vh-4rem)] overflow-auto -ml-5 pl-5 -mr-8 pr-8 pt-5 ${hoveredCategory ? "border-b-4 border-[var(--color-green)]" : ""}`}
+          onMouseEnter={() =>
+            hoveredCategory && setHoveredCategory(hoveredCategory)
+          }
+          onMouseLeave={() => setHoveredCategory(null)}
         >
-          <div className={`${hoveredVideo ? "opacity-100" : "opacity-0"}`}>
-            {hoveredVideo && (
-              <div className="block space-y-8">
-                {getYouTubeId(hoveredVideo.url) && (
-                  <div className="w-full aspect-video">
-                    <iframe
-                      width="100%"
-                      height="100%"
-                      src={`https://www.youtube.com/embed/${getYouTubeId(hoveredVideo.url)}`}
-                      title={hoveredVideo.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full outline-none"
-                    />
+          <div className={`${hoveredCategory ? "opacity-100" : "opacity-0"}`}>
+            {hoveredCategory && videosByCategory[hoveredCategory] && (
+              <div className="block space-y-5">
+                {videosByCategory[hoveredCategory].map((video, index) => (
+                  <div key={video._id}>
+                    {getYouTubeId(video.url) && (
+                      <div className="w-full aspect-video">
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src={`https://www.youtube.com/embed/${getYouTubeId(video.url)}`}
+                          title={video.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-full outline-none"
+                        />
+                      </div>
+                    )}
                   </div>
-                )}
+                ))}
               </div>
             )}
           </div>
