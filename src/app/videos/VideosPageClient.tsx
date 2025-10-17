@@ -28,36 +28,38 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
   return (
     <div>
       <Marquee pageName="videos" />
-      <div className="hidden lg:grid lg:grid-cols-7 mr-8 gap-5">
-        <div className="col-span-4 flex flex-col py-8 border-r-4 border-[var(--color-green)]">
-          {videos.map((video, index) => (
-            <div key={video._id}>
-              <a
-                href={video.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onMouseEnter={() => setHoveredVideo(video)}
-                className="block px-8 py-12 group border-t-4 border-[var(--color-green)]"
-              >
-                <h2
-                  className={`font-bold uppercase ${
-                    hoveredVideo?._id === video._id
-                      ? "show-title-hover"
-                      : "show-title"
-                  }`}
-                  style={{
-                    fontSize: "84px",
-                    lineHeight: "82px",
-                  }}
+      <div className="hidden lg:grid lg:grid-cols-7 mr-8 gap-5 min-h-[calc(100vh-200px)]">
+        <div className="col-span-4 flex flex-col pt-8 border-r-4 border-[var(--color-green)] h-full">
+          <div className="flex-1 pb-8">
+            {videos.map((video, index) => (
+              <div key={video._id}>
+                <a
+                  href={video.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onMouseEnter={() => setHoveredVideo(video)}
+                  className="block px-8 py-12 group border-t-4 border-[var(--color-green)]"
                 >
-                  {video.title}
-                </h2>
-              </a>
-              {index === videos.length - 1 && (
-                <div className="border-b-4 border-[var(--color-green)]" />
-              )}
-            </div>
-          ))}
+                  <h2
+                    className={`font-bold uppercase ${
+                      hoveredVideo?._id === video._id
+                        ? "show-title-hover"
+                        : "show-title"
+                    }`}
+                    style={{
+                      fontSize: "84px",
+                      lineHeight: "82px",
+                    }}
+                  >
+                    {video.title}
+                  </h2>
+                </a>
+                {index === videos.length - 1 && (
+                  <div className="border-b-4 border-[var(--color-green)]" />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div
