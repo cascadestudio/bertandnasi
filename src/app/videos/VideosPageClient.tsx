@@ -30,9 +30,9 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
       <Marquee pageName="videos" />
       <div className="hidden lg:grid lg:grid-cols-7 mr-8 gap-5 min-h-[calc(100vh-200px)]">
         <div className="col-span-4 flex flex-col pt-8 border-r-4 border-[var(--color-green)] h-full">
-          <div className="flex-1 pb-8">
+          <div className="flex-1 pb-5">
             {videos.map((video, index) => (
-              <div key={video._id}>
+              <div key={video._id} className={index > 0 ? "pt-5" : ""}>
                 <a
                   href={video.url}
                   target="_blank"
@@ -83,23 +83,6 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
                     />
                   </div>
                 )}
-
-                <div className="space-y-0 font-mono pb-3">
-                  <div className="grid grid-cols-3 gap-5 py-3">
-                    <span style={{ fontSize: "12px" }}>Category</span>
-                    <Image
-                      src="/icons/small-arrow-right.svg"
-                      alt=""
-                      width={11}
-                      height={13}
-                      className="w-[11px] h-[13px]"
-                    />
-                    <span className="text-right" style={{ fontSize: "12px" }}>
-                      {categoryLabels[hoveredVideo.category] ||
-                        hoveredVideo.category}
-                    </span>
-                  </div>
-                </div>
               </div>
             )}
           </div>
