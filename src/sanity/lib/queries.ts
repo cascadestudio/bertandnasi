@@ -360,13 +360,6 @@ export interface Review {
   quote: string;
   media: string;
   link?: string;
-  relatedShow?: {
-    _id: string;
-    title: string;
-    slug: {
-      current: string;
-    };
-  };
   featured: boolean;
 }
 
@@ -443,11 +436,6 @@ export const getFeaturedReviews = groq`
     quote,
     media,
     link,
-    relatedShow-> {
-      _id,
-      title,
-      slug
-    },
     featured
   }
 `;
@@ -461,11 +449,6 @@ export const getAllReviews = groq`
     quote,
     media,
     link,
-    relatedShow-> {
-      _id,
-      title,
-      slug
-    },
     featured
   }
 `;

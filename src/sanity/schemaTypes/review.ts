@@ -30,14 +30,6 @@ export const review = defineType({
       description: "Optional: Link to the full review or article.",
     },
     {
-      name: "relatedShow",
-      title: "Related Show",
-      type: "reference",
-      to: [{ type: "show" }],
-      description:
-        "Optional: Link this review to a specific show. Leave empty for general reviews.",
-    },
-    {
       name: "featured",
       title: "Featured on Homepage",
       type: "boolean",
@@ -52,19 +44,16 @@ export const review = defineType({
     select: {
       quote: "quote",
       media: "media",
-      show: "relatedShow.title",
       featured: "featured",
     },
     prepare(selection) {
-      const { quote, media, show, featured } = selection;
+      const { quote, media, featured } = selection;
 
       // Truncate quote for preview
       const truncatedQuote =
         quote && quote.length > 60 ? `${quote.substring(0, 60)}...` : quote;
 
-      const subtitle = show
-        ? `${media} • ${show}${featured ? " • ⭐ Featured" : ""}`
-        : `${media}${featured ? " • ⭐ Featured" : ""}`;
+      const subtitle = `${media}${featured ? " • ⭐ Featured" : ""}`;
 
       return {
         title: truncatedQuote || "No quote",
