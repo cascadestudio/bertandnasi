@@ -33,7 +33,7 @@ export default function ReviewsSection() {
   return (
     <section className="w-full py-20">
       <div className="px-4 md:px-8">
-        <div className="grid grid-cols-7 gap-4 md:gap-6 items-center max-w-7xl mx-auto">
+        <div className="grid grid-cols-7 gap-5 items-center max-w-7xl mx-auto">
           <div className="col-start-2 col-span-2 space-y-4 text-center">
             <blockquote className="text-xl italic font-medium leading-relaxed text-black">
               &ldquo;{firstQuote.quote}&rdquo;

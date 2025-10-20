@@ -21,7 +21,7 @@ export default function Navigation() {
       {/* Desktop Navigation - 7 Column Grid */}
       <div className="hidden md:block">
         <div
-          className="grid grid-cols-7 gap-6 px-4 md:px-8 h-16"
+          className="grid grid-cols-7 gap-5 px-4 md:px-8 h-16"
           style={{ fontFamily: "var(--font-nav)" }}
         >
           {/* Logo - Column 1 */}

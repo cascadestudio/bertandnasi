@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white py-5">
       <div className="px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-5 items-start">
           {/* Logo */}
           <div className="col-span-2">
             <Image
