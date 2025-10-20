@@ -45,7 +45,7 @@ export default function ShowDetailClient({
       <Marquee pageName="shows" />
 
       {/* Top bar with title, year, and nav */}
-      <div className="flex justify-between items-end mx-8 py-5 border-b-4 border-[var(--color-green)]">
+      <div className="flex justify-between items-end px-8 py-5 border-b-4 border-[var(--color-green)]">
         <div className="flex gap-5 items-baseline">
           <h1
             className="font-bold uppercase show-title-detail"
@@ -93,9 +93,9 @@ export default function ShowDetailClient({
       </div>
 
       {/* Content Grid */}
-      <div className="grid grid-cols-7 gap-5 mx-8">
+      <div className="grid grid-cols-7 gap-5 mx-8 items-start">
         {/* Columns 1-3: Video or Image + Description */}
-        <div className="col-span-3 space-y-5 pt-5">
+        <div className="col-span-3 space-y-5 pt-5 pb-8 -ml-8 pl-8">
           {videoId ? (
             <div className="w-full aspect-video">
               <iframe
@@ -133,9 +133,9 @@ export default function ShowDetailClient({
         </div>
 
         {/* Columns 4-5: Image Gallery */}
-        <div className="col-span-2">
-          {show.imageGallery && show.imageGallery.length > 0 && (
-            <div className="space-y-5 p-5 border-x-4 border-[var(--color-green)]">
+        <div className="col-span-2 self-stretch">
+          {show.imageGallery && show.imageGallery.length > 0 ? (
+            <div className="space-y-5 p-5 border-l-4 border-[var(--color-green)] h-full">
               {show.imageGallery.map((image, index) => (
                 <div key={index} className="w-full">
                   <Image
@@ -148,13 +148,15 @@ export default function ShowDetailClient({
                 </div>
               ))}
             </div>
+          ) : (
+            <div className="border-l-4 border-[var(--color-green)] h-full" />
           )}
         </div>
 
         {/* Columns 6-7: Credits, Quotes, Collaborators */}
-        <div className="col-span-2 border-l-4 border-[var(--color-green)] pl-5 space-y-8 pt-5">
+        <div className="col-span-2 -ml-5 -mr-8 border-l-4 border-[var(--color-green)] pt-5 pb-8 self-stretch flex flex-col">
           {show.credits && show.credits.length > 0 && (
-            <div className="space-y-0 font-mono">
+            <div className="space-y-0 font-mono pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
               {show.credits.map((credit, index) => (
                 <div
                   key={index}
@@ -179,7 +181,7 @@ export default function ShowDetailClient({
           )}
 
           {show.reviews && show.reviews.length > 0 && (
-            <div className="space-y-5">
+            <div className="space-y-5 pt-8 pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
               {show.reviews.map((review, index) => (
                 <div key={index}>
                   <p className="italic mb-2" style={{ fontSize: "16px" }}>
@@ -192,7 +194,7 @@ export default function ShowDetailClient({
           )}
 
           {show.collaborators && show.collaborators.length > 0 && (
-            <div>
+            <div className="pt-8 pl-5 pr-8">
               <h3 className="font-semibold mb-3" style={{ fontSize: "12px" }}>
                 Collaborators
               </h3>
