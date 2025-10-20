@@ -36,6 +36,14 @@ export const video = defineType({
       validation: (Rule) => Rule.required(),
       description: 'Select the category for this video.',
     },
+    {
+      name: 'relatedShow',
+      title: 'Related Show',
+      type: 'reference',
+      to: [{ type: 'show' }],
+      description: 'Optional: Link this video to a specific show. If this is a trailer for a show, it will appear on that show\'s page.',
+      hidden: ({ document }) => document?.category !== 'trailers',
+    },
   ],
 
   // Preview configuration

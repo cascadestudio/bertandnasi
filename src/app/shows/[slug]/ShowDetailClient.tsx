@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Show } from "@/sanity/lib/queries";
+import { Show, Video } from "@/sanity/lib/queries";
 import Marquee from "@/components/home/Marquee";
 import { getImageUrl } from "@/lib/sanityImage";
 import { PortableText } from "@portabletext/react";
@@ -11,11 +11,13 @@ import { TypedObject } from "sanity";
 interface ShowDetailClientProps {
   show: Show;
   allShows: Show[];
+  trailer: Video | null;
 }
 
 export default function ShowDetailClient({
   show,
   allShows,
+  trailer,
 }: ShowDetailClientProps) {
   const currentIndex = allShows.findIndex((s) => s._id === show._id);
   const prevShow =
@@ -34,7 +36,9 @@ export default function ShowDetailClient({
     return match && match[2].length === 11 ? match[2] : null;
   };
 
-  const videoId = show.trailer ? getYouTubeId(show.trailer) : null;
+  // Priority: 1. Trailer from videos collection, 2. Trailer from show, 3. null
+  const trailerUrl = trailer?.url || show.trailer || null;
+  const videoId = trailerUrl ? getYouTubeId(trailerUrl) : null;
 
   return (
     <div>
