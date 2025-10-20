@@ -37,8 +37,10 @@ export interface Show {
     caption?: string;
   }>;
   reviews?: Array<{
+    _id: string;
     quote: string;
     media: string;
+    link?: string;
   }>;
   seo?: {
     metaTitle?: string;
@@ -62,7 +64,12 @@ export const getAllShows = groq`
     trailer,
     collaborators,
     imageGallery,
-    reviews,
+    reviews[]-> {
+      _id,
+      quote,
+      media,
+      link
+    },
     seo
   }
 `;
@@ -82,7 +89,12 @@ export const getShowBySlug = groq`
     trailer,
     collaborators,
     imageGallery,
-    reviews,
+    reviews[]-> {
+      _id,
+      quote,
+      media,
+      link
+    },
     seo
   }
 `;
@@ -102,7 +114,12 @@ export const getShowById = groq`
     trailer,
     collaborators,
     imageGallery,
-    reviews,
+    reviews[]-> {
+      _id,
+      quote,
+      media,
+      link
+    },
     seo
   }
 `;
@@ -335,6 +352,24 @@ export async function fetchTrailerForShow(
   }
 }
 
+// Review type definition
+export interface Review {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  quote: string;
+  media: string;
+  link?: string;
+  relatedShow?: {
+    _id: string;
+    title: string;
+    slug: {
+      current: string;
+    };
+  };
+  featured: boolean;
+}
+
 // Marquee type definition
 export interface Marquee {
   _id: string;
@@ -397,4 +432,72 @@ export async function fetchMarqueeForPage(
   // Fallback to global marquee
   const globalMarquee = await fetchMarquee();
   return globalMarquee?.text || null;
+}
+
+// Query to get featured reviews for homepage
+export const getFeaturedReviews = groq`
+  *[_type == "review" && featured == true] | order(_createdAt desc) {
+    _id,
+    _createdAt,
+    _updatedAt,
+    quote,
+    media,
+    link,
+    relatedShow-> {
+      _id,
+      title,
+      slug
+    },
+    featured
+  }
+`;
+
+// Query to get all reviews
+export const getAllReviews = groq`
+  *[_type == "review"] | order(_createdAt desc) {
+    _id,
+    _createdAt,
+    _updatedAt,
+    quote,
+    media,
+    link,
+    relatedShow-> {
+      _id,
+      title,
+      slug
+    },
+    featured
+  }
+`;
+
+// Data fetching function for featured reviews
+export async function fetchFeaturedReviews(): Promise<Review[]> {
+  try {
+    return await client.fetch(
+      getFeaturedReviews,
+      {},
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching featured reviews:", error);
+    return [];
+  }
+}
+
+// Data fetching function for all reviews
+export async function fetchAllReviews(): Promise<Review[]> {
+  try {
+    return await client.fetch(
+      getAllReviews,
+      {},
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching all reviews:", error);
+    return [];
+  }
 }

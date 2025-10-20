@@ -2,20 +2,16 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Review } from "@/sanity/lib/queries";
 
-const reviews = [
-  {
-    quote:
-      "with a striking economy of effect, Bert and Nasi are worthy heirs to Monty Python",
-    source: "Le Monde",
-  },
-  {
-    quote: "Tim Etchells's score and the duo of performers are enchanting",
-    source: "Telerama",
-  },
-];
+interface ReviewsSectionProps {
+  reviews: Review[];
+}
 
-export default function ReviewsSection() {
+export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
+  if (!reviews || reviews.length === 0) {
+    return null;
+  }
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextReview = () => {
@@ -38,9 +34,22 @@ export default function ReviewsSection() {
             <blockquote className="text-xl italic font-medium leading-relaxed text-black">
               &ldquo;{firstQuote.quote}&rdquo;
             </blockquote>
-            <cite className="block text-base not-italic font-normal text-black">
-              {firstQuote.source}
-            </cite>
+            {firstQuote.link ? (
+              <cite className="block text-base not-italic font-normal text-black">
+                <a
+                  href={firstQuote.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[var(--color-green)] transition-colors"
+                >
+                  {firstQuote.media}
+                </a>
+              </cite>
+            ) : (
+              <cite className="block text-base not-italic font-normal text-black">
+                {firstQuote.media}
+              </cite>
+            )}
           </div>
           <div className="col-span-1 flex items-end h-full justify-center gap-5">
             <button
@@ -74,9 +83,22 @@ export default function ReviewsSection() {
             <blockquote className="text-xl italic font-medium leading-relaxed text-black">
               &ldquo;{secondQuote.quote}&rdquo;
             </blockquote>
-            <cite className="block text-base not-italic font-normal text-black">
-              {secondQuote.source}
-            </cite>
+            {secondQuote.link ? (
+              <cite className="block text-base not-italic font-normal text-black">
+                <a
+                  href={secondQuote.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[var(--color-green)] transition-colors"
+                >
+                  {secondQuote.media}
+                </a>
+              </cite>
+            ) : (
+              <cite className="block text-base not-italic font-normal text-black">
+                {secondQuote.media}
+              </cite>
+            )}
           </div>
         </div>
       </div>

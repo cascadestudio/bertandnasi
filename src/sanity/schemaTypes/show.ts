@@ -171,37 +171,19 @@ export const show = defineType({
       },
     },
 
-    // Reviews
+    // Reviews (now references to review documents)
     {
       name: "reviews",
       title: "Reviews",
       type: "array",
       of: [
         {
-          type: "object",
-          fields: [
-            {
-              name: "quote",
-              title: "Review Quote",
-              type: "text",
-              rows: 3,
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: "media",
-              title: "Media Source",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            },
-          ],
-          preview: {
-            select: {
-              title: "media",
-              subtitle: "quote",
-            },
-          },
+          type: "reference",
+          to: [{ type: "review" }],
         },
       ],
+      description:
+        "Add reviews for this show by selecting from the Reviews collection. Reviews will automatically be linked to this show.",
     },
 
     // SEO and Metadata

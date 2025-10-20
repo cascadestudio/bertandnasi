@@ -182,12 +182,24 @@ export default function ShowDetailClient({
 
           {show.reviews && show.reviews.length > 0 && (
             <div className="space-y-5 pt-8 pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
-              {show.reviews.map((review, index) => (
-                <div key={index}>
+              {show.reviews.map((review) => (
+                <div key={review._id}>
                   <p className="italic mb-2" style={{ fontSize: "16px" }}>
                     &ldquo;{review.quote}&rdquo;
                   </p>
-                  <p style={{ fontSize: "16px" }}>{review.media}</p>
+                  {review.link ? (
+                    <a
+                      href={review.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-[var(--color-green)] transition-colors"
+                      style={{ fontSize: "16px" }}
+                    >
+                      {review.media}
+                    </a>
+                  ) : (
+                    <p style={{ fontSize: "16px" }}>{review.media}</p>
+                  )}
                 </div>
               ))}
             </div>
