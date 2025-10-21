@@ -9,10 +9,11 @@ interface ReviewsSectionProps {
 }
 
 export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   if (!reviews || reviews.length === 0) {
     return null;
   }
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextReview = () => {
     setCurrentIndex((prev) => (prev + 1) % reviews.length);
