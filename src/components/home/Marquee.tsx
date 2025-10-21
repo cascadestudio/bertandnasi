@@ -2,18 +2,25 @@
 
 import { fetchMarqueeForPage } from "@/sanity/lib/queries";
 import { useEffect, useRef, useState } from "react";
+import { useMobileMenu } from "@/contexts/MobileMenuContext";
 
 interface MarqueeProps {
   pageName?: string;
   sticky?: boolean;
+  hidden?: boolean;
 }
 
-export default function Marquee({ pageName, sticky = true }: MarqueeProps) {
+export default function Marquee({
+  pageName,
+  sticky = true,
+  hidden = false,
+}: MarqueeProps) {
   const [marqueeText, setMarqueeText] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [animationDuration, setAnimationDuration] = useState<number>(20);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const { isMobileMenuOpen } = useMobileMenu();
 
   useEffect(() => {
     const fetchText = async () => {
@@ -44,13 +51,28 @@ export default function Marquee({ pageName, sticky = true }: MarqueeProps) {
     }
   }, [marqueeText]);
 
-  // Don't render anything while loading to avoid the glitch
-  if (isLoading) {
+  // Don't render anything while loading or when hidden
+  if (isLoading || hidden) {
     return (
       <div className="bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center">
         <div className="flex whitespace-nowrap">
           <div className="flex items-center gap-3">
             {/* Empty content while loading */}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Hide content when mobile menu is open but keep the container
+  if (isMobileMenuOpen) {
+    return (
+      <div
+        className={`bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center ${sticky && "sticky top-[64px] z-50"}`}
+      >
+        <div className="flex whitespace-nowrap">
+          <div className="flex items-center gap-3">
+            {/* Empty content when mobile menu is open */}
           </div>
         </div>
       </div>

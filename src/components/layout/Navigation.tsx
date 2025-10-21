@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
+import { useMobileMenu } from "@/contexts/MobileMenuContext";
 
 export default function Navigation() {
   const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const {
+    isMobileMenuOpen: mobileMenuOpen,
+    setIsMobileMenuOpen: setMobileMenuOpen,
+  } = useMobileMenu();
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -33,7 +37,7 @@ export default function Navigation() {
       {/* Desktop Navigation - 7 Column Grid */}
       <div className="hidden md:block">
         <div
-          className="grid grid-cols-7 gap-5 px-4 md:px-8 h-13"
+          className="grid grid-cols-7 gap-6 px-4 md:px-8 h-[52px]"
           style={{ fontFamily: "var(--font-nav)" }}
         >
           {/* Logo - Column 1 */}
@@ -46,7 +50,7 @@ export default function Navigation() {
               alt="BERT&NASI"
               width={124}
               height={50}
-              className="logo-svg w-31"
+              className="logo-svg w-[124px]"
             />
           </Link>
 
@@ -137,7 +141,7 @@ export default function Navigation() {
       </div>
 
       {/* Mobile Navigation Header */}
-      <div className="md:hidden px-5 bg-white h-16 flex items-center justify-between">
+      <div className="md:hidden px-4 bg-white h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="hover:opacity-80 transition-opacity">
           <Image
@@ -185,7 +189,7 @@ export default function Navigation() {
                 alt="BERT&NASI"
                 width={124}
                 height={50}
-                className="logo-svg w-31"
+                className="logo-svg w-[124px]"
               />
             </Link>
             <button

@@ -6,7 +6,82 @@ export default function AboutPage() {
     <div>
       <Marquee pageName="about" />
       <div className="min-h-screen bg-white">
-        <main className="grid grid-cols-1 lg:grid-cols-3 min-h-screen border-t-4 border-[var(--color-green)]">
+        {/* Mobile Layout */}
+        <main className="lg:hidden flex flex-col min-h-screen border-t-4 border-[var(--color-green)] px-5">
+          {/* Title */}
+          <div className="flex items-center justify-center border-b-4 border-[var(--color-green)] py-6">
+            <h1 className="text-4xl show-title-hover">Bert & Nasi</h1>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 py-6">
+            <div className="text-left space-y-6">
+              <p className="text-black text-base leading-relaxed">
+                Bert and Nasi are a contemporary performance duo that met in
+                2015 and have since created an entire repertoire of shows in the
+                midst of a period of national and international austerity. Their
+                work, in turn, is stripped back and minimalist, whilst dealing
+                with complex ideas and emotions. Their shows lie somewhere
+                between performance, dance and theatre but if you had to pin
+                them down on it, they&apos;d probably say it&apos;s theatre.
+              </p>
+              <p className="text-black text-base leading-relaxed">
+                Together they have performed their shows on the international
+                stages of PuSh Festival (Canada), Festival de Otoño (Spain),
+                Sarajevo Mess (Bosnia), Adelaide International Festival
+                (Australia), InTeatro (Italy), Avignon Festival (France) as well
+                as MiTsp (Brazil).
+              </p>
+              <p className="text-black text-base leading-relaxed">
+                In 2020, Bert and Nasi received the Forced Entertainment Award
+                in memory of Huw Chadbourn, which celebrates the work of
+                contemporary artists reinventing theatre and performance in new
+                ways and for new audiences.
+              </p>
+
+              <div className="mt-8 border-t-4 border-[var(--color-green)] pt-6">
+                <h3 className="text-sm font-mono text-black mb-4">Team</h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-sans text-black font-normal">
+                      Khénory Sok
+                    </h4>
+                    <p className="text-black text-xs mt-1">
+                      Artistic Project Manager
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Images */}
+          <div className="space-y-6 border-t-4 border-[var(--color-green)] pt-6">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Bert</h2>
+              <Image
+                src="/images/about-bert.jpg"
+                alt="Bert"
+                width={400}
+                height={400}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Nasi</h2>
+              <Image
+                src="/images/about-nasi.jpg"
+                alt="Nasi"
+                width={400}
+                height={400}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+        </main>
+
+        {/* Desktop Layout */}
+        <main className="hidden lg:grid lg:grid-cols-3 min-h-screen border-t-4 border-[var(--color-green)]">
           {/* Left Column - Bert */}
           <div className="flex flex-col relative border-r-4 border-[var(--color-green)]">
             {/* Title row - Bert title */}

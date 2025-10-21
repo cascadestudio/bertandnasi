@@ -44,58 +44,62 @@ export default function ShowDetailClient({
     <div>
       <Marquee pageName="shows" />
 
-      {/* Top bar with title, year, and nav */}
-      <div className="flex justify-between items-end px-8 py-5 border-b-4 border-[var(--color-green)]">
-        <div className="flex gap-5 items-baseline">
-          <h1
-            className="font-bold uppercase show-title-detail"
-            style={{ fontSize: "48px", lineHeight: "1" }}
-          >
-            {show.title}
-          </h1>
-          <p
-            className="font-mono text-[var(--color-green)]"
-            style={{ fontSize: "14px", lineHeight: "1" }}
-          >
-            {show.year}
-          </p>
+      {/* Mobile Layout */}
+      <div className="lg:hidden flex flex-col px-5">
+        {/* Top bar with title, year, and nav */}
+        <div className="flex justify-between items-end py-4 border-b-4 border-[var(--color-green)]">
+          <div className="flex gap-3 items-baseline">
+            <h1
+              className="font-bold uppercase show-title-detail"
+              style={{
+                fontSize: "clamp(1.5rem, 8vw, 2.5rem)",
+                lineHeight: "1",
+              }}
+            >
+              {show.title}
+            </h1>
+            <p
+              className="font-mono text-[var(--color-green)]"
+              style={{ fontSize: "14px", lineHeight: "1" }}
+            >
+              {show.year}
+            </p>
+          </div>
+
+          <div className="flex justify-end items-end gap-3">
+            <Link href={`/shows/${prevShow.slug.current}`}>
+              <Image
+                src="/icons/left-arrow.svg"
+                alt="Previous show"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+            </Link>
+            <Link href={`/shows/${nextShow.slug.current}`}>
+              <Image
+                src="/icons/right-arrow.svg"
+                alt="Next show"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+            </Link>
+            <Link href="/shows">
+              <Image
+                src="/icons/close.svg"
+                alt="Close"
+                width={28}
+                height={28}
+                className="w-7 h-7 ml-2"
+              />
+            </Link>
+          </div>
         </div>
 
-        <div className="flex justify-end items-end gap-5">
-          <Link href={`/shows/${prevShow.slug.current}`}>
-            <Image
-              src="/icons/left-arrow.svg"
-              alt="Previous show"
-              width={40}
-              height={40}
-              className="w-10 h-10"
-            />
-          </Link>
-          <Link href={`/shows/${nextShow.slug.current}`}>
-            <Image
-              src="/icons/right-arrow.svg"
-              alt="Next show"
-              width={40}
-              height={40}
-              className="w-10 h-10"
-            />
-          </Link>
-          <Link href="/shows">
-            <Image
-              src="/icons/close.svg"
-              alt="Close"
-              width={37}
-              height={37}
-              className="w-8.5 h-8.5 ml-5"
-            />
-          </Link>
-        </div>
-      </div>
-
-      {/* Content Grid */}
-      <div className="grid grid-cols-7 gap-5 mx-8 items-start">
-        {/* Columns 1-3: Video or Image + Description */}
-        <div className="col-span-3 space-y-5 pt-5 pb-8 -ml-8 pl-8">
+        {/* Main content - single column */}
+        <div className="flex flex-col space-y-6 py-6">
+          {/* Video or Image */}
           {videoId ? (
             <div className="w-full aspect-video">
               <iframe
@@ -122,6 +126,7 @@ export default function ShowDetailClient({
             )
           )}
 
+          {/* Description */}
           {show.description && (
             <div
               className="prose prose-sm max-w-none leading-relaxed"
@@ -130,12 +135,10 @@ export default function ShowDetailClient({
               <PortableText value={show.description as TypedObject[]} />
             </div>
           )}
-        </div>
 
-        {/* Columns 4-5: Image Gallery */}
-        <div className="col-span-2 self-stretch">
-          {show.imageGallery && show.imageGallery.length > 0 ? (
-            <div className="space-y-5 p-5 border-l-4 border-[var(--color-green)] h-full">
+          {/* Image Gallery */}
+          {show.imageGallery && show.imageGallery.length > 0 && (
+            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-6">
               {show.imageGallery.map((image, index) => (
                 <div key={index} className="w-full">
                   <Image
@@ -148,40 +151,36 @@ export default function ShowDetailClient({
                 </div>
               ))}
             </div>
-          ) : (
-            <div className="border-l-4 border-[var(--color-green)] h-full" />
           )}
-        </div>
 
-        {/* Columns 6-7: Credits, Quotes, Collaborators */}
-        <div className="col-span-2 -ml-5 -mr-8 border-l-4 border-[var(--color-green)] pt-5 pb-8 self-stretch flex flex-col">
+          {/* Credits */}
           {show.credits && show.credits.length > 0 && (
-            <div className="space-y-0 font-mono pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
+            <div className="space-y-0 font-mono border-t-4 border-[var(--color-green)] pt-6">
               {show.credits.map((credit, index) => (
-                <div
-                  key={index}
-                  className="pb-3 grid grid-cols-2 gap-2 items-baseline"
-                >
-                  <div className="flex items-baseline justify-between">
-                    <p style={{ fontSize: "12px" }}>{credit.role}</p>
-                    <Image
-                      src="/icons/small-arrow-right.svg"
-                      alt=""
-                      width={11}
-                      height={13}
-                      className="w-[11px] h-[13px] ml-5"
-                    />
-                  </div>
-                  <div className="text-right">
-                    <p style={{ fontSize: "12px" }}>{credit.name}</p>
-                  </div>
+                <div key={index} className="flex items-start gap-3 py-2">
+                  <span className="flex-shrink-0" style={{ fontSize: "14px" }}>
+                    {credit.role}
+                  </span>
+                  <span
+                    className="text-[var(--color-green)] flex-shrink-0"
+                    style={{ fontSize: "14px" }}
+                  >
+                    →
+                  </span>
+                  <span
+                    className="text-right flex-1"
+                    style={{ fontSize: "14px" }}
+                  >
+                    {credit.name}
+                  </span>
                 </div>
               ))}
             </div>
           )}
 
+          {/* Reviews */}
           {show.reviews && show.reviews.length > 0 && (
-            <div className="space-y-5 pt-8 pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
+            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-6">
               {show.reviews.map((review) => (
                 <div key={review._id}>
                   <p className="italic mb-2" style={{ fontSize: "16px" }}>
@@ -193,32 +192,216 @@ export default function ShowDetailClient({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-[var(--color-green)] transition-colors"
-                      style={{ fontSize: "16px" }}
+                      style={{ fontSize: "14px" }}
                     >
                       {review.media}
                     </a>
                   ) : (
-                    <p style={{ fontSize: "16px" }}>{review.media}</p>
+                    <p style={{ fontSize: "14px" }}>{review.media}</p>
                   )}
                 </div>
               ))}
             </div>
           )}
 
+          {/* Collaborators */}
           {show.collaborators && show.collaborators.length > 0 && (
-            <div className="pt-8 pl-5 pr-8">
-              <h3 className="font-semibold mb-3" style={{ fontSize: "12px" }}>
+            <div className="border-t-4 border-[var(--color-green)] pt-6">
+              <h3 className="font-semibold mb-3" style={{ fontSize: "14px" }}>
                 Collaborators
               </h3>
               <div className="space-y-1">
                 {show.collaborators.map((collab, index) => (
-                  <p key={index} style={{ fontSize: "12px" }}>
+                  <p key={index} style={{ fontSize: "14px" }}>
                     {collab.name}
                   </p>
                 ))}
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden lg:block">
+        {/* Top bar with title, year, and nav */}
+        <div className="flex justify-between items-end px-8 py-5 border-b-4 border-[var(--color-green)]">
+          <div className="flex gap-5 items-baseline">
+            <h1
+              className="font-bold uppercase show-title-detail"
+              style={{ fontSize: "48px", lineHeight: "1" }}
+            >
+              {show.title}
+            </h1>
+            <p
+              className="font-mono text-[var(--color-green)]"
+              style={{ fontSize: "14px", lineHeight: "1" }}
+            >
+              {show.year}
+            </p>
+          </div>
+
+          <div className="flex justify-end items-end gap-5">
+            <Link href={`/shows/${prevShow.slug.current}`}>
+              <Image
+                src="/icons/left-arrow.svg"
+                alt="Previous show"
+                width={40}
+                height={40}
+                className="w-10 h-10"
+              />
+            </Link>
+            <Link href={`/shows/${nextShow.slug.current}`}>
+              <Image
+                src="/icons/right-arrow.svg"
+                alt="Next show"
+                width={40}
+                height={40}
+                className="w-10 h-10"
+              />
+            </Link>
+            <Link href="/shows">
+              <Image
+                src="/icons/close.svg"
+                alt="Close"
+                width={37}
+                height={37}
+                className="w-8.5 h-8.5 ml-5"
+              />
+            </Link>
+          </div>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-7 gap-5 items-start">
+          {/* Columns 1-3: Video or Image + Description */}
+          <div className="col-span-3 space-y-5 pt-5 pb-8">
+            {videoId ? (
+              <div className="w-full aspect-video">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title={show.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full outline-none"
+                />
+              </div>
+            ) : (
+              show.mainImage && (
+                <div className="w-full">
+                  <Image
+                    src={getImageUrl(show.mainImage, 1200)}
+                    alt={show.mainImage.alt || show.title}
+                    width={1200}
+                    height={800}
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              )
+            )}
+
+            {show.description && (
+              <div
+                className="prose prose-sm max-w-none leading-relaxed"
+                style={{ fontSize: "16px", lineHeight: "1.6" }}
+              >
+                <PortableText value={show.description as TypedObject[]} />
+              </div>
+            )}
+          </div>
+
+          {/* Columns 4-5: Image Gallery */}
+          <div className="col-span-2 self-stretch">
+            {show.imageGallery && show.imageGallery.length > 0 ? (
+              <div className="space-y-5 p-5 border-l-4 border-[var(--color-green)] h-full">
+                {show.imageGallery.map((image, index) => (
+                  <div key={index} className="w-full">
+                    <Image
+                      src={getImageUrl(image, 800)}
+                      alt={image.alt || `${show.title} image ${index + 1}`}
+                      width={800}
+                      height={600}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="border-l-4 border-[var(--color-green)] h-full" />
+            )}
+          </div>
+
+          {/* Columns 6-7: Credits, Quotes, Collaborators */}
+          <div className="col-span-2 -ml-5 -mr-8 border-l-4 border-[var(--color-green)] pt-5 pb-8 self-stretch flex flex-col">
+            {show.credits && show.credits.length > 0 && (
+              <div className="space-y-0 font-mono pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
+                {show.credits.map((credit, index) => (
+                  <div
+                    key={index}
+                    className="pb-3 grid grid-cols-3 gap-2 items-center"
+                  >
+                    <div className="text-left">
+                      <p style={{ fontSize: "10px" }}>{credit.role}</p>
+                    </div>
+                    <div className="flex justify-center">
+                      <Image
+                        src="/icons/small-arrow-right.svg"
+                        alt=""
+                        width={11}
+                        height={13}
+                        className="w-[11px] h-[13px]"
+                      />
+                    </div>
+                    <div className="text-right">
+                      <p style={{ fontSize: "10px" }}>{credit.name}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {show.reviews && show.reviews.length > 0 && (
+              <div className="space-y-5 pt-8 pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
+                {show.reviews.map((review) => (
+                  <div key={review._id}>
+                    <p className="italic mb-2" style={{ fontSize: "16px" }}>
+                      &ldquo;{review.quote}&rdquo;
+                    </p>
+                    {review.link ? (
+                      <a
+                        href={review.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-[var(--color-green)] transition-colors"
+                        style={{ fontSize: "16px" }}
+                      >
+                        {review.media}
+                      </a>
+                    ) : (
+                      <p style={{ fontSize: "16px" }}>{review.media}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {show.collaborators && show.collaborators.length > 0 && (
+              <div className="pt-8 pl-5 pr-8">
+                <h3 className="font-semibold mb-3" style={{ fontSize: "12px" }}>
+                  Collaborators
+                </h3>
+                <div className="space-y-1">
+                  {show.collaborators.map((collab, index) => (
+                    <p key={index} style={{ fontSize: "12px" }}>
+                      {collab.name}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

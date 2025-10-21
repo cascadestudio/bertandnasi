@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
+import { MobileMenuProvider } from "@/contexts/MobileMenuContext";
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -19,10 +20,12 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </div>
+    <MobileMenuProvider>
+      <div className="min-h-screen flex flex-col">
+        <Navigation />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </div>
+    </MobileMenuProvider>
   );
 }

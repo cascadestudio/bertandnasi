@@ -99,6 +99,15 @@ img[src$=".svg"] {
   -webkit-text-stroke: none;
 }
 
+/* Hide scrollbars */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 /* Month header styling for calendar accordion */
 .month-header {
   font-weight: 500;

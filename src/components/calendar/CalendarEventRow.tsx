@@ -73,20 +73,18 @@ export default function CalendarEventRow({
     >
       <div
         ref={contentRef}
-        className="flex items-center h-full whitespace-nowrap transition-transform duration-3000 ease-linear"
+        className="flex items-center h-full overflow-x-auto overflow-y-hidden scrollbar-hide"
         style={{
-          transform:
-            needsMarquee && isHovered
-              ? `translateX(-${slideDistance}px)`
-              : "translateX(0)",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
         }}
       >
         {/* Date */}
-        <div className="flex-shrink-0 px-8">
-          <div className="text-2xl uppercase tracking-wide text-black font-mono">
+        <div className="flex-shrink-0 px-4 lg:px-8">
+          <div className="text-[16px] lg:text-2xl uppercase tracking-wide text-black font-mono">
             {month}
           </div>
-          <div className="text-2xl font-normal leading-tight font-mono">
+          <div className="text-[16px] lg:text-2xl font-normal leading-tight font-mono">
             {days}
           </div>
         </div>
@@ -95,7 +93,7 @@ export default function CalendarEventRow({
         <div className="flex-shrink-0 px-4">
           <Link
             href={`/shows/${event.show.slug.current}`}
-            className="text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
+            className="text-2xl lg:text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
           >
             {event.show.title}
           </Link>
@@ -103,7 +101,7 @@ export default function CalendarEventRow({
 
         {/* Images */}
         {allImages.length > 0 && (
-          <div className="flex-shrink-0 flex items-center gap-8 py-4">
+          <div className="flex-shrink-0 flex items-center gap-4 lg:gap-8 py-4">
             {allImages.map((img, index) => (
               <div
                 key={index}
@@ -130,12 +128,12 @@ export default function CalendarEventRow({
               href={event.ticketUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
+              className="text-2xl lg:text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
             >
               {event.venue}
             </a>
           ) : (
-            <span className="text-5xl font-regular uppercase leading-none">
+            <span className="text-2xl lg:text-5xl font-regular uppercase leading-none">
               {event.venue}
             </span>
           )}
@@ -143,7 +141,7 @@ export default function CalendarEventRow({
 
         {/* Location */}
         <div className="flex-shrink-0 px-4">
-          <span className="text-5xl font-regular uppercase leading-none">
+          <span className="text-2xl lg:text-5xl font-regular uppercase leading-none">
             {event.location}
           </span>
         </div>

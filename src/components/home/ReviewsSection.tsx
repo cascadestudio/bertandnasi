@@ -29,8 +29,63 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
 
   return (
     <section className="w-full py-20">
-      <div className="px-4 md:px-8">
-        <div className="grid grid-cols-7 gap-5 items-center max-w-7xl mx-auto">
+      <div className="px-5">
+        {/* Mobile Layout */}
+        <div className="lg:hidden flex flex-col space-y-8 min-h-[200px]">
+          <div className="space-y-4 text-center flex-1 flex flex-col justify-center">
+            <blockquote className="text-lg italic font-medium leading-relaxed text-black">
+              &ldquo;{firstQuote.quote}&rdquo;
+            </blockquote>
+            {firstQuote.link ? (
+              <cite className="block text-sm not-italic font-normal text-black">
+                <a
+                  href={firstQuote.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[var(--color-green)] transition-colors"
+                >
+                  {firstQuote.media}
+                </a>
+              </cite>
+            ) : (
+              <cite className="block text-sm not-italic font-normal text-black">
+                {firstQuote.media}
+              </cite>
+            )}
+          </div>
+
+          <div className="flex items-center justify-center gap-8">
+            <button
+              onClick={prevReview}
+              className="hover:opacity-80 transition-opacity"
+              aria-label="Previous review"
+            >
+              <Image
+                src="/icons/left-arrow.svg"
+                alt=""
+                width={43}
+                height={35}
+                className="w-[43px] h-[35px] [&_path]:fill-current"
+              />
+            </button>
+            <button
+              onClick={nextReview}
+              className="hover:opacity-80 transition-opacity"
+              aria-label="Next review"
+            >
+              <Image
+                src="/icons/right-arrow.svg"
+                alt=""
+                width={43}
+                height={35}
+                className="w-[43px] h-[35px] [&_path]:fill-current"
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid lg:grid-cols-7 gap-5 items-center max-w-7xl mx-auto">
           <div className="col-start-2 col-span-2 space-y-4 text-center">
             <blockquote className="text-xl italic font-medium leading-relaxed text-black">
               &ldquo;{firstQuote.quote}&rdquo;

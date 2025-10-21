@@ -29,11 +29,11 @@ export default function AboutSection() {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full mb-20 lg:mb-0">
       <div className="grid grid-cols-7 gap-5 px-4 md:px-8">
         {/* Text Content - Spans 3 columns */}
-        <div className="col-span-7 md:col-span-3 space-y-8 pt-5">
-          <p className="text-base md:text-lg lg:text-xl leading-relaxed md:leading-7 font-light">
+        <div className="col-span-7 md:col-span-3 lg:space-y-8 py-5 lg:py-0 lg:pt-5">
+          <p className="text-base md:text-lg lg:text-xl leading-relaxed md:leading-7 mb-3 lg:mb-0 font-light">
             Bert and Nasi are a contemporary performance duo that met in 2015
             and have since created an entire repertoire of shows in the midst of
             a period of national and international austerity. Their work, in
@@ -58,7 +58,7 @@ export default function AboutSection() {
         </div>
 
         {/* Image Carousel - Spans 3 columns */}
-        <div className="col-span-7 md:col-span-3 relative p-5 pr-0 border-l-4 border-[var(--color-green)]">
+        <div className="col-span-7 md:col-span-3 relative lg:border-l-4 lg:border-[var(--color-green)] lg:p-5 lg:pr-0">
           <div className="relative aspect-[4/3] overflow-hidden">
             <Image
               src={carouselImages[currentImageIndex].src}
@@ -72,7 +72,7 @@ export default function AboutSection() {
 
         {/* Navigation Arrows - Last column */}
         <div className="col-span-7 md:col-span-1 flex items-end justify-center md:justify-end pb-5">
-          <div className="flex gap-5">
+          <div className="flex items-center justify-center gap-8 w-full lg:gap-5 lg:justify-end max-w-32">
             <button
               onClick={prevImage}
               className="hover:opacity-80 transition-opacity"
