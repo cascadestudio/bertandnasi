@@ -121,7 +121,7 @@ export default function Navigation() {
               </svg>
             </a>
             <a
-              href="https://youtube.com/@bertandnasi"
+              href="https://youtube.com/@bertandnasi7388"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[var(--color-green)] transition-colors"
@@ -240,7 +240,7 @@ export default function Navigation() {
                   </svg>
                 </a>
                 <a
-                  href="https://www.youtube.com/@bertandnasi"
+                  href="https://www.youtube.com/@bertandnasi7388"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white hover:text-[var(--color-green)] transition-colors"

@@ -53,7 +53,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://youtube.com/@bertandnasi"
+                href="https://youtube.com/@bertandnasi7388"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[var(--color-green)] transition-colors"
@@ -140,7 +140,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://youtube.com/@bertandnasi"
+                href="https://youtube.com/@bertandnasi7388"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[var(--color-green)] transition-colors"
