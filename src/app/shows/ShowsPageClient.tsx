@@ -114,77 +114,23 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
         </div>
       </div>
 
-      {/* Mobile: Stacked layout with always visible info */}
+      {/* Mobile: Simple list of show titles only */}
       <div className="lg:hidden flex flex-col">
         {shows.map((show, index) => (
           <div key={show._id}>
             <Link
               href={`/shows/${show.slug.current}`}
-              className="block px-6 py-8"
+              className="block py-6 px-5"
             >
               <h2
-                className="font-bold uppercase mb-6 show-title-mobile"
+                className="font-bold uppercase show-title-mobile"
                 style={{
-                  fontSize: "clamp(2rem, 10vw, 4rem)",
-                  lineHeight: "1",
+                  fontSize: "clamp(1.5rem, 8vw, 3rem)",
+                  lineHeight: "1.1",
                 }}
               >
                 {show.title}
               </h2>
-
-              {show.mainImage && (
-                <div className="w-full mb-6">
-                  <img
-                    src={getImageUrl(show.mainImage, 800)}
-                    alt={show.mainImage.alt || show.title}
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-
-              <div className="space-y-0 font-mono border-b-4 border-[var(--color-green)] pb-3">
-                <div className="flex items-start gap-4 py-3">
-                  <span className="flex-shrink-0" style={{ fontSize: "12px" }}>
-                    Year
-                  </span>
-                  <span
-                    className="text-[var(--color-green)] flex-shrink-0"
-                    style={{ fontSize: "12px" }}
-                  >
-                    →
-                  </span>
-                  <span
-                    className="text-right flex-1"
-                    style={{ fontSize: "12px" }}
-                  >
-                    {show.year}
-                  </span>
-                </div>
-
-                {show.credits &&
-                  show.credits.map((credit, index) => (
-                    <div key={index} className="flex items-start gap-4 py-3">
-                      <span
-                        className="flex-shrink-0"
-                        style={{ fontSize: "12px" }}
-                      >
-                        {credit.role}
-                      </span>
-                      <span
-                        className="text-[var(--color-green)] flex-shrink-0"
-                        style={{ fontSize: "12px" }}
-                      >
-                        →
-                      </span>
-                      <span
-                        className="text-right flex-1"
-                        style={{ fontSize: "12px" }}
-                      >
-                        {credit.name}
-                      </span>
-                    </div>
-                  ))}
-              </div>
             </Link>
             {index < shows.length - 1 && (
               <div className="border-b-4 border-[var(--color-green)]" />

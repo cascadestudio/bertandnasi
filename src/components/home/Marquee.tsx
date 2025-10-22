@@ -64,15 +64,17 @@ export default function Marquee({
     );
   }
 
-  // Hide content when mobile menu is open but keep the container
+  // Hide completely when mobile menu is open on mobile devices
   if (isMobileMenuOpen) {
     return (
-      <div
-        className={`bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center ${sticky && "sticky top-[64px] z-50"}`}
-      >
-        <div className="flex whitespace-nowrap">
-          <div className="flex items-center gap-3">
-            {/* Empty content when mobile menu is open */}
+      <div className="hidden lg:block">
+        <div
+          className={`bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center ${sticky && "sticky top-[52px] z-50"}`}
+        >
+          <div className="flex whitespace-nowrap">
+            <div className="flex items-center gap-3">
+              {/* Empty content when mobile menu is open */}
+            </div>
           </div>
         </div>
       </div>
@@ -87,7 +89,7 @@ export default function Marquee({
 
   return (
     <div
-      className={`bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center ${sticky && "sticky top-[64px] z-50"}`}
+      className={`bg-[var(--color-green)] text-white overflow-hidden h-8 flex items-center ${sticky && "sticky top-[52px] z-50"}`}
     >
       <div
         ref={containerRef}
