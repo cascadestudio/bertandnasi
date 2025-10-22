@@ -64,7 +64,7 @@ export const getAllShows = groq`
     trailer,
     collaborators,
     imageGallery,
-    reviews[]-> {
+    "reviews": reviews[]-> {
       _id,
       quote,
       media,
@@ -89,7 +89,7 @@ export const getShowBySlug = groq`
     trailer,
     collaborators,
     imageGallery,
-    reviews[]-> {
+    "reviews": reviews[]-> {
       _id,
       quote,
       media,
@@ -114,7 +114,7 @@ export const getShowById = groq`
     trailer,
     collaborators,
     imageGallery,
-    reviews[]-> {
+    "reviews": reviews[]-> {
       _id,
       quote,
       media,

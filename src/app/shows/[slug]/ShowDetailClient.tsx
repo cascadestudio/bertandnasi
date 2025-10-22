@@ -45,9 +45,9 @@ export default function ShowDetailClient({
       <Marquee pageName="shows" />
 
       {/* Mobile Layout */}
-      <div className="lg:hidden flex flex-col px-5">
+      <div className="lg:hidden flex flex-col">
         {/* Top bar with title, year, and nav */}
-        <div className="flex justify-between items-end py-4 border-b-4 border-[var(--color-green)]">
+        <div className="flex justify-between items-end py-4 px-5 border-b-4 border-[var(--color-green)]">
           <div className="flex gap-3 items-baseline">
             <h1
               className="font-bold uppercase show-title-detail"
@@ -98,10 +98,10 @@ export default function ShowDetailClient({
         </div>
 
         {/* Main content - single column */}
-        <div className="flex flex-col space-y-6 py-6">
+        <div className="flex flex-col space-y-6 py-6 px-5">
           {/* Video or Image */}
           {videoId ? (
-            <div className="w-full aspect-video">
+            <div className="w-full aspect-video -mx-5">
               <iframe
                 width="100%"
                 height="100%"
@@ -114,7 +114,7 @@ export default function ShowDetailClient({
             </div>
           ) : (
             show.mainImage && (
-              <div className="w-full">
+              <div className="w-full -mx-5">
                 <Image
                   src={getImageUrl(show.mainImage, 1200)}
                   alt={show.mainImage.alt || show.title}
@@ -138,7 +138,7 @@ export default function ShowDetailClient({
 
           {/* Image Gallery */}
           {show.imageGallery && show.imageGallery.length > 0 && (
-            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-6">
+            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-6 -mx-5">
               {show.imageGallery.map((image, index) => (
                 <div key={index} className="w-full">
                   <Image
@@ -180,7 +180,7 @@ export default function ShowDetailClient({
 
           {/* Reviews */}
           {show.reviews && show.reviews.length > 0 && (
-            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-6">
+            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-5">
               {show.reviews.map((review) => (
                 <div key={review._id}>
                   <p className="italic mb-2" style={{ fontSize: "16px" }}>
@@ -273,9 +273,9 @@ export default function ShowDetailClient({
         </div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-7 gap-5 items-start">
+        <div className="grid grid-cols-7 gap-5 items-start ml-8 mr-8">
           {/* Columns 1-3: Video or Image + Description */}
-          <div className="col-span-3 space-y-5 pt-5 pb-8">
+          <div className="col-span-3 space-y-5 pt-5 pb-8 -ml-8 pl-8">
             {videoId ? (
               <div className="w-full aspect-video">
                 <iframe
@@ -336,16 +336,16 @@ export default function ShowDetailClient({
           {/* Columns 6-7: Credits, Quotes, Collaborators */}
           <div className="col-span-2 -ml-5 -mr-8 border-l-4 border-[var(--color-green)] pt-5 pb-8 self-stretch flex flex-col">
             {show.credits && show.credits.length > 0 && (
-              <div className="space-y-0 font-mono pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
+              <div className="space-y-0 font-mono pb-5 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
                 {show.credits.map((credit, index) => (
                   <div
                     key={index}
-                    className="pb-3 grid grid-cols-3 gap-2 items-center"
+                    className="pb-3 grid grid-cols-3 gap-2 items-baseline"
                   >
                     <div className="text-left">
                       <p style={{ fontSize: "10px" }}>{credit.role}</p>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center items-baseline">
                       <Image
                         src="/icons/small-arrow-right.svg"
                         alt=""
@@ -363,7 +363,7 @@ export default function ShowDetailClient({
             )}
 
             {show.reviews && show.reviews.length > 0 && (
-              <div className="space-y-5 pt-8 pb-8 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
+              <div className="space-y-5 py-5 pl-5 pr-8 border-b-4 border-[var(--color-green)]">
                 {show.reviews.map((review) => (
                   <div key={review._id}>
                     <p className="italic mb-2" style={{ fontSize: "16px" }}>
