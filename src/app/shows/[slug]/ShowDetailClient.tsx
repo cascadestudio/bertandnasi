@@ -47,13 +47,13 @@ export default function ShowDetailClient({
       {/* Mobile Layout */}
       <div className="lg:hidden flex flex-col">
         {/* Top bar with title, year, and nav */}
-        <div className="flex justify-between items-end py-4 px-5 border-b-4 border-[var(--color-green)]">
-          <div className="flex gap-3 items-baseline">
+        <div className="flex justify-between items-center py-4 px-5 border-b-4 border-[var(--color-green)]">
+          <div className="flex flex-col gap-2">
             <h1
               className="font-bold uppercase show-title-detail"
               style={{
                 fontSize: "clamp(1.5rem, 8vw, 2.5rem)",
-                lineHeight: "1",
+                lineHeight: "1.1",
               }}
             >
               {show.title}
@@ -66,14 +66,14 @@ export default function ShowDetailClient({
             </p>
           </div>
 
-          <div className="flex justify-end items-end gap-3">
+          <div className="flex justify-end items-center gap-3 flex-shrink-0">
             <Link href={`/shows/${prevShow.slug.current}`}>
               <Image
                 src="/icons/left-arrow.svg"
                 alt="Previous show"
                 width={32}
                 height={32}
-                className="w-8 h-8"
+                className="w-8 h-8 flex-shrink-0"
               />
             </Link>
             <Link href={`/shows/${nextShow.slug.current}`}>
@@ -82,7 +82,7 @@ export default function ShowDetailClient({
                 alt="Next show"
                 width={32}
                 height={32}
-                className="w-8 h-8"
+                className="w-8 h-8 flex-shrink-0"
               />
             </Link>
             <Link href="/shows">
@@ -91,7 +91,7 @@ export default function ShowDetailClient({
                 alt="Close"
                 width={28}
                 height={28}
-                className="w-7 h-7 ml-2"
+                className="w-7 h-7 ml-2 flex-shrink-0"
               />
             </Link>
           </div>
@@ -101,7 +101,7 @@ export default function ShowDetailClient({
         <div className="flex flex-col space-y-6 py-6 px-5">
           {/* Video or Image */}
           {videoId ? (
-            <div className="w-full aspect-video -mx-5">
+            <div className="w-full aspect-video">
               <iframe
                 width="100%"
                 height="100%"
@@ -114,7 +114,7 @@ export default function ShowDetailClient({
             </div>
           ) : (
             show.mainImage && (
-              <div className="w-full -mx-5">
+              <div className="w-full">
                 <Image
                   src={getImageUrl(show.mainImage, 1200)}
                   alt={show.mainImage.alt || show.title}
@@ -138,7 +138,7 @@ export default function ShowDetailClient({
 
           {/* Image Gallery */}
           {show.imageGallery && show.imageGallery.length > 0 && (
-            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-6 -mx-5">
+            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-6 -mx-5 px-5">
               {show.imageGallery.map((image, index) => (
                 <div key={index} className="w-full">
                   <Image
@@ -155,20 +155,26 @@ export default function ShowDetailClient({
 
           {/* Credits */}
           {show.credits && show.credits.length > 0 && (
-            <div className="space-y-0 font-mono border-t-4 border-[var(--color-green)] pt-6">
+            <div className="space-y-0 font-mono border-t-4 border-[var(--color-green)] pt-6 -mx-5 px-5">
               {show.credits.map((credit, index) => (
-                <div key={index} className="flex items-start gap-3 py-2">
-                  <span className="flex-shrink-0" style={{ fontSize: "14px" }}>
+                <div
+                  key={index}
+                  className="flex items-baseline justify-between py-2"
+                >
+                  <span
+                    className="flex-1 text-left"
+                    style={{ fontSize: "14px" }}
+                  >
                     {credit.role}
                   </span>
                   <span
-                    className="text-[var(--color-green)] flex-shrink-0"
+                    className="text-[var(--color-green)] mx-4"
                     style={{ fontSize: "14px" }}
                   >
                     →
                   </span>
                   <span
-                    className="text-right flex-1"
+                    className="flex-1 text-right"
                     style={{ fontSize: "14px" }}
                   >
                     {credit.name}
@@ -180,7 +186,7 @@ export default function ShowDetailClient({
 
           {/* Reviews */}
           {show.reviews && show.reviews.length > 0 && (
-            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-5">
+            <div className="space-y-4 border-t-4 border-[var(--color-green)] pt-6 -mx-5 px-5">
               {show.reviews.map((review) => (
                 <div key={review._id}>
                   <p className="italic mb-2" style={{ fontSize: "16px" }}>
@@ -206,7 +212,7 @@ export default function ShowDetailClient({
 
           {/* Collaborators */}
           {show.collaborators && show.collaborators.length > 0 && (
-            <div className="border-t-4 border-[var(--color-green)] pt-6">
+            <div className="border-t-4 border-[var(--color-green)] pt-6 -mx-5 px-5">
               <h3 className="font-semibold mb-3" style={{ fontSize: "14px" }}>
                 Collaborators
               </h3>
