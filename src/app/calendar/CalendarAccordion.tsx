@@ -65,10 +65,13 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
             onClick={() => toggleMonth(monthKey)}
             className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group"
           >
-            <h2 className="month-header">{monthName}</h2>
+            <h2
+              className={`month-header ${openMonths.has(monthKey) ? "month-header-open" : ""}`}
+            >
+              {monthName}
+            </h2>
             <span
-              className="text-[var(--color-green)] font-normal"
-              style={{ fontSize: "84px" }}
+              className={`text-[var(--color-green)] font-normal text-5xl lg:text-[84px] ${openMonths.has(monthKey) ? "lg:text-[var(--color-green)]" : ""}`}
             >
               {openMonths.has(monthKey) ? "−" : "+"}
             </span>
