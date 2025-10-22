@@ -65,7 +65,7 @@ export default function CalendarEventRow({
   return (
     <div
       ref={rowRef}
-      className={`h-[120px] text-black overflow-hidden ${
+      className={`h-[120px] text-black overflow-x-hidden overflow-y-visible lg:overflow-visible ${
         showBorder ? "border-t-4 border-b-4 border-[var(--color-green)]" : ""
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -73,8 +73,12 @@ export default function CalendarEventRow({
     >
       <div
         ref={contentRef}
-        className="flex items-center h-full overflow-x-auto overflow-y-hidden scrollbar-hide"
+        className="flex items-center h-full whitespace-nowrap lg:transition-transform lg:duration-3000 lg:ease-linear overflow-x-auto lg:overflow-visible overflow-y-hidden scrollbar-hide"
         style={{
+          transform:
+            needsMarquee && isHovered
+              ? `translateX(-${slideDistance}px)`
+              : "translateX(0)",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
