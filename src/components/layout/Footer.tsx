@@ -1,6 +1,8 @@
 import Image from "next/image";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-black text-white py-5">
       <div className="px-5">
@@ -79,7 +81,7 @@ export default function Footer() {
             >
               Legal notice
             </a>
-            <p>© Bertandnasi. 2025</p>
+            <p>© Bertandnasi. {currentYear}</p>
             <a
               href="https://cascadestudio.fr"
               target="_blank"
@@ -166,7 +168,7 @@ export default function Footer() {
             >
               Legal notice
             </a>
-            <p>© Bertandnasi. 2025</p>
+            <p>© Bertandnasi. {currentYear}</p>
             <a
               href="https://cascadestudio.fr"
               target="_blank"
