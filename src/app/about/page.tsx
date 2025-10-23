@@ -1,5 +1,34 @@
 import Marquee from "@/components/home/Marquee";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Bert and Nasi are a contemporary performance duo that met in 2015. Award-winning artists performing internationally at major festivals including PuSh Festival, Festival de Otoño, and Adelaide International Festival.",
+  openGraph: {
+    title: "About Bert & Nasi - Contemporary Performance Duo",
+    description:
+      "Bert and Nasi are a contemporary performance duo that met in 2015. Award-winning artists performing internationally at major festivals.",
+    url: "https://bertandnasi.com/about",
+    type: "profile",
+    images: [
+      {
+        url: "https://bertandnasi.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bert & Nasi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Bert & Nasi",
+    description:
+      "Award-winning contemporary performance duo performing internationally since 2015.",
+    images: ["https://bertandnasi.com/og-image.jpg"],
+  },
+};
 
 export default function AboutPage() {
   return (

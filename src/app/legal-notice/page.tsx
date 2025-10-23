@@ -1,3 +1,14 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Legal Notice",
+  description: "Legal information and notices for Bert & Nasi website.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 export default function LegalNoticePage() {
   return (
     <main className="min-h-screen bg-white px-4 md:px-8 py-12">

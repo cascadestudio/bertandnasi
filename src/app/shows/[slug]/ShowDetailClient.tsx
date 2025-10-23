@@ -40,8 +40,40 @@ export default function ShowDetailClient({
   const trailerUrl = trailer?.url || show.trailer || null;
   const videoId = trailerUrl ? getYouTubeId(trailerUrl) : null;
 
+  const imageUrl = show.mainImage
+    ? getImageUrl(show.mainImage, 1200)
+    : "https://bertandnasi.com/og-image.jpg";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TheaterEvent",
+    name: show.title,
+    startDate: `${show.year}`,
+    performer: {
+      "@type": "PerformingGroup",
+      name: "Bert & Nasi",
+    },
+    image: imageUrl,
+    description: show.description
+      ? (show.description as TypedObject[])
+          .map((block) => {
+            if (block._type === "block" && "children" in block) {
+              return (block.children as Array<{ text?: string }>)
+                .map((child) => child.text)
+                .join("");
+            }
+            return "";
+          })
+          .join(" ")
+      : `${show.title} - A ${show.year} performance by Bert & Nasi`,
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Marquee pageName="shows" />
 
       {/* Mobile Layout */}
