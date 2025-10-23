@@ -7,14 +7,14 @@ export default function AboutPage() {
       <Marquee pageName="about" />
       <div className="min-h-screen bg-white">
         {/* Mobile Layout */}
-        <main className="lg:hidden flex flex-col min-h-screen border-t-4 border-[var(--color-green)] px-5">
+        <main className="lg:hidden flex flex-col min-h-screen border-t-4 border-[var(--color-green)]">
           {/* Title */}
-          <div className="flex items-center justify-center border-b-4 border-[var(--color-green)] py-6">
+          <div className="flex items-center px-5 border-b-4 border-[var(--color-green)] py-6">
             <h1 className="text-4xl show-title-hover">Bert & Nasi</h1>
           </div>
 
           {/* Content */}
-          <div className="flex-1 py-6">
+          <div className="flex-1 py-6 px-5">
             <div className="text-left space-y-6">
               <p className="text-black text-base leading-relaxed">
                 Bert and Nasi are a contemporary performance duo that met in
@@ -39,8 +39,8 @@ export default function AboutPage() {
                 ways and for new audiences.
               </p>
 
-              <div className="mt-8 border-t-4 border-[var(--color-green)] pt-6">
-                <h3 className="text-sm font-mono text-black mb-4">Team</h3>
+              <div className="mt-8 border-t-4 border-[var(--color-green)] -mx-5 px-5 pt-6">
+                <h2 className="text-sm font-mono text-black mb-4">Team</h2>
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-sans text-black font-normal">
@@ -56,27 +56,21 @@ export default function AboutPage() {
           </div>
 
           {/* Images */}
-          <div className="space-y-6 border-t-4 border-[var(--color-green)] pt-6">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Bert</h2>
-              <Image
-                src="/images/about-bert.jpg"
-                alt="Bert"
-                width={400}
-                height={400}
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Nasi</h2>
-              <Image
-                src="/images/about-nasi.jpg"
-                alt="Nasi"
-                width={400}
-                height={400}
-                className="w-full h-auto object-cover"
-              />
-            </div>
+          <div className="space-y-6 border-t-4 border-[var(--color-green)] pt-6 px-5 pb-8">
+            <Image
+              src="/images/about-bert.jpg"
+              alt="Bert"
+              width={400}
+              height={400}
+              className="w-full h-auto object-cover"
+            />
+            <Image
+              src="/images/about-nasi.jpg"
+              alt="Nasi"
+              width={400}
+              height={400}
+              className="w-full h-auto object-cover"
+            />
           </div>
         </main>
 
