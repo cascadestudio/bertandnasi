@@ -49,10 +49,15 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
         <div className="col-span-4 flex flex-col pt-8 border-r-4 border-[var(--color-green)] h-full">
           <div className="flex-1 pb-8">
             {categories.map((category, index) => (
-              <div key={category} className={index > 0 ? "pt-5" : ""}>
+              <div
+                key={category}
+                className={
+                  index > 0 ? "" : "border-t-4 border-[var(--color-green)]"
+                }
+              >
                 <div
                   onMouseEnter={() => setHoveredCategory(category)}
-                  className="block px-8 py-12 group border-t-4 border-[var(--color-green)]"
+                  className="block px-8 py-12 group border-b-4 border-[var(--color-green)]"
                 >
                   <h2
                     className={`font-bold uppercase ${
@@ -68,16 +73,13 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
                     {categoryLabels[category] || category}
                   </h2>
                 </div>
-                {index === categories.length - 1 && (
-                  <div className="border-b-4 border-[var(--color-green)]" />
-                )}
               </div>
             ))}
           </div>
         </div>
 
         <div
-          className={`col-span-3 sticky top-12 self-start max-h-[calc(100vh-4rem)] overflow-auto -ml-5 pl-5 -mr-8 pr-8 pt-5 ${hoveredCategory ? "border-b-4 border-[var(--color-green)]" : ""}`}
+          className={`col-span-3 sticky top-12 self-start max-h-[calc(100vh-4rem)] overflow-auto -ml-5 pl-5 -mr-8 pr-8 pt-5 pb-5`}
           onMouseEnter={() =>
             hoveredCategory && setHoveredCategory(hoveredCategory)
           }
@@ -109,62 +111,44 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
         </div>
       </div>
 
-      {/* Mobile: Stacked layout with always visible info */}
+      {/* Mobile: Grouped by category */}
       <div className="lg:hidden flex flex-col">
-        {videos.map((video, index) => (
-          <div key={video._id}>
-            <a
-              href={video.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block px-6 py-8"
-            >
+        {categories.map((category, categoryIndex) => (
+          <div key={category}>
+            <div className="px-6 py-8">
               <h2
-                className="font-bold uppercase mb-6 show-title-mobile"
+                className="font-bold uppercase show-title-mobile"
                 style={{
                   fontSize: "clamp(2rem, 10vw, 4rem)",
                   lineHeight: "1",
                 }}
               >
-                {video.title}
+                {categoryLabels[category] || category}
               </h2>
+            </div>
 
-              {getYouTubeId(video.url) && (
-                <div className="w-full mb-6 aspect-video">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={`https://www.youtube.com/embed/${getYouTubeId(video.url)}`}
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full outline-none"
-                  />
+            <div className="space-y-5 px-6 pb-8">
+              {videosByCategory[category].map((video) => (
+                <div key={video._id}>
+                  {getYouTubeId(video.url) && (
+                    <div className="w-full aspect-video">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src={`https://www.youtube.com/embed/${getYouTubeId(video.url)}`}
+                        title={video.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="w-full h-full outline-none"
+                      />
+                    </div>
+                  )}
                 </div>
-              )}
+              ))}
+            </div>
 
-              <div className="space-y-0 font-mono border-b-4 border-[var(--color-green)] pb-3">
-                <div className="flex items-start gap-4 py-3">
-                  <span className="flex-shrink-0" style={{ fontSize: "12px" }}>
-                    Category
-                  </span>
-                  <span
-                    className="text-[var(--color-green)] flex-shrink-0"
-                    style={{ fontSize: "12px" }}
-                  >
-                    →
-                  </span>
-                  <span
-                    className="text-right flex-1"
-                    style={{ fontSize: "12px" }}
-                  >
-                    {categoryLabels[video.category] || video.category}
-                  </span>
-                </div>
-              </div>
-            </a>
-            {index < videos.length - 1 && (
-              <div className="border-b-4 border-[var(--color-green)]" />
+            {categoryIndex < categories.length - 1 && (
+              <div className="border-b-4 border-[var(--color-green)] -mx-6" />
             )}
           </div>
         ))}
