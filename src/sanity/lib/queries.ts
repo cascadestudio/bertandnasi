@@ -363,29 +363,6 @@ export interface Review {
   featured: boolean;
 }
 
-// Marquee type definition
-export interface Marquee {
-  _id: string;
-  _createdAt: string;
-  _updatedAt: string;
-  text: string;
-}
-
-// Query to get marquee text (singleton)
-export const getMarquee = groq`
-  *[_type == "marquee" && _id == "marquee-singleton"][0] {
-    _id,
-    _createdAt,
-    _updatedAt,
-    text
-  }
-`;
-
-// Data fetching function for marquee
-export async function fetchMarquee(): Promise<Marquee | null> {
-  return await client.fetch(getMarquee);
-}
-
 // PageSettings type definition
 export interface PageSettings {
   _id: string;
@@ -410,21 +387,15 @@ export const getPageSettings = groq`
 export async function fetchMarqueeForPage(
   pageName?: string
 ): Promise<string | null> {
+  const DEFAULT_MARQUEE_TEXT = "The contemporary performance duo";
+
   if (!pageName) {
-    // Fallback to global marquee
-    const globalMarquee = await fetchMarquee();
-    return globalMarquee?.text || null;
+    return DEFAULT_MARQUEE_TEXT;
   }
 
   const pageSettings = await client.fetch(getPageSettings, { pageName });
 
-  if (pageSettings?.marqueeText) {
-    return pageSettings.marqueeText;
-  }
-
-  // Fallback to global marquee
-  const globalMarquee = await fetchMarquee();
-  return globalMarquee?.text || null;
+  return pageSettings?.marqueeText || DEFAULT_MARQUEE_TEXT;
 }
 
 // Query to get featured reviews for homepage

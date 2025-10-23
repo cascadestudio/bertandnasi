@@ -1,9 +1,11 @@
 import { defineField, defineType } from "sanity";
+import { TextIcon } from "@sanity/icons";
 
 export const pageSettings = defineType({
   name: "pageSettings",
-  title: "Page Settings",
+  title: "Marquee Texts",
   type: "document",
+  icon: TextIcon,
   fields: [
     defineField({
       name: "pageName",
@@ -25,7 +27,7 @@ export const pageSettings = defineType({
       title: "Marquee Text",
       type: "string",
       description:
-        "Custom marquee text for this page. If empty, will use the global marquee.",
+        "Custom marquee text for this page. If empty, will show: 'The contemporary performance duo'",
       validation: (Rule) => Rule.max(100),
     }),
   ],
@@ -39,8 +41,8 @@ export const pageSettings = defineType({
       return {
         title: title
           ? `${title.charAt(0).toUpperCase() + title.slice(1)} Page`
-          : "Page Settings",
-        subtitle: subtitle || "No marquee text set",
+          : "Marquee Text",
+        subtitle: subtitle || "Default: The contemporary performance duo",
       };
     },
   },

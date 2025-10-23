@@ -1,6 +1,6 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-import { visionTool } from "@sanity/vision";
+import { TextIcon } from "@sanity/icons";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 
 export default defineConfig({
@@ -13,22 +13,14 @@ export default defineConfig({
     structureTool({
       structure: (S) =>
         S.list()
-          .title("Content")
+          .title("Website")
           .items([
             S.listItem()
-              .title("Marquee Text")
-              .child(
-                S.document()
-                  .schemaType("marquee")
-                  .documentId("marquee-singleton")
-                  .title("Marquee Text")
-              ),
-            S.listItem()
-              .title("Page Settings")
-              .child(S.documentTypeList("pageSettings").title("Page Settings")),
+              .title("Marquee Texts")
+              .icon(TextIcon)
+              .child(S.documentTypeList("pageSettings").title("Marquee Texts")),
             ...S.documentTypeListItems().filter(
-              (listItem) =>
-                !["marquee", "pageSettings"].includes(listItem.getId()!)
+              (listItem) => !["pageSettings"].includes(listItem.getId()!)
             ),
           ]),
     }),

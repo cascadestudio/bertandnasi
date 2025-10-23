@@ -26,12 +26,7 @@ export default function Marquee({
     const fetchText = async () => {
       setIsLoading(true);
       const text = await fetchMarqueeForPage(pageName);
-      setMarqueeText(
-        text ||
-          (pageName === "about"
-            ? "BACKSTAGE PASS"
-            : "THE CONTEMPORARY PERFORMANCE DUO")
-      );
+      setMarqueeText(text || "The contemporary performance duo");
       setIsLoading(false);
     };
     fetchText();
@@ -81,11 +76,7 @@ export default function Marquee({
     );
   }
 
-  const displayText =
-    marqueeText ||
-    (pageName === "about"
-      ? "BACKSTAGE PASS"
-      : "THE CONTEMPORARY PERFORMANCE DUO");
+  const displayText = marqueeText || "The contemporary performance duo";
 
   return (
     <div

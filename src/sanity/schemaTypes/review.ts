@@ -3,7 +3,7 @@ import { CommentIcon } from "@sanity/icons";
 
 export const review = defineType({
   name: "review",
-  title: "Review",
+  title: "Reviews",
   type: "document",
   icon: CommentIcon,
   fields: [
