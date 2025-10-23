@@ -74,7 +74,7 @@ export default function ShowDetailClient({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Marquee pageName="shows" />
+      <Marquee customText="Just in Case You're Curious…" />
 
       {/* Mobile Layout */}
       <div className="lg:hidden flex flex-col">

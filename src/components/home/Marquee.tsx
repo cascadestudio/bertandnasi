@@ -6,12 +6,14 @@ import { useMobileMenu } from "@/contexts/MobileMenuContext";
 
 interface MarqueeProps {
   pageName?: string;
+  customText?: string;
   sticky?: boolean;
   hidden?: boolean;
 }
 
 export default function Marquee({
   pageName,
+  customText,
   sticky = true,
   hidden = false,
 }: MarqueeProps) {
@@ -25,12 +27,17 @@ export default function Marquee({
   useEffect(() => {
     const fetchText = async () => {
       setIsLoading(true);
-      const text = await fetchMarqueeForPage(pageName);
-      setMarqueeText(text || "The contemporary performance duo");
+      // If customText is provided, use it directly
+      if (customText) {
+        setMarqueeText(customText);
+      } else {
+        const text = await fetchMarqueeForPage(pageName);
+        setMarqueeText(text || "The contemporary performance duo");
+      }
       setIsLoading(false);
     };
     fetchText();
-  }, [pageName]);
+  }, [pageName, customText]);
 
   useEffect(() => {
     if (marqueeText && contentRef.current && containerRef.current) {
