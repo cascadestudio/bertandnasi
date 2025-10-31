@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
+import { uiLabels, getLabel } from "@/lib/translations";
 
 const carouselImages = [
   {
@@ -16,6 +19,8 @@ const carouselImages = [
 ];
 
 export default function AboutSection() {
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = () => {
@@ -34,16 +39,12 @@ export default function AboutSection() {
         {/* Text Content - Spans 3 columns */}
         <div className="col-span-7 md:col-span-3 lg:space-y-8 py-5 lg:py-0 lg:pt-5">
           <p className="text-base md:text-lg lg:text-xl leading-relaxed md:leading-7 mb-3 lg:mb-0 font-light">
-            Bert and Nasi are a contemporary performance duo that met in 2015
-            and have since created an entire repertoire of shows in the midst of
-            a period of national and international austerity. Their work, in
-            turn, is stripped back and minimalist, whilst dealing with complex
-            ideas and emotions. Their shows lie somewhere between performance,
-            dance and theatre but if you had to pin them down on it, they&apos;d
-            probably say it&apos;s theatre.
+            {locale === "fr"
+              ? "Bertand et Nasi sont un duo d'artistes-performeurs qui travaillent ensemble depuis 2015 et ont depuis créé un répertoire entier de spectacles au milieu d'une période d'austérité nationale et internationale. Leur travail, à son tour, est dépouillé et minimaliste, tout en traitant d'idées et d'émotions complexes. Leurs spectacles se situent quelque part entre la performance, la danse et le théâtre, mais si vous deviez les coincer là-dessus, ils diraient probablement que c'est du théâtre."
+              : "Bert and Nasi are a contemporary performance duo that met in 2015 and have since created an entire repertoire of shows in the midst of a period of national and international austerity. Their work, in turn, is stripped back and minimalist, whilst dealing with complex ideas and emotions. Their shows lie somewhere between performance, dance and theatre but if you had to pin them down on it, they'd probably say it's theatre."}
           </p>
           <Link
-            href="/about"
+            href={locale === "fr" ? "/fr/about" : "/about"}
             className="inline-flex items-center font-mono gap-2 text-[var(--color-green)] hover:opacity-80 transition-opacity font-bold text-sm"
           >
             <Image
@@ -53,7 +54,7 @@ export default function AboutSection() {
               height={13}
               className="w-[11px] h-[13px] [&_path]:fill-current [&_line]:stroke-current"
             />
-            See more
+            {getLabel(uiLabels.seeMore, locale)}
           </Link>
         </div>
 

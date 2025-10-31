@@ -24,10 +24,18 @@ export const pageSettings = defineType({
     }),
     defineField({
       name: "marqueeText",
-      title: "Marquee Text",
+      title: "Marquee Text (English)",
       type: "string",
       description:
         "Custom marquee text for this page. If empty, will show: 'The contemporary performance duo'",
+      validation: (Rule) => Rule.max(100),
+    }),
+    defineField({
+      name: "marqueeTextFr",
+      title: "Marquee Text (French)",
+      type: "string",
+      description:
+        "Custom marquee text for this page in French. If empty, will show: 'Le duo d'artistes-performeurs'",
       validation: (Rule) => Rule.max(100),
     }),
   ],

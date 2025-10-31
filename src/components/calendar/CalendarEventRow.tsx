@@ -6,6 +6,9 @@ import { CalendarEvent } from "@/sanity/lib/queries";
 import { formatDateRange } from "@/lib/dateUtils";
 import { getImageUrl } from "@/lib/sanityImage";
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
+import { getLocalizedText } from "@/lib/translations";
 
 interface CalendarEventRowProps {
   event: CalendarEvent;
@@ -16,7 +19,10 @@ export default function CalendarEventRow({
   event,
   showBorder = true,
 }: CalendarEventRowProps) {
-  const { month, days } = formatDateRange(event.dates);
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
+  const baseHref = locale === "fr" ? "/fr" : "";
+  const { month, days } = formatDateRange(event.dates, locale);
   const [needsMarquee, setNeedsMarquee] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [slideDistance, setSlideDistance] = useState(0);
@@ -96,7 +102,7 @@ export default function CalendarEventRow({
         {/* Show Name */}
         <div className="flex-shrink-0 px-4">
           <Link
-            href={`/shows/${event.show.slug.current}`}
+            href={`${baseHref}/shows/${event.show.slug.current}`}
             className="text-2xl lg:text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
           >
             {event.show.title}
@@ -134,11 +140,11 @@ export default function CalendarEventRow({
               rel="noopener noreferrer"
               className="text-2xl lg:text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
             >
-              {event.venue}
+              {getLocalizedText(event.venue, event.venueFr, locale)}
             </a>
           ) : (
             <span className="text-2xl lg:text-5xl font-regular uppercase leading-none">
-              {event.venue}
+              {getLocalizedText(event.venue, event.venueFr, locale)}
             </span>
           )}
         </div>
@@ -146,7 +152,7 @@ export default function CalendarEventRow({
         {/* Location */}
         <div className="flex-shrink-0 px-4">
           <span className="text-2xl lg:text-5xl font-regular uppercase leading-none">
-            {event.location}
+            {getLocalizedText(event.location, event.locationFr, locale)}
           </span>
         </div>
       </div>

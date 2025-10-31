@@ -6,13 +6,20 @@ import { Show } from "@/sanity/lib/queries";
 import Marquee from "@/components/home/Marquee";
 import { getImageUrl } from "@/lib/sanityImage";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
+import { getLocalizedText, uiLabels, getLabel } from "@/lib/translations";
 
 interface ShowsPageClientProps {
   shows: Show[];
 }
 
 export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
   const [hoveredShow, setHoveredShow] = useState<Show | null>(null);
+
+  const baseHref = locale === "fr" ? "/fr" : "";
 
   return (
     <div>
@@ -22,7 +29,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
           {shows.map((show, index) => (
             <div key={show._id}>
               <Link
-                href={`/shows/${show.slug.current}`}
+                href={`${baseHref}/shows/${show.slug.current}`}
                 onMouseEnter={() => setHoveredShow(show)}
                 className="block px-8 py-12 group border-t-4 border-[var(--color-green)]"
               >
@@ -55,7 +62,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
           <div className={`${hoveredShow ? "opacity-100" : "opacity-0"}`}>
             {hoveredShow && (
               <Link
-                href={`/shows/${hoveredShow.slug.current}`}
+                href={`${baseHref}/shows/${hoveredShow.slug.current}`}
                 className="block space-y-8"
               >
                 {hoveredShow.mainImage && (
@@ -75,7 +82,9 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
 
                 <div className="space-y-0 font-mono pb-3">
                   <div className="grid grid-cols-3 gap-5 items-baseline pb-2">
-                    <p style={{ fontSize: "12px" }}>Year</p>
+                    <p style={{ fontSize: "12px" }}>
+                      {getLabel(uiLabels.year, locale)}
+                    </p>
                     <Image
                       src="/icons/small-arrow-right.svg"
                       alt=""
@@ -94,7 +103,9 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
                         key={index}
                         className="grid grid-cols-3 gap-5 items-baseline pb-2"
                       >
-                        <p style={{ fontSize: "12px" }}>{credit.role}</p>
+                        <p style={{ fontSize: "12px" }}>
+                          {getLocalizedText(credit.role, credit.roleFr, locale)}
+                        </p>
                         <Image
                           src="/icons/small-arrow-right.svg"
                           alt=""
@@ -119,7 +130,7 @@ export default function ShowsPageClient({ shows }: ShowsPageClientProps) {
         {shows.map((show, index) => (
           <div key={show._id}>
             <Link
-              href={`/shows/${show.slug.current}`}
+              href={`${baseHref}/shows/${show.slug.current}`}
               className="block py-6 px-5"
             >
               <h2

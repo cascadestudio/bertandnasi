@@ -1,6 +1,13 @@
+"use client";
+
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
+import { uiLabels, getLabel } from "@/lib/translations";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
   const currentYear = new Date().getFullYear();
 
   return (
@@ -22,7 +29,7 @@ export default function Footer() {
           {/* Contact */}
           <div className="text-center">
             <h3 className="text-[var(--color-green)] font-mono font-medium text-sm tracking-wide mb-2">
-              Contact us
+              {getLabel(uiLabels.contactUs, locale)}
             </h3>
             <a
               href="mailto:bertandnasi@gmail.com"
@@ -35,7 +42,7 @@ export default function Footer() {
           {/* Follow Us */}
           <div className="text-center">
             <h3 className="text-[var(--color-green)] font-mono font-medium text-sm tracking-wide mb-3">
-              Follow us
+              {getLabel(uiLabels.followUs, locale)}
             </h3>
             <div className="flex justify-center gap-6">
               <a
@@ -76,10 +83,10 @@ export default function Footer() {
           {/* Legal & Credits */}
           <div className="text-center space-y-2 font-mono font-medium text-xs">
             <a
-              href="/legal-notice"
+              href={locale === "fr" ? "/fr/legal-notice" : "/legal-notice"}
               className="hover:text-[var(--color-green)] transition-colors block"
             >
-              Legal notice
+              {getLabel(uiLabels.legalNotice, locale)}
             </a>
             <p>© Bertandnasi. {currentYear}</p>
             <a
@@ -88,7 +95,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:text-[var(--color-green)] transition-colors"
             >
-              Website by Cascade studio
+              {getLabel(uiLabels.websiteBy, locale)}
             </a>
           </div>
         </div>
@@ -109,7 +116,7 @@ export default function Footer() {
           {/* Contact */}
           <div className="col-span-2">
             <h3 className="text-[var(--color-green)] font-mono font-medium text-sm tracking-wide mb-1.5">
-              Contact us
+              {getLabel(uiLabels.contactUs, locale)}
             </h3>
             <a
               href="mailto:bertandnasi@gmail.com"
@@ -122,7 +129,7 @@ export default function Footer() {
           {/* Follow Us */}
           <div className="col-span-1">
             <h3 className="text-[var(--color-green)] font-mono font-medium text-sm tracking-wide mb-3">
-              Follow us
+              {getLabel(uiLabels.followUs, locale)}
             </h3>
             <div className="flex gap-4">
               <a
@@ -163,10 +170,10 @@ export default function Footer() {
           {/* Legal & Credits */}
           <div className="col-span-2 flex flex-col items-end justify-end h-full gap-2 font-mono font-medium text-xs">
             <a
-              href="/legal-notice"
+              href={locale === "fr" ? "/fr/legal-notice" : "/legal-notice"}
               className="hover:text-[var(--color-green)] transition-colors"
             >
-              Legal notice
+              {getLabel(uiLabels.legalNotice, locale)}
             </a>
             <p>© Bertandnasi. {currentYear}</p>
             <a
@@ -175,7 +182,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:text-[var(--color-green)] transition-colors"
             >
-              Website by Cascade studio
+              {getLabel(uiLabels.websiteBy, locale)}
             </a>
           </div>
         </div>

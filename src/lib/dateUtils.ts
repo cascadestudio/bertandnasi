@@ -1,10 +1,13 @@
-export function formatDateRange(dates: string[]): { month: string; days: string } {
+import { Locale } from "./locale";
+
+export function formatDateRange(dates: string[], locale: Locale = 'en'): { month: string; days: string } {
   if (!dates || dates.length === 0) {
     return { month: '', days: '' }
   }
 
   const firstDate = new Date(dates[0])
-  const month = firstDate.toLocaleString('en-US', { month: 'short' }).toUpperCase()
+  const localeCode = locale === 'fr' ? 'fr-FR' : 'en-US'
+  const month = firstDate.toLocaleString(localeCode, { month: 'short' }).toUpperCase()
 
   if (dates.length === 1) {
     const day = firstDate.getDate()
@@ -22,9 +25,10 @@ export function formatDateRange(dates: string[]): { month: string; days: string 
   }
 }
 
-export function formatEventDates(dates: string[]): string {
+export function formatEventDates(dates: string[], locale: Locale = 'en'): string {
+  const localeCode = locale === 'fr' ? 'fr-FR' : 'en-GB'
   return dates.map(date => 
-    new Date(date).toLocaleDateString('en-GB', {
+    new Date(date).toLocaleDateString(localeCode, {
       day: '2-digit',
       month: 'short',
       year: 'numeric',

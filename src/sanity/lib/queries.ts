@@ -11,6 +11,7 @@ export interface Show {
     current: string;
   };
   description?: unknown[];
+  descriptionFr?: unknown[];
   year: number;
   mainImage: {
     asset: {
@@ -21,6 +22,7 @@ export interface Show {
   };
   credits?: Array<{
     role: string;
+    roleFr?: string;
     name: string;
   }>;
   trailer?: string;
@@ -39,12 +41,16 @@ export interface Show {
   reviews?: Array<{
     _id: string;
     quote: string;
+    quoteFr?: string;
     media: string;
+    mediaFr?: string;
     link?: string;
   }>;
   seo?: {
     metaTitle?: string;
+    metaTitleFr?: string;
     metaDescription?: string;
+    metaDescriptionFr?: string;
     keywords?: string[];
   };
 }
@@ -58,6 +64,7 @@ export const getAllShows = groq`
     title,
     slug,
     description,
+    descriptionFr,
     year,
     mainImage,
     credits,
@@ -67,7 +74,9 @@ export const getAllShows = groq`
     "reviews": reviews[]-> {
       _id,
       quote,
+      quoteFr,
       media,
+      mediaFr,
       link
     },
     seo
@@ -83,6 +92,7 @@ export const getShowBySlug = groq`
     title,
     slug,
     description,
+    descriptionFr,
     year,
     mainImage,
     credits,
@@ -92,7 +102,9 @@ export const getShowBySlug = groq`
     "reviews": reviews[]-> {
       _id,
       quote,
+      quoteFr,
       media,
+      mediaFr,
       link
     },
     seo
@@ -108,6 +120,7 @@ export const getShowById = groq`
     title,
     slug,
     description,
+    descriptionFr,
     year,
     mainImage,
     credits,
@@ -117,7 +130,9 @@ export const getShowById = groq`
     "reviews": reviews[]-> {
       _id,
       quote,
+      quoteFr,
       media,
+      mediaFr,
       link
     },
     seo
@@ -145,7 +160,9 @@ export interface CalendarEvent {
   };
   dates: string[];
   venue: string;
+  venueFr?: string;
   location: string;
+  locationFr?: string;
   ticketUrl?: string;
   additionalImages?: Array<{
     asset: {
@@ -170,7 +187,9 @@ export const getUpcomingEvents = groq`
     },
     dates,
     venue,
+    venueFr,
     location,
+    locationFr,
     ticketUrl,
     additionalImages
   }
@@ -190,7 +209,9 @@ export const getAllCalendarEvents = groq`
     },
     dates,
     venue,
+    venueFr,
     location,
+    locationFr,
     ticketUrl,
     additionalImages
   }
@@ -278,6 +299,7 @@ export interface Video {
   _createdAt: string;
   _updatedAt: string;
   title: string;
+  titleFr?: string;
   url: string;
   category: string;
   relatedShow?: {
@@ -296,6 +318,7 @@ export const getAllVideos = groq`
     _createdAt,
     _updatedAt,
     title,
+    titleFr,
     url,
     category,
     relatedShow-> {
@@ -313,6 +336,7 @@ export const getTrailerForShow = groq`
     _createdAt,
     _updatedAt,
     title,
+    titleFr,
     url,
     category
   }
@@ -358,7 +382,9 @@ export interface Review {
   _createdAt: string;
   _updatedAt: string;
   quote: string;
+  quoteFr?: string;
   media: string;
+  mediaFr?: string;
   link?: string;
   featured: boolean;
 }
@@ -370,6 +396,7 @@ export interface PageSettings {
   _updatedAt: string;
   pageName: string;
   marqueeText?: string;
+  marqueeTextFr?: string;
 }
 
 // Query to get page settings by page name
@@ -379,21 +406,31 @@ export const getPageSettings = groq`
     _createdAt,
     _updatedAt,
     pageName,
-    marqueeText
+    marqueeText,
+    marqueeTextFr
   }
 `;
 
 // Function to get marquee text for a specific page
 export async function fetchMarqueeForPage(
-  pageName?: string
+  pageName?: string,
+  locale: "en" | "fr" = "en"
 ): Promise<string | null> {
-  const DEFAULT_MARQUEE_TEXT = "The contemporary performance duo";
+  const DEFAULT_MARQUEE_TEXT_EN = "The contemporary performance duo";
+  const DEFAULT_MARQUEE_TEXT_FR = "Le duo d'artistes-performeurs";
+
+  const DEFAULT_MARQUEE_TEXT =
+    locale === "fr" ? DEFAULT_MARQUEE_TEXT_FR : DEFAULT_MARQUEE_TEXT_EN;
 
   if (!pageName) {
     return DEFAULT_MARQUEE_TEXT;
   }
 
   const pageSettings = await client.fetch(getPageSettings, { pageName });
+
+  if (locale === "fr" && pageSettings?.marqueeTextFr) {
+    return pageSettings.marqueeTextFr;
+  }
 
   return pageSettings?.marqueeText || DEFAULT_MARQUEE_TEXT;
 }
@@ -405,7 +442,9 @@ export const getFeaturedReviews = groq`
     _createdAt,
     _updatedAt,
     quote,
+    quoteFr,
     media,
+    mediaFr,
     link,
     featured
   }
@@ -418,7 +457,9 @@ export const getAllReviews = groq`
     _createdAt,
     _updatedAt,
     quote,
+    quoteFr,
     media,
+    mediaFr,
     link,
     featured
   }

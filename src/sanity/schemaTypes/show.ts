@@ -26,7 +26,7 @@ export const show = defineType({
     },
     {
       name: "description",
-      title: "Description",
+      title: "Description (English)",
       type: "array",
       of: [
         {
@@ -49,6 +49,31 @@ export const show = defineType({
         },
       ],
       validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "descriptionFr",
+      title: "Description (French)",
+      type: "array",
+      of: [
+        {
+          type: "block",
+          styles: [
+            { title: "Normal", value: "normal" },
+            { title: "H3", value: "h3" },
+            { title: "Quote", value: "blockquote" },
+          ],
+          lists: [
+            { title: "Bullet", value: "bullet" },
+            { title: "Number", value: "number" },
+          ],
+          marks: {
+            decorators: [
+              { title: "Strong", value: "strong" },
+              { title: "Emphasis", value: "em" },
+            ],
+          },
+        },
+      ],
     },
     {
       name: "year",
@@ -90,9 +115,14 @@ export const show = defineType({
           fields: [
             {
               name: "role",
-              title: "Role",
+              title: "Role (English)",
               type: "string",
               validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "roleFr",
+              title: "Role (French)",
+              type: "string",
             },
             {
               name: "name",
@@ -194,20 +224,33 @@ export const show = defineType({
       fields: [
         {
           name: "metaTitle",
-          title: "Meta Title",
+          title: "Meta Title (English)",
           type: "string",
           validation: (Rule) => Rule.max(60),
           description:
             'The title that appears in search results and browser tabs. Keep it under 60 characters. Include the show name and year. Example: "Hamlet: A Modern Retelling (2024)"',
         },
         {
+          name: "metaTitleFr",
+          title: "Meta Title (French)",
+          type: "string",
+          validation: (Rule) => Rule.max(60),
+        },
+        {
           name: "metaDescription",
-          title: "Meta Description",
+          title: "Meta Description (English)",
           type: "text",
           rows: 2,
           validation: (Rule) => Rule.max(160),
           description:
             'A brief summary that appears in search results. Write 150-160 characters. Hook readers with what makes this production unique. Example: "A haunting reimagining of Shakespeare\'s classic, set in modern corporate boardrooms. Directed by [Name]."',
+        },
+        {
+          name: "metaDescriptionFr",
+          title: "Meta Description (French)",
+          type: "text",
+          rows: 2,
+          validation: (Rule) => Rule.max(160),
         },
       ],
     },

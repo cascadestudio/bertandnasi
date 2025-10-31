@@ -9,10 +9,16 @@ export const video = defineType({
   fields: [
     {
       name: "title",
-      title: "Video Title",
+      title: "Video Title (English)",
       type: "string",
       validation: (Rule) => Rule.required(),
       description: "The title of the video.",
+    },
+    {
+      name: "titleFr",
+      title: "Video Title (French)",
+      type: "string",
+      description: "The title of the video in French.",
     },
     {
       name: "url",

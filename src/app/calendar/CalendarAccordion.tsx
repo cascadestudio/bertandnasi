@@ -3,18 +3,24 @@
 import { useState } from "react";
 import CalendarEventRow from "@/components/calendar/CalendarEventRow";
 import { CalendarEvent } from "@/sanity/lib/queries";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
 
 interface CalendarAccordionProps {
   events: CalendarEvent[];
 }
 
 export default function CalendarAccordion({ events }: CalendarAccordionProps) {
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
+  const localeCode = locale === "fr" ? "fr-FR" : "en-GB";
+
   // Group events by month
   const eventsByMonth = events.reduce(
     (acc, event) => {
       const firstDate = new Date(event.dates[0]);
       const monthKey = `${firstDate.getFullYear()}-${String(firstDate.getMonth()).padStart(2, "0")}`;
-      const monthName = firstDate.toLocaleDateString("en-GB", {
+      const monthName = firstDate.toLocaleDateString(localeCode, {
         month: "long",
       });
 

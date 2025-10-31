@@ -7,6 +7,14 @@ import Marquee from "@/components/home/Marquee";
 import { getImageUrl } from "@/lib/sanityImage";
 import { PortableText } from "@portabletext/react";
 import { TypedObject } from "sanity";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
+import {
+  getLocalizedText,
+  getLocalizedBlockContent,
+  uiLabels,
+  getLabel,
+} from "@/lib/translations";
 
 interface ShowDetailClientProps {
   show: Show;
@@ -19,6 +27,10 @@ export default function ShowDetailClient({
   allShows,
   trailer,
 }: ShowDetailClientProps) {
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
+  const baseHref = locale === "fr" ? "/fr" : "";
+
   const currentIndex = allShows.findIndex((s) => s._id === show._id);
   const prevShow =
     currentIndex > 0
@@ -43,6 +55,12 @@ export default function ShowDetailClient({
   const imageUrl = show.mainImage
     ? getImageUrl(show.mainImage, 1200)
     : "https://bertandnasi.com/og-image.jpg";
+
+  const showDescription = getLocalizedBlockContent(
+    show.description || [],
+    show.descriptionFr,
+    locale
+  );
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -99,7 +117,7 @@ export default function ShowDetailClient({
           </div>
 
           <div className="flex justify-end items-center gap-3 flex-shrink-0">
-            <Link href={`/shows/${prevShow.slug.current}`}>
+            <Link href={`${baseHref}/shows/${prevShow.slug.current}`}>
               <Image
                 src="/icons/left-arrow.svg"
                 alt="Previous show"
@@ -108,7 +126,7 @@ export default function ShowDetailClient({
                 className="w-8 h-8 flex-shrink-0"
               />
             </Link>
-            <Link href={`/shows/${nextShow.slug.current}`}>
+            <Link href={`${baseHref}/shows/${nextShow.slug.current}`}>
               <Image
                 src="/icons/right-arrow.svg"
                 alt="Next show"
@@ -117,7 +135,7 @@ export default function ShowDetailClient({
                 className="w-8 h-8 flex-shrink-0"
               />
             </Link>
-            <Link href="/shows">
+            <Link href={`${baseHref}/shows`}>
               <Image
                 src="/icons/close.svg"
                 alt="Close"
@@ -159,12 +177,12 @@ export default function ShowDetailClient({
           )}
 
           {/* Description */}
-          {show.description && (
+          {showDescription && (
             <div
               className="prose prose-sm max-w-none leading-relaxed"
               style={{ fontSize: "16px", lineHeight: "1.6" }}
             >
-              <PortableText value={show.description as TypedObject[]} />
+              <PortableText value={showDescription as TypedObject[]} />
             </div>
           )}
 
@@ -197,7 +215,7 @@ export default function ShowDetailClient({
                     className="flex-1 text-left"
                     style={{ fontSize: "14px" }}
                   >
-                    {credit.role}
+                    {getLocalizedText(credit.role, credit.roleFr, locale)}
                   </span>
                   <span
                     className="text-[var(--color-green)] mx-4"
@@ -222,7 +240,9 @@ export default function ShowDetailClient({
               {show.reviews.map((review) => (
                 <div key={review._id}>
                   <p className="italic mb-2" style={{ fontSize: "16px" }}>
-                    &ldquo;{review.quote}&rdquo;
+                    &ldquo;
+                    {getLocalizedText(review.quote, review.quoteFr, locale)}
+                    &rdquo;
                   </p>
                   {review.link ? (
                     <a
@@ -232,10 +252,12 @@ export default function ShowDetailClient({
                       className="hover:text-[var(--color-green)] transition-colors"
                       style={{ fontSize: "14px" }}
                     >
-                      {review.media}
+                      {getLocalizedText(review.media, review.mediaFr, locale)}
                     </a>
                   ) : (
-                    <p style={{ fontSize: "14px" }}>{review.media}</p>
+                    <p style={{ fontSize: "14px" }}>
+                      {getLocalizedText(review.media, review.mediaFr, locale)}
+                    </p>
                   )}
                 </div>
               ))}
@@ -246,7 +268,7 @@ export default function ShowDetailClient({
           {show.collaborators && show.collaborators.length > 0 && (
             <div className="border-t-4 border-[var(--color-green)] pt-6 -mx-5 px-5">
               <h3 className="font-semibold mb-3" style={{ fontSize: "14px" }}>
-                Collaborators
+                {getLabel(uiLabels.collaborators, locale)}
               </h3>
               <div className="space-y-1">
                 {show.collaborators.map((collab, index) => (
@@ -280,7 +302,7 @@ export default function ShowDetailClient({
           </div>
 
           <div className="flex justify-end items-end gap-5">
-            <Link href={`/shows/${prevShow.slug.current}`}>
+            <Link href={`${baseHref}/shows/${prevShow.slug.current}`}>
               <Image
                 src="/icons/left-arrow.svg"
                 alt="Previous show"
@@ -289,7 +311,7 @@ export default function ShowDetailClient({
                 className="w-10 h-10"
               />
             </Link>
-            <Link href={`/shows/${nextShow.slug.current}`}>
+            <Link href={`${baseHref}/shows/${nextShow.slug.current}`}>
               <Image
                 src="/icons/right-arrow.svg"
                 alt="Next show"
@@ -298,7 +320,7 @@ export default function ShowDetailClient({
                 className="w-10 h-10"
               />
             </Link>
-            <Link href="/shows">
+            <Link href={`${baseHref}/shows`}>
               <Image
                 src="/icons/close.svg"
                 alt="Close"
@@ -340,12 +362,12 @@ export default function ShowDetailClient({
               )
             )}
 
-            {show.description && (
+            {showDescription && (
               <div
                 className="prose prose-sm max-w-none leading-relaxed"
                 style={{ fontSize: "16px", lineHeight: "1.6" }}
               >
-                <PortableText value={show.description as TypedObject[]} />
+                <PortableText value={showDescription as TypedObject[]} />
               </div>
             )}
           </div>
@@ -381,7 +403,9 @@ export default function ShowDetailClient({
                     className="pb-3 grid grid-cols-3 gap-2 items-baseline"
                   >
                     <div className="text-left">
-                      <p style={{ fontSize: "10px" }}>{credit.role}</p>
+                      <p style={{ fontSize: "10px" }}>
+                        {getLocalizedText(credit.role, credit.roleFr, locale)}
+                      </p>
                     </div>
                     <div className="flex justify-center items-baseline">
                       <Image
@@ -405,7 +429,9 @@ export default function ShowDetailClient({
                 {show.reviews.map((review) => (
                   <div key={review._id}>
                     <p className="italic mb-2" style={{ fontSize: "16px" }}>
-                      &ldquo;{review.quote}&rdquo;
+                      &ldquo;
+                      {getLocalizedText(review.quote, review.quoteFr, locale)}
+                      &rdquo;
                     </p>
                     {review.link ? (
                       <a
@@ -415,10 +441,12 @@ export default function ShowDetailClient({
                         className="hover:text-[var(--color-green)] transition-colors"
                         style={{ fontSize: "16px" }}
                       >
-                        {review.media}
+                        {getLocalizedText(review.media, review.mediaFr, locale)}
                       </a>
                     ) : (
-                      <p style={{ fontSize: "16px" }}>{review.media}</p>
+                      <p style={{ fontSize: "16px" }}>
+                        {getLocalizedText(review.media, review.mediaFr, locale)}
+                      </p>
                     )}
                   </div>
                 ))}
@@ -428,7 +456,7 @@ export default function ShowDetailClient({
             {show.collaborators && show.collaborators.length > 0 && (
               <div className="pt-8 pl-5 pr-8">
                 <h3 className="font-semibold mb-3" style={{ fontSize: "12px" }}>
-                  Collaborators
+                  {getLabel(uiLabels.collaborators, locale)}
                 </h3>
                 <div className="space-y-1">
                   {show.collaborators.map((collab, index) => (

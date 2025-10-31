@@ -3,12 +3,17 @@
 import { useState } from "react";
 import { Video } from "@/sanity/lib/queries";
 import Marquee from "@/components/home/Marquee";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
+import { videoCategoryLabels, getLabel, getLocalizedText } from "@/lib/translations";
 
 interface VideosPageClientProps {
   videos: Video[];
 }
 
 export default function VideosPageClient({ videos }: VideosPageClientProps) {
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   const getYouTubeId = (url: string) => {
@@ -16,12 +21,6 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return match && match[2].length === 11 ? match[2] : null;
-  };
-
-  const categoryLabels: Record<string, string> = {
-    "online-content": "Online Content",
-    trailers: "Trailers",
-    "short-films": "Short Films",
   };
 
   // Group videos by category
@@ -70,7 +69,7 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
                       lineHeight: "82px",
                     }}
                   >
-                    {categoryLabels[category] || category}
+                    {getLabel(videoCategoryLabels[category as keyof typeof videoCategoryLabels], locale)}
                   </h2>
                 </div>
               </div>
@@ -96,7 +95,7 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
                           width="100%"
                           height="100%"
                           src={`https://www.youtube.com/embed/${getYouTubeId(video.url)}`}
-                          title={video.title}
+                          title={getLocalizedText(video.title, video.titleFr, locale)}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                           className="w-full h-full outline-none"
@@ -123,7 +122,7 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
                   lineHeight: "1",
                 }}
               >
-                {categoryLabels[category] || category}
+                {getLabel(videoCategoryLabels[category as keyof typeof videoCategoryLabels], locale)}
               </h2>
             </div>
 
@@ -136,7 +135,7 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
                         width="100%"
                         height="100%"
                         src={`https://www.youtube.com/embed/${getYouTubeId(video.url)}`}
-                        title={video.title}
+                        title={getLocalizedText(video.title, video.titleFr, locale)}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full outline-none"

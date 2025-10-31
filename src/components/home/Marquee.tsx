@@ -3,6 +3,8 @@
 import { fetchMarqueeForPage } from "@/sanity/lib/queries";
 import { useEffect, useRef, useState } from "react";
 import { useMobileMenu } from "@/contexts/MobileMenuContext";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
 
 interface MarqueeProps {
   pageName?: string;
@@ -17,6 +19,8 @@ export default function Marquee({
   sticky = true,
   hidden = false,
 }: MarqueeProps) {
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
   const [marqueeText, setMarqueeText] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [animationDuration, setAnimationDuration] = useState<number>(20);
@@ -31,13 +35,18 @@ export default function Marquee({
       if (customText) {
         setMarqueeText(customText);
       } else {
-        const text = await fetchMarqueeForPage(pageName);
-        setMarqueeText(text || "The contemporary performance duo");
+        const text = await fetchMarqueeForPage(pageName, locale);
+        setMarqueeText(
+          text ||
+            (locale === "fr"
+              ? "Le duo d'artistes-performeurs"
+              : "The contemporary performance duo")
+        );
       }
       setIsLoading(false);
     };
     fetchText();
-  }, [pageName, customText]);
+  }, [pageName, customText, locale]);
 
   useEffect(() => {
     if (marqueeText && contentRef.current && containerRef.current) {

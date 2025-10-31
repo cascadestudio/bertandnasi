@@ -9,18 +9,33 @@ export const review = defineType({
   fields: [
     {
       name: "quote",
-      title: "Quote",
+      title: "Quote (English)",
       type: "text",
       rows: 4,
       validation: (Rule) => Rule.required().max(500),
       description: "The review quote or text.",
     },
     {
+      name: "quoteFr",
+      title: "Quote (French)",
+      type: "text",
+      rows: 4,
+      validation: (Rule) => Rule.max(500),
+      description: "The review quote or text in French.",
+    },
+    {
       name: "media",
-      title: "Author / Media Source",
+      title: "Author / Media Source (English)",
       type: "string",
       validation: (Rule) => Rule.required().max(100),
       description: "The name of the publication, media outlet, or author.",
+    },
+    {
+      name: "mediaFr",
+      title: "Author / Media Source (French)",
+      type: "string",
+      validation: (Rule) => Rule.max(100),
+      description: "The name of the publication, media outlet, or author in French.",
     },
     {
       name: "link",

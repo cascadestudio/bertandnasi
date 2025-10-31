@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Image from "next/image";
 import { useMobileMenu } from "@/contexts/MobileMenuContext";
+import { getLocale, getAlternatePath } from "@/lib/locale";
+import { navLabels, getLabel } from "@/lib/translations";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -12,6 +14,9 @@ export default function Navigation() {
     isMobileMenuOpen: mobileMenuOpen,
     setIsMobileMenuOpen: setMobileMenuOpen,
   } = useMobileMenu();
+
+  const locale = getLocale(pathname);
+  const alternatePath = getAlternatePath(pathname);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -25,11 +30,15 @@ export default function Navigation() {
     };
   }, [mobileMenuOpen]);
 
+  const baseHref = locale === "fr" ? "/fr" : "";
   const navLinks = [
-    { href: "/calendar", label: "Calendar" },
-    { href: "/shows", label: "Shows" },
-    { href: "/videos", label: "Videos" },
-    { href: "/about", label: "About" },
+    {
+      href: `${baseHref}/calendar`,
+      label: getLabel(navLabels.calendar, locale),
+    },
+    { href: `${baseHref}/shows`, label: getLabel(navLabels.shows, locale) },
+    { href: `${baseHref}/videos`, label: getLabel(navLabels.videos, locale) },
+    { href: `${baseHref}/about`, label: getLabel(navLabels.about, locale) },
   ];
 
   return (
@@ -42,7 +51,7 @@ export default function Navigation() {
         >
           {/* Logo - Column 1 */}
           <Link
-            href="/"
+            href={locale === "fr" ? "/fr" : "/"}
             className="col-span-1 hover:opacity-80 transition-opacity flex items-center"
           >
             <Image
@@ -54,52 +63,41 @@ export default function Navigation() {
             />
           </Link>
 
-          {/* Calendar - Column 2 */}
-          <Link
-            href="/calendar"
-            className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
-              pathname === "/calendar" ? "nav-item-active" : ""
-            }`}
-          >
-            Calendar
-          </Link>
-
-          {/* Shows - Column 3 */}
-          <Link
-            href="/shows"
-            className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
-              pathname === "/shows" ? "nav-item-active" : ""
-            }`}
-          >
-            Shows
-          </Link>
-
-          {/* Videos - Column 4 */}
-          <Link
-            href="/videos"
-            className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
-              pathname === "/videos" ? "nav-item-active" : ""
-            }`}
-          >
-            Videos
-          </Link>
-
-          {/* About - Column 5 */}
-          <Link
-            href="/about"
-            className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
-              pathname === "/about" ? "nav-item-active" : ""
-            }`}
-          >
-            About
-          </Link>
+          {/* Navigation Links - Columns 2-5 */}
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`col-span-1 nav-item hover:text-[var(--color-green)] transition-colors ${
+                pathname === link.href ? "nav-item-active" : ""
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
 
           {/* Language Selector - Column 6 */}
           <div className="col-span-1 flex items-center justify-center h-full gap-2">
-            <button className="nav-item hover:text-[var(--color-green)] transition-colors">
+            <Link
+              href={locale === "en" ? alternatePath : "#"}
+              className={
+                locale === "fr"
+                  ? "nav-item-active"
+                  : "nav-item hover:text-[var(--color-green)] transition-colors"
+              }
+            >
               Fr
-            </button>
-            <button className="nav-item-active">En</button>
+            </Link>
+            <Link
+              href={locale === "fr" ? alternatePath : "#"}
+              className={
+                locale === "en"
+                  ? "nav-item-active"
+                  : "nav-item hover:text-[var(--color-green)] transition-colors"
+              }
+            >
+              En
+            </Link>
           </div>
 
           {/* Social Icons - Column 7 */}
@@ -143,7 +141,10 @@ export default function Navigation() {
       {/* Mobile Navigation Header */}
       <div className="md:hidden px-4 bg-white h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="hover:opacity-80 transition-opacity">
+        <Link
+          href={locale === "fr" ? "/fr" : "/"}
+          className="hover:opacity-80 transition-opacity"
+        >
           <Image
             src="/images/logo.svg"
             alt="BERT&NASI"
@@ -180,7 +181,7 @@ export default function Navigation() {
           {/* Header with Logo and Close */}
           <div className="flex items-center justify-between px-5 h-16 border-b-4 border-[var(--color-green)]">
             <Link
-              href="/"
+              href={locale === "fr" ? "/fr" : "/"}
               className="hover:opacity-80 transition-opacity"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -219,6 +220,24 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Language Selector */}
+            <div className="h-16 flex items-center px-5 border-b-4 border-[var(--color-green)] gap-4">
+              <Link
+                href={locale === "en" ? alternatePath : "#"}
+                className={`text-lg font-medium ${locale === "fr" ? "text-[var(--color-green)]" : "text-white hover:text-[var(--color-green)]"} transition-colors`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Fr
+              </Link>
+              <Link
+                href={locale === "fr" ? alternatePath : "#"}
+                className={`text-lg font-medium ${locale === "en" ? "text-[var(--color-green)]" : "text-white hover:text-[var(--color-green)]"} transition-colors`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                En
+              </Link>
+            </div>
 
             {/* Social Media Links */}
             <div className="h-16 flex items-center px-5  border-[var(--color-green)]">

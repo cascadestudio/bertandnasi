@@ -3,12 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Review } from "@/sanity/lib/queries";
+import { usePathname } from "next/navigation";
+import { getLocale } from "@/lib/locale";
+import { getLocalizedText } from "@/lib/translations";
 
 interface ReviewsSectionProps {
   reviews: Review[];
 }
 
 export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
+  const pathname = usePathname();
+  const locale = getLocale(pathname);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!reviews || reviews.length === 0) {
@@ -34,7 +39,9 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
         <div className="lg:hidden flex flex-col space-y-8 min-h-[200px]">
           <div className="space-y-4 text-center flex-1 flex flex-col justify-center">
             <blockquote className="text-lg italic font-medium leading-relaxed text-black">
-              &ldquo;{firstQuote.quote}&rdquo;
+              &ldquo;
+              {getLocalizedText(firstQuote.quote, firstQuote.quoteFr, locale)}
+              &rdquo;
             </blockquote>
             {firstQuote.link ? (
               <cite className="block text-sm not-italic font-normal text-black">
@@ -44,12 +51,16 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   rel="noopener noreferrer"
                   className="hover:text-[var(--color-green)] transition-colors"
                 >
-                  {firstQuote.media}
+                  {getLocalizedText(
+                    firstQuote.media,
+                    firstQuote.mediaFr,
+                    locale
+                  )}
                 </a>
               </cite>
             ) : (
               <cite className="block text-sm not-italic font-normal text-black">
-                {firstQuote.media}
+                {getLocalizedText(firstQuote.media, firstQuote.mediaFr, locale)}
               </cite>
             )}
           </div>
@@ -88,7 +99,9 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
         <div className="hidden lg:grid lg:grid-cols-7 gap-5 items-center max-w-7xl mx-auto">
           <div className="col-start-2 col-span-2 space-y-4 text-center">
             <blockquote className="text-xl italic font-medium leading-relaxed text-black">
-              &ldquo;{firstQuote.quote}&rdquo;
+              &ldquo;
+              {getLocalizedText(firstQuote.quote, firstQuote.quoteFr, locale)}
+              &rdquo;
             </blockquote>
             {firstQuote.link ? (
               <cite className="block text-base not-italic font-normal text-black">
@@ -98,12 +111,16 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   rel="noopener noreferrer"
                   className="hover:text-[var(--color-green)] transition-colors"
                 >
-                  {firstQuote.media}
+                  {getLocalizedText(
+                    firstQuote.media,
+                    firstQuote.mediaFr,
+                    locale
+                  )}
                 </a>
               </cite>
             ) : (
               <cite className="block text-base not-italic font-normal text-black">
-                {firstQuote.media}
+                {getLocalizedText(firstQuote.media, firstQuote.mediaFr, locale)}
               </cite>
             )}
           </div>
@@ -137,7 +154,9 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
           </div>
           <div className="col-span-2 space-y-4 text-center">
             <blockquote className="text-xl italic font-medium leading-relaxed text-black">
-              &ldquo;{secondQuote.quote}&rdquo;
+              &ldquo;
+              {getLocalizedText(secondQuote.quote, secondQuote.quoteFr, locale)}
+              &rdquo;
             </blockquote>
             {secondQuote.link ? (
               <cite className="block text-base not-italic font-normal text-black">
@@ -147,12 +166,20 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   rel="noopener noreferrer"
                   className="hover:text-[var(--color-green)] transition-colors"
                 >
-                  {secondQuote.media}
+                  {getLocalizedText(
+                    secondQuote.media,
+                    secondQuote.mediaFr,
+                    locale
+                  )}
                 </a>
               </cite>
             ) : (
               <cite className="block text-base not-italic font-normal text-black">
-                {secondQuote.media}
+                {getLocalizedText(
+                  secondQuote.media,
+                  secondQuote.mediaFr,
+                  locale
+                )}
               </cite>
             )}
           </div>
