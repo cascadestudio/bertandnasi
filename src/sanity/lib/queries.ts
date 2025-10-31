@@ -1,5 +1,6 @@
 import { groq } from "next-sanity";
 import { client } from "../../../sanity";
+import { TypedObject } from "sanity";
 
 // Show type definition
 export interface Show {
@@ -10,8 +11,8 @@ export interface Show {
   slug: {
     current: string;
   };
-  description?: unknown[];
-  descriptionFr?: unknown[];
+  description?: TypedObject[];
+  descriptionFr?: TypedObject[];
   year: number;
   mainImage: {
     asset: {

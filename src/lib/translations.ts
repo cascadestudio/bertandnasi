@@ -1,4 +1,5 @@
 import { Locale } from "./locale";
+import { TypedObject } from "sanity";
 
 /**
  * Gets localized text based on locale
@@ -20,10 +21,10 @@ export function getLocalizedText(
  * Falls back to English if French content is not provided
  */
 export function getLocalizedBlockContent(
-  enContent: any[],
-  frContent: any[] | undefined | null,
+  enContent: TypedObject[] | undefined,
+  frContent: TypedObject[] | undefined | null,
   locale: Locale
-): any[] {
+): TypedObject[] | undefined {
   if (locale === "fr" && frContent && frContent.length > 0) {
     return frContent;
   }

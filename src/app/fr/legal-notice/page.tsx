@@ -61,8 +61,8 @@ export default function LegalNoticePageFrench() {
                 Propriété intellectuelle
               </h2>
               <p>
-                L'ensemble de ce site relève de la législation française et
-                internationale sur le droit d'auteur et la propriété
+                L&apos;ensemble de ce site relève de la législation française et
+                internationale sur le droit d&apos;auteur et la propriété
                 intellectuelle. Tous les droits de reproduction sont réservés, y
                 compris pour les documents téléchargeables et les
                 représentations iconographiques et photographiques.
@@ -90,7 +90,7 @@ export default function LegalNoticePageFrench() {
               </h2>
               <p>
                 Ce site ne collecte aucune donnée personnelle des visiteurs.
-                Aucun cookie n'est utilisé pour le suivi ou l'analyse.
+                Aucun cookie n&apos;est utilisé pour le suivi ou l&apos;analyse.
               </p>
             </div>
           </section>

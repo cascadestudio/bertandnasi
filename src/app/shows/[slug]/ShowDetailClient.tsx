@@ -57,7 +57,7 @@ export default function ShowDetailClient({
     : "https://bertandnasi.com/og-image.jpg";
 
   const showDescription = getLocalizedBlockContent(
-    show.description || [],
+    show.description,
     show.descriptionFr,
     locale
   );

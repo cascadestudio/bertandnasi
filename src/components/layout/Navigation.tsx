@@ -210,7 +210,7 @@ export default function Navigation() {
 
           {/* Menu Links */}
           <div className="flex-1 flex flex-col">
-            {navLinks.map((link, index) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

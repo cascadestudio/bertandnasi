@@ -7,7 +7,6 @@ import { notFound } from "next/navigation";
 import ShowDetailClient from "@/app/shows/[slug]/ShowDetailClient";
 import { urlFor } from "@/lib/sanityImage";
 import type { Metadata } from "next";
-import { getLocalizedText } from "@/lib/translations";
 
 export async function generateStaticParams() {
   const shows = await fetchAllShows();
