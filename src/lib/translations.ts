@@ -38,7 +38,7 @@ export const navLabels = {
   calendar: { en: "Calendar", fr: "Calendrier" },
   shows: { en: "Shows", fr: "Spectacles" },
   videos: { en: "Videos", fr: "Vidéos" },
-  about: { en: "About", fr: "Qui sont Bert & Nasi ?" },
+  about: { en: "About", fr: "À propos" },
 };
 
 /**
