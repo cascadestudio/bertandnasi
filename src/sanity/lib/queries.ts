@@ -44,14 +44,11 @@ export interface Show {
     quote: string;
     quoteFr?: string;
     media: string;
-    mediaFr?: string;
     link?: string;
   }>;
   seo?: {
     metaTitle?: string;
-    metaTitleFr?: string;
     metaDescription?: string;
-    metaDescriptionFr?: string;
     keywords?: string[];
   };
 }
@@ -77,7 +74,6 @@ export const getAllShows = groq`
       quote,
       quoteFr,
       media,
-      mediaFr,
       link
     },
     seo
@@ -105,7 +101,6 @@ export const getShowBySlug = groq`
       quote,
       quoteFr,
       media,
-      mediaFr,
       link
     },
     seo
@@ -133,7 +128,6 @@ export const getShowById = groq`
       quote,
       quoteFr,
       media,
-      mediaFr,
       link
     },
     seo
@@ -161,9 +155,7 @@ export interface CalendarEvent {
   };
   dates: string[];
   venue: string;
-  venueFr?: string;
   location: string;
-  locationFr?: string;
   ticketUrl?: string;
   additionalImages?: Array<{
     asset: {
@@ -188,9 +180,7 @@ export const getUpcomingEvents = groq`
     },
     dates,
     venue,
-    venueFr,
     location,
-    locationFr,
     ticketUrl,
     additionalImages
   }
@@ -210,9 +200,7 @@ export const getAllCalendarEvents = groq`
     },
     dates,
     venue,
-    venueFr,
     location,
-    locationFr,
     ticketUrl,
     additionalImages
   }
@@ -385,7 +373,6 @@ export interface Review {
   quote: string;
   quoteFr?: string;
   media: string;
-  mediaFr?: string;
   link?: string;
   featured: boolean;
 }
@@ -445,7 +432,6 @@ export const getFeaturedReviews = groq`
     quote,
     quoteFr,
     media,
-    mediaFr,
     link,
     featured
   }
@@ -460,7 +446,6 @@ export const getAllReviews = groq`
     quote,
     quoteFr,
     media,
-    mediaFr,
     link,
     featured
   }

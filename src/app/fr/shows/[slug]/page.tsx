@@ -35,12 +35,11 @@ export async function generateMetadata({
 
   const title = show.title;
   const description =
-    show.seo?.metaDescriptionFr ||
     show.seo?.metaDescription ||
     `${title} - Une performance de ${show.year} par Bert & Nasi`;
 
   return {
-    title: show.seo?.metaTitleFr || show.seo?.metaTitle || title,
+    title: show.seo?.metaTitle || title,
     description: description,
     keywords: show.seo?.keywords || [],
     alternates: {

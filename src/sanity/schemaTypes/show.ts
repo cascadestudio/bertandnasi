@@ -224,33 +224,20 @@ export const show = defineType({
       fields: [
         {
           name: "metaTitle",
-          title: "Meta Title (English)",
+          title: "Meta Title",
           type: "string",
           validation: (Rule) => Rule.max(60),
           description:
             'The title that appears in search results and browser tabs. Keep it under 60 characters. Include the show name and year. Example: "Hamlet: A Modern Retelling (2024)"',
         },
         {
-          name: "metaTitleFr",
-          title: "Meta Title (French)",
-          type: "string",
-          validation: (Rule) => Rule.max(60),
-        },
-        {
           name: "metaDescription",
-          title: "Meta Description (English)",
+          title: "Meta Description",
           type: "text",
           rows: 2,
           validation: (Rule) => Rule.max(160),
           description:
             'A brief summary that appears in search results. Write 150-160 characters. Hook readers with what makes this production unique. Example: "A haunting reimagining of Shakespeare\'s classic, set in modern corporate boardrooms. Directed by [Name]."',
-        },
-        {
-          name: "metaDescriptionFr",
-          title: "Meta Description (French)",
-          type: "text",
-          rows: 2,
-          validation: (Rule) => Rule.max(160),
         },
       ],
     },

@@ -51,16 +51,12 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   rel="noopener noreferrer"
                   className="hover:text-[var(--color-green)] transition-colors"
                 >
-                  {getLocalizedText(
-                    firstQuote.media,
-                    firstQuote.mediaFr,
-                    locale
-                  )}
+                  {firstQuote.media}
                 </a>
               </cite>
             ) : (
               <cite className="block text-sm not-italic font-normal text-black">
-                {getLocalizedText(firstQuote.media, firstQuote.mediaFr, locale)}
+                {firstQuote.media}
               </cite>
             )}
           </div>
@@ -111,16 +107,12 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   rel="noopener noreferrer"
                   className="hover:text-[var(--color-green)] transition-colors"
                 >
-                  {getLocalizedText(
-                    firstQuote.media,
-                    firstQuote.mediaFr,
-                    locale
-                  )}
+                  {firstQuote.media}
                 </a>
               </cite>
             ) : (
               <cite className="block text-base not-italic font-normal text-black">
-                {getLocalizedText(firstQuote.media, firstQuote.mediaFr, locale)}
+                {firstQuote.media}
               </cite>
             )}
           </div>
@@ -166,20 +158,12 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   rel="noopener noreferrer"
                   className="hover:text-[var(--color-green)] transition-colors"
                 >
-                  {getLocalizedText(
-                    secondQuote.media,
-                    secondQuote.mediaFr,
-                    locale
-                  )}
+                  {secondQuote.media}
                 </a>
               </cite>
             ) : (
               <cite className="block text-base not-italic font-normal text-black">
-                {getLocalizedText(
-                  secondQuote.media,
-                  secondQuote.mediaFr,
-                  locale
-                )}
+                {secondQuote.media}
               </cite>
             )}
           </div>

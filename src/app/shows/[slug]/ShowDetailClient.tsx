@@ -252,12 +252,10 @@ export default function ShowDetailClient({
                       className="hover:text-[var(--color-green)] transition-colors"
                       style={{ fontSize: "14px" }}
                     >
-                      {getLocalizedText(review.media, review.mediaFr, locale)}
+                      {review.media}
                     </a>
                   ) : (
-                    <p style={{ fontSize: "14px" }}>
-                      {getLocalizedText(review.media, review.mediaFr, locale)}
-                    </p>
+                    <p style={{ fontSize: "14px" }}>{review.media}</p>
                   )}
                 </div>
               ))}
@@ -441,12 +439,10 @@ export default function ShowDetailClient({
                         className="hover:text-[var(--color-green)] transition-colors"
                         style={{ fontSize: "16px" }}
                       >
-                        {getLocalizedText(review.media, review.mediaFr, locale)}
+                        {review.media}
                       </a>
                     ) : (
-                      <p style={{ fontSize: "16px" }}>
-                        {getLocalizedText(review.media, review.mediaFr, locale)}
-                      </p>
+                      <p style={{ fontSize: "16px" }}>{review.media}</p>
                     )}
                   </div>
                 ))}

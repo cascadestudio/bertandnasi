@@ -8,7 +8,6 @@ import { getImageUrl } from "@/lib/sanityImage";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { getLocale } from "@/lib/locale";
-import { getLocalizedText } from "@/lib/translations";
 
 interface CalendarEventRowProps {
   event: CalendarEvent;
@@ -140,11 +139,11 @@ export default function CalendarEventRow({
               rel="noopener noreferrer"
               className="text-2xl lg:text-5xl font-regular uppercase leading-none hover:text-[var(--color-green)] transition-colors"
             >
-              {getLocalizedText(event.venue, event.venueFr, locale)}
+              {event.venue}
             </a>
           ) : (
             <span className="text-2xl lg:text-5xl font-regular uppercase leading-none">
-              {getLocalizedText(event.venue, event.venueFr, locale)}
+              {event.venue}
             </span>
           )}
         </div>
@@ -152,7 +151,7 @@ export default function CalendarEventRow({
         {/* Location */}
         <div className="flex-shrink-0 px-4">
           <span className="text-2xl lg:text-5xl font-regular uppercase leading-none">
-            {getLocalizedText(event.location, event.locationFr, locale)}
+            {event.location}
           </span>
         </div>
       </div>

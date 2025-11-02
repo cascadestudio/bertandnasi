@@ -25,17 +25,10 @@ export const review = defineType({
     },
     {
       name: "media",
-      title: "Author / Media Source (English)",
+      title: "Author / Media Source",
       type: "string",
       validation: (Rule) => Rule.required().max(100),
       description: "The name of the publication, media outlet, or author.",
-    },
-    {
-      name: "mediaFr",
-      title: "Author / Media Source (French)",
-      type: "string",
-      validation: (Rule) => Rule.max(100),
-      description: "The name of the publication, media outlet, or author in French.",
     },
     {
       name: "link",
