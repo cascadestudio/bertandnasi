@@ -3,10 +3,10 @@ import Image from "next/image";
 export default function HeroSection() {
   return (
     <section className="relative w-full h-[calc(100vh-6rem)] lg:h-[calc(100vh-5rem)] overflow-hidden mb-0">
-      {/* Mobile: hero-image-2.jpg */}
+      {/* Mobile: hero-image-mobile.jpg */}
       <div className="absolute inset-0 block lg:hidden">
         <Image
-          src="/images/hero-image-2.jpg"
+          src="/images/hero-image-mobile.jpg"
           alt="Bert and Nasi performance with red lighting"
           fill
           priority
@@ -15,10 +15,10 @@ export default function HeroSection() {
           sizes="(max-width: 1023px) 100vw, 0vw"
         />
       </div>
-      {/* Desktop: hero-image-1.jpg */}
+      {/* Desktop: hero-image-desktop.jpg */}
       <div className="absolute inset-0 hidden lg:block">
         <Image
-          src="/images/hero-image-1.jpg"
+          src="/images/hero-image-desktop.jpg"
           alt="Bert and Nasi performance with red lighting"
           fill
           priority
