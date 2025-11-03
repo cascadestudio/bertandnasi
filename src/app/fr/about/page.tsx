@@ -44,7 +44,7 @@ export default function AboutPageFrench() {
       <Marquee pageName="about" />
       <div className="min-h-screen bg-white">
         {/* Mobile Layout */}
-        <main className="lg:hidden flex flex-col min-h-screen border-t-4 border-[var(--color-green)]">
+        <main className="lg:hidden flex flex-col min-h-screen">
           {/* Title */}
           <div className="flex items-center px-5 border-b-4 border-[var(--color-green)] py-6">
             <h1 className="text-4xl show-title-hover">Bert & Nasi</h1>
@@ -114,7 +114,7 @@ export default function AboutPageFrench() {
         </main>
 
         {/* Desktop Layout */}
-        <main className="hidden lg:grid lg:grid-cols-3 min-h-screen border-t-4 border-[var(--color-green)]">
+        <main className="hidden lg:grid lg:grid-cols-3 min-h-screen">
           {/* Left Column - Bert */}
           <div className="flex flex-col relative border-r-4 border-[var(--color-green)]">
             {/* Title row - Bert title */}
