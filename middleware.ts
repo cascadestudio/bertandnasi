@@ -40,12 +40,19 @@ export function middleware(request: NextRequest) {
       prefersFrench = languages.some((lang) =>
         frenchCodes.some((code) => lang.code.startsWith(code))
       );
+
+      // Debug logging
+      console.log("Middleware - Pathname:", pathname);
+      console.log("Middleware - Accept-Language:", acceptLanguage);
+      console.log("Middleware - Parsed languages:", languages);
+      console.log("Middleware - Prefers French:", prefersFrench);
     }
 
     // If user prefers French and is on root paths, redirect to /fr
     if (prefersFrench) {
       const url = request.nextUrl.clone();
       url.pathname = `/fr${pathname === "/" ? "" : pathname}`;
+      console.log("Middleware - Redirecting to:", url.pathname);
       return NextResponse.redirect(url);
     }
   }
@@ -55,15 +62,5 @@ export function middleware(request: NextRequest) {
 
 // Configure which routes to run middleware on
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - studio (Sanity studio)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico|studio).*)",
-  ],
+  matcher: "/((?!api|_next/static|_next/image|favicon.ico|studio|.*\\.).*)",
 };
