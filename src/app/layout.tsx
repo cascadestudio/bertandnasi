@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
+import LanguageSetter from "@/components/layout/LanguageSetter";
 
 const ibmPlexSans = IBM_Plex_Sans({
   weight: ["300", "400", "500", "600", "700"],
@@ -39,6 +40,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://bertandnasi.com"),
   alternates: {
     canonical: "/",
+    languages: {
+      en: "/",
+      fr: "/fr",
+    },
   },
   openGraph: {
     title: "Bert&Nasi - Contemporary Performance Duo",
@@ -112,6 +117,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${ibmPlexSans.className} antialiased`}>
+        <LanguageSetter />
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
