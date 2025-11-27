@@ -153,7 +153,9 @@ export default function CalendarEventRow({
         {/* Location */}
         <div className="flex-shrink-0 px-4">
           <span className="text-2xl lg:text-5xl font-regular uppercase leading-none">
-            {event.location}
+            {locale === "fr" && event.locationFr
+              ? event.locationFr
+              : event.location}
           </span>
         </div>
       </div>

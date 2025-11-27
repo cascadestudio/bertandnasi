@@ -43,11 +43,19 @@ export const calendar = defineType({
     },
     {
       name: "location",
-      title: "City, Country",
+      title: "City, Country (English)",
       type: "string",
       validation: (Rule) => Rule.required(),
       description:
-        'The location where the show will be performed (e.g., "Paris, France" or "New York, USA").',
+        'The location where the show will be performed in English (e.g., "Paris, France" or "New York, USA").',
+      placeholder: "Paris, France",
+    },
+    {
+      name: "locationFr",
+      title: "City, Country (French)",
+      type: "string",
+      description:
+        'The location where the show will be performed in French (e.g., "Paris, France" or "New York, États-Unis").',
       placeholder: "Paris, France",
     },
     {

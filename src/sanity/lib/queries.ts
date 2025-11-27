@@ -156,6 +156,7 @@ export interface CalendarEvent {
   dates: string[];
   venue: string;
   location: string;
+  locationFr?: string;
   ticketUrl?: string;
   additionalImages?: Array<{
     asset: {
@@ -181,6 +182,7 @@ export const getUpcomingEvents = groq`
     dates,
     venue,
     location,
+    locationFr,
     ticketUrl,
     additionalImages
   }
@@ -201,6 +203,7 @@ export const getAllCalendarEvents = groq`
     dates,
     venue,
     location,
+    locationFr,
     ticketUrl,
     additionalImages
   }
