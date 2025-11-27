@@ -98,7 +98,7 @@ export default function RootLayout({
     description:
       "Contemporary performance duo creating minimalist shows that blend performance, dance, and theatre",
     foundingDate: "2015",
-    email: "bertandnasi@gmail.com",
+    email: "info@bertandnasi.com",
     sameAs: [
       "https://instagram.com/bertandnasi",
       "https://youtube.com/@bertandnasi7388",

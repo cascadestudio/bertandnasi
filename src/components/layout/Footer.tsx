@@ -32,10 +32,10 @@ export default function Footer() {
               {getLabel(uiLabels.contactUs, locale)}
             </h3>
             <a
-              href="mailto:bertandnasi@gmail.com"
+              href="mailto:info@bertandnasi.com"
               className="hover:text-[var(--color-green)] transition-colors text-lg"
             >
-              bertandnasi@gmail.com
+              info@bertandnasi.com
             </a>
           </div>
 
@@ -119,10 +119,10 @@ export default function Footer() {
               {getLabel(uiLabels.contactUs, locale)}
             </h3>
             <a
-              href="mailto:bertandnasi@gmail.com"
+              href="mailto:info@bertandnasi.com"
               className="hover:text-[var(--color-green)] transition-colors text-xl"
             >
-              bertandnasi@gmail.com
+              info@bertandnasi.com
             </a>
           </div>
 

@@ -35,10 +35,10 @@ export default function LegalNoticePageFrench() {
                 <br />
                 <strong>Email :</strong>{" "}
                 <a
-                  href="mailto:bertandnasi@gmail.com"
+                  href="mailto:info@bertandnasi.com"
                   className="text-[var(--color-green)] hover:underline"
                 >
-                  bertandnasi@gmail.com
+                  info@bertandnasi.com
                 </a>
               </p>
             </div>

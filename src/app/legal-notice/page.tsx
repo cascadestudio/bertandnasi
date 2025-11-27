@@ -35,7 +35,7 @@ export default function LegalNoticePage() {
             <strong>Publication Director:</strong> Nasi Voutsas
           </p>
           <p className="mb-2">
-            <strong>Contact:</strong> bertandnasi@gmail.com
+            <strong>Contact:</strong> info@bertandnasi.com
           </p>
         </section>
 
@@ -79,7 +79,7 @@ export default function LegalNoticePage() {
           <p className="mb-2">
             To exercise these rights or for any questions regarding the
             protection of your data, you can contact us at:
-            bertandnasi@gmail.com
+            info@bertandnasi.com
           </p>
         </section>
       </div>
