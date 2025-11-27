@@ -79,7 +79,9 @@ export default function CalendarEventRow({
       <div
         ref={contentRef}
         className={`flex items-center h-full whitespace-nowrap overflow-x-auto lg:overflow-visible overflow-y-hidden scrollbar-hide ${
-          isHovered ? "lg:transition-transform lg:duration-3000 lg:ease-linear" : ""
+          isHovered
+            ? "lg:transition-transform lg:duration-3000 lg:ease-linear"
+            : ""
         }`}
         style={{
           transform:

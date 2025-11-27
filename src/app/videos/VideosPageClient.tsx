@@ -169,7 +169,7 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
             </div>
 
             {categoryIndex < categories.length - 1 && (
-              <div className="border-b-4 border-[var(--color-green)] -mx-6" />
+              <div className="border-b-4 border-[var(--color-green)]" />
             )}
           </div>
         ))}
