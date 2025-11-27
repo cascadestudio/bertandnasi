@@ -1,7 +1,6 @@
 import {
   fetchShowBySlug,
   fetchAllShows,
-  fetchTrailerForShow,
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import ShowDetailClient from "./ShowDetailClient";
@@ -79,8 +78,5 @@ export default async function ShowDetailPage({
     notFound();
   }
 
-  // Fetch trailer from videos collection
-  const trailer = await fetchTrailerForShow(show._id);
-
-  return <ShowDetailClient show={show} allShows={allShows} trailer={trailer} />;
+  return <ShowDetailClient show={show} allShows={allShows} />;
 }

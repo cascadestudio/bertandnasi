@@ -294,36 +294,11 @@ export interface Video {
   titleFr?: string;
   url: string;
   category: string;
-  relatedShow?: {
-    _id: string;
-    title: string;
-    slug: {
-      current: string;
-    };
-  };
 }
 
 // Query to get all videos
 export const getAllVideos = groq`
   *[_type == "video"] | order(_createdAt desc) {
-    _id,
-    _createdAt,
-    _updatedAt,
-    title,
-    titleFr,
-    url,
-    category,
-    relatedShow-> {
-      _id,
-      title,
-      slug
-    }
-  }
-`;
-
-// Query to get trailer for a specific show
-export const getTrailerForShow = groq`
-  *[_type == "video" && category == "trailers" && relatedShow._ref == $showId][0] {
     _id,
     _createdAt,
     _updatedAt,
@@ -347,24 +322,6 @@ export async function fetchAllVideos(): Promise<Video[]> {
   } catch (error) {
     console.error("Error fetching videos:", error);
     return [];
-  }
-}
-
-// Data fetching function for trailer by show ID
-export async function fetchTrailerForShow(
-  showId: string
-): Promise<Video | null> {
-  try {
-    return await client.fetch(
-      getTrailerForShow,
-      { showId },
-      {
-        next: { revalidate: 3600 }, // Cache for 1 hour
-      }
-    );
-  } catch (error) {
-    console.error("Error fetching trailer for show:", error);
-    return null;
   }
 }
 
