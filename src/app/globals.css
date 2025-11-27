@@ -27,6 +27,7 @@ h6 {
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 body {
@@ -36,6 +37,8 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  width: 100%; /* Ensure body doesn't exceed viewport */
 }
 
 a {

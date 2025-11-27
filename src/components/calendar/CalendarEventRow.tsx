@@ -70,7 +70,7 @@ export default function CalendarEventRow({
   return (
     <div
       ref={rowRef}
-      className={`h-[120px] text-black overflow-x-hidden overflow-y-visible lg:overflow-visible ${
+      className={`h-[120px] text-black overflow-x-hidden ${
         showBorder ? "border-t-4 border-b-4 border-[var(--color-green)]" : ""
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -78,7 +78,7 @@ export default function CalendarEventRow({
     >
       <div
         ref={contentRef}
-        className={`flex items-center h-full whitespace-nowrap overflow-x-auto lg:overflow-visible overflow-y-hidden scrollbar-hide ${
+        className={`flex items-center h-full whitespace-nowrap scrollbar-hide ${
           isHovered
             ? "lg:transition-transform lg:duration-3000 lg:ease-linear"
             : ""
@@ -114,7 +114,7 @@ export default function CalendarEventRow({
 
         {/* Images */}
         {allImages.length > 0 && (
-          <div className="flex-shrink-0 flex items-center gap-4 lg:gap-8 py-4">
+          <div className="flex-shrink-0 flex items-center gap-4 lg:gap-8">
             {allImages.map((img, index) => (
               <div
                 key={index}
