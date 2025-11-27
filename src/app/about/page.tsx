@@ -1,6 +1,7 @@
 import Marquee from "@/components/home/Marquee";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { fetchAllTeamMembers } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
   title: "About",
@@ -30,7 +31,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const teamMembers = await fetchAllTeamMembers();
+
   return (
     <div>
       <Marquee pageName="about" />
@@ -71,14 +74,14 @@ export default function AboutPage() {
               <div className="mt-8 border-t-4 border-[var(--color-green)] -mx-5 px-5 pt-6">
                 <h2 className="text-sm font-mono text-black mb-4">Team</h2>
                 <div className="space-y-4">
-                  <div>
-                    <h4 className="font-sans text-black font-normal">
-                      Khénory Sok
-                    </h4>
-                    <p className="text-black text-xs mt-1">
-                      Artistic Project Manager
-                    </p>
-                  </div>
+                  {teamMembers.map((member) => (
+                    <div key={member._id}>
+                      <h4 className="font-sans text-black font-normal">
+                        {member.name}
+                      </h4>
+                      <p className="text-black text-xs mt-1">{member.role}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -159,14 +162,14 @@ export default function AboutPage() {
                 <div className="mt-8">
                   <h3 className="text-sm font-mono text-black mb-4">Team</h3>
                   <div className="space-y-4">
-                    <div>
-                      <h4 className="font-sans text-black font-normal">
-                        Khénory Sok
-                      </h4>
-                      <p className="text-black text-xs mt-1">
-                        Artistic Project Manager
-                      </p>
-                    </div>
+                    {teamMembers.map((member) => (
+                      <div key={member._id}>
+                        <h4 className="font-sans text-black font-normal">
+                          {member.name}
+                        </h4>
+                        <p className="text-black text-xs mt-1">{member.role}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

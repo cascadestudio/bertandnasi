@@ -442,3 +442,43 @@ export async function fetchAllReviews(): Promise<Review[]> {
     return [];
   }
 }
+
+// Team Member type definition
+export interface TeamMember {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  name: string;
+  role: string;
+  roleFr?: string;
+  order?: number;
+}
+
+// Query to get all team members
+export const getAllTeamMembers = groq`
+  *[_type == "team"] | order(order asc, name asc) {
+    _id,
+    _createdAt,
+    _updatedAt,
+    name,
+    role,
+    roleFr,
+    order
+  }
+`;
+
+// Data fetching function for team members
+export async function fetchAllTeamMembers(): Promise<TeamMember[]> {
+  try {
+    return await client.fetch(
+      getAllTeamMembers,
+      {},
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching team members:", error);
+    return [];
+  }
+}
