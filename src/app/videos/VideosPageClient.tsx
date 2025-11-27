@@ -144,6 +144,8 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
               </h2>
             </div>
 
+            <div className="border-b-4 border-[var(--color-green)] mb-8" />
+
             <div className="space-y-5 px-6 pb-8">
               {videosByCategory[category].map((video) => (
                 <div key={video._id}>
