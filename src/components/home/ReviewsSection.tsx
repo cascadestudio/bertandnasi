@@ -38,7 +38,7 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
         {/* Mobile Layout */}
         <div className="lg:hidden flex flex-col space-y-8 min-h-[200px]">
           <div className="space-y-4 text-center flex-1 flex flex-col justify-center">
-            <blockquote className="text-lg italic font-medium leading-relaxed text-black">
+            <blockquote className="text-xl italic font-bold leading-relaxed text-black">
               &ldquo;
               {getLocalizedText(firstQuote.quote, firstQuote.quoteFr, locale)}
               &rdquo;
@@ -94,7 +94,7 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
         {/* Desktop Layout */}
         <div className="hidden lg:grid lg:grid-cols-7 gap-5 items-center max-w-7xl mx-auto">
           <div className="col-start-2 col-span-2 space-y-4 text-center">
-            <blockquote className="text-xl italic font-medium leading-relaxed text-black">
+            <blockquote className="text-2xl italic font-bold leading-relaxed text-black">
               &ldquo;
               {getLocalizedText(firstQuote.quote, firstQuote.quoteFr, locale)}
               &rdquo;
@@ -116,7 +116,7 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
               </cite>
             )}
           </div>
-          <div className="col-span-1 flex items-end h-full justify-center gap-5">
+          <div className="col-span-1 flex items-center justify-center gap-5">
             <button
               onClick={prevReview}
               className="hover:opacity-80 transition-opacity"
@@ -145,7 +145,7 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
             </button>
           </div>
           <div className="col-span-2 space-y-4 text-center">
-            <blockquote className="text-xl italic font-medium leading-relaxed text-black">
+            <blockquote className="text-2xl italic font-bold leading-relaxed text-black">
               &ldquo;
               {getLocalizedText(secondQuote.quote, secondQuote.quoteFr, locale)}
               &rdquo;
