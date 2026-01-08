@@ -3,6 +3,7 @@ import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 import LanguageSetter from "@/components/layout/LanguageSetter";
+import UmamiAnalytics from "@/components/analytics/UmamiAnalytics";
 
 const ibmPlexSans = IBM_Plex_Sans({
   weight: ["300", "400", "500", "600", "700"],
@@ -117,6 +118,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${ibmPlexSans.className} antialiased`}>
+        <UmamiAnalytics />
         <LanguageSetter />
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
