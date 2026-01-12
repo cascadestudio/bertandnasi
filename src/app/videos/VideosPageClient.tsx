@@ -10,6 +10,7 @@ import {
   getLabel,
   getLocalizedText,
 } from "@/lib/translations";
+import VideoEmbed from "./VideoEmbed";
 
 interface VideosPageClientProps {
   videos: Video[];
@@ -95,25 +96,18 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
         >
           <div className={`${hoveredCategory ? "opacity-100" : "opacity-0"}`}>
             {hoveredCategory && videosByCategory[hoveredCategory] && (
-              <div className="block space-y-5">
+              <div className="block space-y-7">
                 {videosByCategory[hoveredCategory].map((video) => (
                   <div key={video._id}>
                     {getYouTubeId(video.url) && (
-                      <div className="w-full aspect-video">
-                        <iframe
-                          width="100%"
-                          height="100%"
-                          src={`https://www.youtube.com/embed/${getYouTubeId(video.url)}`}
-                          title={getLocalizedText(
-                            video.title,
-                            video.titleFr,
-                            locale
-                          )}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="w-full h-full outline-none"
-                        />
-                      </div>
+                      <VideoEmbed
+                        videoId={getYouTubeId(video.url)!}
+                        title={getLocalizedText(
+                          video.title,
+                          video.titleFr,
+                          locale
+                        )}
+                      />
                     )}
                   </div>
                 ))}
@@ -150,21 +144,14 @@ export default function VideosPageClient({ videos }: VideosPageClientProps) {
               {videosByCategory[category].map((video) => (
                 <div key={video._id}>
                   {getYouTubeId(video.url) && (
-                    <div className="w-full aspect-video">
-                      <iframe
-                        width="100%"
-                        height="100%"
-                        src={`https://www.youtube.com/embed/${getYouTubeId(video.url)}`}
-                        title={getLocalizedText(
-                          video.title,
-                          video.titleFr,
-                          locale
-                        )}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="w-full h-full outline-none"
-                      />
-                    </div>
+                    <VideoEmbed
+                      videoId={getYouTubeId(video.url)!}
+                      title={getLocalizedText(
+                        video.title,
+                        video.titleFr,
+                        locale
+                      )}
+                    />
                   )}
                 </div>
               ))}
