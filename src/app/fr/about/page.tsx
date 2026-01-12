@@ -48,11 +48,6 @@ export default async function AboutPageFrench() {
       <div className="min-h-screen bg-white">
         {/* Mobile Layout */}
         <main className="lg:hidden flex flex-col min-h-screen">
-          {/* Title */}
-          <div className="flex items-center px-5 border-b-4 border-[var(--color-green)] py-6">
-            <h1 className="text-4xl show-title-hover">Bert & Nasi</h1>
-          </div>
-
           {/* Content */}
           <div className="flex-1 py-6 px-5">
             <div className="text-left space-y-6">
@@ -80,72 +75,43 @@ export default async function AboutPageFrench() {
                 d&apos;artistes contemporains réinventant le théâtre et la
                 performance de nouvelles manières et pour de nouveaux publics.
               </p>
-
-              <div className="mt-8 border-t-4 border-[var(--color-green)] -mx-5 px-5 pt-6">
-                <h2 className="text-sm font-mono text-black mb-4">Équipe</h2>
-                <div className="space-y-4">
-                  {teamMembers.map((member) => (
-                    <div key={member._id}>
-                      <h4 className="font-sans text-black font-normal">
-                        {member.name}
-                      </h4>
-                      <p className="text-black text-xs mt-1">
-                        {member.roleFr || member.role}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
 
-          {/* Images */}
-          <div className="space-y-6 border-t-4 border-[var(--color-green)] pt-6 px-5 pb-8">
+          {/* Image */}
+          <div className="px-5 py-6">
             <Image
-              src="/images/about-bert.jpg"
-              alt="Bert"
+              src="/images/about.jpg"
+              alt="Bert & Nasi"
               width={400}
               height={400}
               className="w-full h-auto object-cover"
             />
-            <Image
-              src="/images/about-nasi.jpg"
-              alt="Nasi"
-              width={400}
-              height={400}
-              className="w-full h-auto object-cover"
-            />
+          </div>
+
+          {/* Team */}
+          <div className="px-5 pb-8">
+            <h3 className="text-sm font-mono text-black mb-4">Équipe</h3>
+            <div className="space-y-4">
+              {teamMembers.map((member) => (
+                <div key={member._id}>
+                  <h4 className="font-sans text-black font-normal">
+                    {member.name}
+                  </h4>
+                  <p className="text-black text-xs mt-1">
+                    {member.roleFr || member.role}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </main>
 
         {/* Desktop Layout */}
         <main className="hidden lg:grid lg:grid-cols-3 min-h-screen">
-          {/* Left Column - Bert */}
+          {/* Left Column - Content */}
           <div className="flex flex-col relative border-r-4 border-[var(--color-green)]">
-            {/* Title row - Bert title */}
-            <div className="flex items-center justify-start border-b-4 border-[var(--color-green)] pl-8 pr-5 py-5">
-              <h1 className="text-6xl md:text-8xl show-title-hover">Bert</h1>
-            </div>
-            {/* Image row - Bert image */}
-            <div className="flex items-start justify-start pl-8 pr-5 pt-5">
-              <Image
-                src="/images/about-bert.jpg"
-                alt="Bert"
-                width={400}
-                height={400}
-                className="w-full h-auto object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Middle Column - Content */}
-          <div className="flex flex-col relative border-r-4 border-[var(--color-green)]">
-            {/* Title row - & symbol */}
-            <div className="flex items-center border-b-4 border-[var(--color-green)] p-5">
-              <h1 className="text-6xl md:text-8xl show-title-hover">&</h1>
-            </div>
-            {/* Content row */}
-            <div className="flex items-start justify-start p-5 pb-8">
+            <div className="flex items-start justify-start pl-8 pr-5 pt-5 pb-8">
               <div className="text-left space-y-6 max-w-lg">
                 <p className="text-black text-base leading-relaxed">
                   Bertand et Nasi sont un duo d&apos;artistes-performeurs qui se
@@ -172,41 +138,41 @@ export default async function AboutPageFrench() {
                   d&apos;artistes contemporains réinventant le théâtre et la
                   performance de nouvelles manières et pour de nouveaux publics.
                 </p>
-
-                <div className="mt-8">
-                  <h3 className="text-sm font-mono text-black mb-4">Équipe</h3>
-                  <div className="space-y-4">
-                    {teamMembers.map((member) => (
-                      <div key={member._id}>
-                        <h4 className="font-sans text-black font-normal">
-                          {member.name}
-                        </h4>
-                        <p className="text-black text-xs mt-1">
-                          {member.roleFr || member.role}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Nasi */}
-          <div className="flex flex-col relative">
-            {/* Title row - Nasi title */}
-            <div className="flex items-center border-b-4 border-[var(--color-green)] pl-5 pr-8 py-5">
-              <h1 className="text-6xl md:text-8xl show-title-hover">Nasi</h1>
-            </div>
-            {/* Image row - Nasi image */}
-            <div className="flex items-start pl-5 pr-8 pt-5 pb-8">
+          {/* Middle Column - Image */}
+          <div className="flex flex-col relative border-r-4 border-[var(--color-green)]">
+            <div className="flex items-start justify-start p-5">
               <Image
-                src="/images/about-nasi.jpg"
-                alt="Nasi"
+                src="/images/about.jpg"
+                alt="Bert & Nasi"
                 width={400}
                 height={400}
                 className="w-full h-auto object-cover"
               />
+            </div>
+          </div>
+
+          {/* Right Column - Team */}
+          <div className="flex flex-col relative">
+            <div className="flex items-start pl-5 pr-8 pt-5 pb-8">
+              <div>
+                <h3 className="text-sm font-mono text-black mb-4">Équipe</h3>
+                <div className="space-y-4">
+                  {teamMembers.map((member) => (
+                    <div key={member._id}>
+                      <h4 className="font-sans text-black font-normal">
+                        {member.name}
+                      </h4>
+                      <p className="text-black text-xs mt-1">
+                        {member.roleFr || member.role}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </main>
