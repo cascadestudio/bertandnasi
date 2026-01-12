@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import CalendarEventRow from "@/components/calendar/CalendarEventRow";
 import { CalendarEvent } from "@/sanity/lib/queries";
 import { usePathname } from "next/navigation";
@@ -15,8 +15,31 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
   const locale = getLocale(pathname);
   const localeCode = locale === "fr" ? "fr-FR" : "en-GB";
 
+  // Extract all available years from events
+  const availableYears = useMemo(() => {
+    const years = new Set<number>();
+    events.forEach((event) => {
+      event.dates.forEach((date) => {
+        years.add(new Date(date).getFullYear());
+      });
+    });
+    return Array.from(years).sort((a, b) => a - b);
+  }, [events]);
+
+  // Default to the earliest year with events
+  const [selectedYear, setSelectedYear] = useState<number>(
+    availableYears[0] || new Date().getFullYear()
+  );
+
+  // Filter events by selected year
+  const filteredEvents = useMemo(() => {
+    return events.filter((event) =>
+      event.dates.some((date) => new Date(date).getFullYear() === selectedYear)
+    );
+  }, [events, selectedYear]);
+
   // Group events by month
-  const eventsByMonth = events.reduce(
+  const eventsByMonth = filteredEvents.reduce(
     (acc, event) => {
       const firstDate = new Date(event.dates[0]);
       const monthKey = `${firstDate.getFullYear()}-${String(firstDate.getMonth()).padStart(2, "0")}`;
@@ -41,9 +64,19 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
     a.localeCompare(b)
   );
 
-  const [openMonths, setOpenMonths] = useState<Set<string>>(
-    new Set(sortedMonths.length > 0 ? [sortedMonths[0][0]] : [])
-  );
+  const [openMonths, setOpenMonths] = useState<Set<string>>(new Set());
+
+  // Get the first month key for dependency tracking
+  const firstMonthKey = sortedMonths.length > 0 ? sortedMonths[0][0] : null;
+
+  // Reset open month when year changes (open first month of selected year)
+  useEffect(() => {
+    if (firstMonthKey) {
+      setOpenMonths(new Set([firstMonthKey]));
+    } else {
+      setOpenMonths(new Set());
+    }
+  }, [firstMonthKey]);
 
   const toggleMonth = (monthKey: string) => {
     if (openMonths.has(monthKey)) {
@@ -57,6 +90,27 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
 
   return (
     <div className="w-full">
+      {/* Year Selector Bar - matching navigation grid system */}
+      <div className="bg-white border-b-4 border-[var(--color-green)]">
+        <div className="flex">
+          {availableYears.map((year) => (
+            <button
+              key={year}
+              onClick={() => setSelectedYear(year)}
+              style={{ borderRight: "4px solid var(--color-green)" }}
+              className={`flex items-center justify-center font-medium text-4xl transition-colors px-8 py-4 ${
+                selectedYear === year
+                  ? "year-selector-active"
+                  : "text-black hover:text-[var(--color-green)]"
+              }`}
+            >
+              {year}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Month Accordions */}
       {sortedMonths.map(([monthKey, { monthName, events }]) => (
         <div
           key={monthKey}
