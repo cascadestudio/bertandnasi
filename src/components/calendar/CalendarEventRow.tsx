@@ -25,6 +25,7 @@ export default function CalendarEventRow({
   const [needsMarquee, setNeedsMarquee] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [slideDistance, setSlideDistance] = useState(0);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -36,6 +37,7 @@ export default function CalendarEventRow({
         const contentWidth = contentRef.current.scrollWidth;
         const needsAnimation = contentWidth > rowWidth;
         setNeedsMarquee(needsAnimation);
+        setIsLargeScreen(window.innerWidth >= 1024);
 
         if (needsAnimation) {
           // Calculate how much to slide to align right edge of content with right edge of container
@@ -70,7 +72,7 @@ export default function CalendarEventRow({
   return (
     <div
       ref={rowRef}
-      className={`h-[120px] text-black overflow-x-hidden ${
+      className={`h-[120px] text-black overflow-x-auto lg:overflow-x-hidden scrollbar-hide ${
         showBorder ? "border-t-4 border-b-4 border-[var(--color-green)]" : ""
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -85,7 +87,7 @@ export default function CalendarEventRow({
         }`}
         style={{
           transform:
-            needsMarquee && isHovered
+            needsMarquee && isHovered && isLargeScreen
               ? `translateX(-${slideDistance}px)`
               : "translateX(0)",
           scrollbarWidth: "none",
