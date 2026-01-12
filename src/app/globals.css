@@ -173,6 +173,25 @@ img[src$=".svg"] {
   -webkit-text-stroke: 1px var(--color-green);
 }
 
+/* Year selector button base styles */
+.year-selector-btn {
+  border-right: 4px solid var(--color-green);
+}
+
+.year-selector-no-border-r {
+  border-right: none;
+}
+
+@media (min-width: 768px) {
+  .md\:year-selector-no-border-r {
+    border-right: none;
+  }
+
+  .year-selector-btn:not(.md\:year-selector-no-border-r) {
+    border-right: 4px solid var(--color-green);
+  }
+}
+
 /* Year selector active state - matching nav-item-active style */
 .year-selector-active {
   color: transparent;

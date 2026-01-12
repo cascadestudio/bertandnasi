@@ -23,7 +23,7 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
         years.add(new Date(date).getFullYear());
       });
     });
-    return Array.from(years).sort((a, b) => a - b);
+    return Array.from(years).sort((a, b) => b - a);
   }, [events]);
 
   // Default to the earliest year with events
@@ -91,22 +91,33 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
   return (
     <div className="w-full">
       {/* Year Selector Bar - matching navigation grid system */}
-      <div className="bg-white border-b-4 border-[var(--color-green)]">
-        <div className="flex">
-          {availableYears.map((year) => (
-            <button
-              key={year}
-              onClick={() => setSelectedYear(year)}
-              style={{ borderRight: "4px solid var(--color-green)" }}
-              className={`flex items-center justify-center font-medium text-4xl transition-colors px-8 py-4 ${
-                selectedYear === year
-                  ? "year-selector-active"
-                  : "text-black hover:text-[var(--color-green)]"
-              }`}
-            >
-              {year}
-            </button>
-          ))}
+      <div
+        className="bg-white"
+        style={{ borderBottom: "4px solid var(--color-green)" }}
+      >
+        <div className="grid grid-cols-3 md:grid-cols-7">
+          {availableYears.map((year, index) => {
+            const isLastInRowMobile = (index + 1) % 3 === 0;
+            const isLastInRowDesktop = (index + 1) % 7 === 0;
+
+            return (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                className={`year-selector-btn flex items-center justify-center font-medium text-2xl md:text-4xl transition-colors px-4 md:px-8 py-4 ${
+                  isLastInRowMobile ? "year-selector-no-border-r" : ""
+                } ${
+                  isLastInRowDesktop ? "md:year-selector-no-border-r" : ""
+                } ${
+                  selectedYear === year
+                    ? "year-selector-active"
+                    : "text-black hover:text-[var(--color-green)]"
+                }`}
+              >
+                {year}
+              </button>
+            );
+          })}
         </div>
       </div>
 
