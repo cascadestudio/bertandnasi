@@ -36,8 +36,8 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
     <section className="w-full py-20">
       <div className="px-5">
         {/* Mobile Layout */}
-        <div className="lg:hidden flex flex-col space-y-8 min-h-[200px]">
-          <div className="space-y-4 text-center flex-1 flex flex-col justify-center">
+        <div className="lg:hidden flex flex-col space-y-8 h-[280px]">
+          <div className="space-y-4 text-center flex-1 flex flex-col justify-center h-[200px]">
             <blockquote className="text-xl italic font-bold leading-relaxed text-black">
               &ldquo;
               {getLocalizedText(firstQuote.quote, firstQuote.quoteFr, locale)}
@@ -92,8 +92,8 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden lg:grid lg:grid-cols-7 gap-5 items-center max-w-7xl mx-auto">
-          <div className="col-start-2 col-span-2 space-y-4 text-center">
+        <div className="hidden lg:grid lg:grid-cols-7 gap-5 items-center max-w-7xl mx-auto h-[200px]">
+          <div className="col-start-2 col-span-2 space-y-4 text-center h-full flex flex-col justify-center">
             <blockquote className="text-2xl italic font-bold leading-relaxed text-black">
               &ldquo;
               {getLocalizedText(firstQuote.quote, firstQuote.quoteFr, locale)}
@@ -144,7 +144,7 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
               />
             </button>
           </div>
-          <div className="col-span-2 space-y-4 text-center">
+          <div className="col-span-2 space-y-4 text-center h-full flex flex-col justify-center">
             <blockquote className="text-2xl italic font-bold leading-relaxed text-black">
               &ldquo;
               {getLocalizedText(secondQuote.quote, secondQuote.quoteFr, locale)}

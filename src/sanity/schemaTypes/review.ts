@@ -12,7 +12,7 @@ export const review = defineType({
       title: "Quote (English)",
       type: "text",
       rows: 4,
-      validation: (Rule) => Rule.required().max(500),
+      validation: (Rule) => Rule.required().max(120),
       description: "The review quote or text.",
     },
     {
@@ -20,7 +20,7 @@ export const review = defineType({
       title: "Quote (French)",
       type: "text",
       rows: 4,
-      validation: (Rule) => Rule.max(500),
+      validation: (Rule) => Rule.max(120),
       description: "The review quote or text in French.",
     },
     {
