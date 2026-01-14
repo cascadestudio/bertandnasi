@@ -111,9 +111,9 @@ export default function Marquee({
             .map((_, i) => (
               <span
                 key={i}
-                className="text-base font-mono font-bold tracking-wider uppercase"
+                className="text-base font-mono font-bold tracking-wider uppercase pr-3"
               >
-                {displayText + " ↓↓↓↓↓"}
+                {displayText}
               </span>
             ))}
         </div>
