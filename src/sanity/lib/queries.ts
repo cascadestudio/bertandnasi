@@ -298,7 +298,7 @@ export interface Video {
 
 // Query to get all videos
 export const getAllVideos = groq`
-  *[_type == "video"] | order(_createdAt desc) {
+  *[_type == "video"] | order(_createdAt asc) {
     _id,
     _createdAt,
     _updatedAt,
