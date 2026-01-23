@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { TextIcon } from "@sanity/icons";
 
-export const pageSettings = defineType({
+export const marqueeTexts = defineType({
   name: "pageSettings",
   title: "Marquee Texts",
   type: "document",

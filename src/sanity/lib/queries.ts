@@ -217,7 +217,7 @@ export async function fetchAllShows(): Promise<Show[]> {
       {},
       {
         next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching shows:", error);
@@ -232,7 +232,7 @@ export async function fetchShowBySlug(slug: string): Promise<Show> {
       { slug },
       {
         next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching show by slug:", error);
@@ -247,7 +247,7 @@ export async function fetchShowById(id: string): Promise<Show> {
       { id },
       {
         next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching show by id:", error);
@@ -262,7 +262,7 @@ export async function fetchUpcomingEvents(): Promise<CalendarEvent[]> {
       {},
       {
         next: { revalidate: 1800 }, // Cache for 30 minutes
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching upcoming events:", error);
@@ -277,7 +277,7 @@ export async function fetchAllCalendarEvents(): Promise<CalendarEvent[]> {
       {},
       {
         next: { revalidate: 1800 }, // Cache for 30 minutes
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching all calendar events:", error);
@@ -317,7 +317,7 @@ export async function fetchAllVideos(): Promise<Video[]> {
       {},
       {
         next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching videos:", error);
@@ -337,8 +337,8 @@ export interface Review {
   featured: boolean;
 }
 
-// PageSettings type definition
-export interface PageSettings {
+// marqueeTexts type definition
+export interface marqueeTexts {
   _id: string;
   _createdAt: string;
   _updatedAt: string;
@@ -348,7 +348,7 @@ export interface PageSettings {
 }
 
 // Query to get page settings by page name
-export const getPageSettings = groq`
+export const getmarqueeTexts = groq`
   *[_type == "pageSettings" && pageName == $pageName][0] {
     _id,
     _createdAt,
@@ -362,7 +362,7 @@ export const getPageSettings = groq`
 // Function to get marquee text for a specific page
 export async function fetchMarqueeForPage(
   pageName?: string,
-  locale: "en" | "fr" = "en"
+  locale: "en" | "fr" = "en",
 ): Promise<string | null> {
   const DEFAULT_MARQUEE_TEXT_EN = "The contemporary performance duo";
   const DEFAULT_MARQUEE_TEXT_FR = "Le duo d'artistes-performeurs";
@@ -374,13 +374,13 @@ export async function fetchMarqueeForPage(
     return DEFAULT_MARQUEE_TEXT;
   }
 
-  const pageSettings = await client.fetch(getPageSettings, { pageName });
+  const marqueeTexts = await client.fetch(getmarqueeTexts, { pageName });
 
-  if (locale === "fr" && pageSettings?.marqueeTextFr) {
-    return pageSettings.marqueeTextFr;
+  if (locale === "fr" && marqueeTexts?.marqueeTextFr) {
+    return marqueeTexts.marqueeTextFr;
   }
 
-  return pageSettings?.marqueeText || DEFAULT_MARQUEE_TEXT;
+  return marqueeTexts?.marqueeText || DEFAULT_MARQUEE_TEXT;
 }
 
 // Query to get featured reviews for homepage
@@ -419,7 +419,7 @@ export async function fetchFeaturedReviews(): Promise<Review[]> {
       {},
       {
         next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching featured reviews:", error);
@@ -435,7 +435,7 @@ export async function fetchAllReviews(): Promise<Review[]> {
       {},
       {
         next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching all reviews:", error);
@@ -475,7 +475,7 @@ export async function fetchAllTeamMembers(): Promise<TeamMember[]> {
       {},
       {
         next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      },
     );
   } catch (error) {
     console.error("Error fetching team members:", error);
@@ -503,18 +503,104 @@ export const getAboutCarouselImages = groq`
 `;
 
 // Data fetching function for about carousel images
-export async function fetchAboutCarouselImages(): Promise<AboutCarouselImage[]> {
+export async function fetchAboutCarouselImages(): Promise<
+  AboutCarouselImage[]
+> {
   try {
     const result = await client.fetch(
       getAboutCarouselImages,
       {},
       {
         next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      },
     );
     return result?.images || [];
   } catch (error) {
     console.error("Error fetching about carousel images:", error);
     return [];
+  }
+}
+
+// About Page Image type definition
+export interface AboutPageImage {
+  asset: {
+    _ref: string;
+    _type: string;
+  };
+  alt: string;
+}
+
+// Query to get about page images
+export const getAboutPageImages = groq`
+  *[_type == "aboutPageImages"][0] {
+    images[] {
+      asset,
+      alt
+    }
+  }
+`;
+
+// Data fetching function for about page images
+export async function fetchAboutPageImages(): Promise<AboutPageImage[]> {
+  try {
+    const result = await client.fetch(
+      getAboutPageImages,
+      {},
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      },
+    );
+    return result?.images || [];
+  } catch (error) {
+    console.error("Error fetching about page images:", error);
+    return [];
+  }
+}
+
+// Hero Images type definition
+export interface HeroImage {
+  asset: {
+    _ref: string;
+    _type: string;
+  };
+  alt: string;
+}
+
+export interface HeroImages {
+  desktopImage: HeroImage | null;
+  mobileImage: HeroImage | null;
+}
+
+// Query to get hero images
+export const getHeroImages = groq`
+  *[_type == "heroImages"][0] {
+    desktopImage {
+      asset,
+      alt
+    },
+    mobileImage {
+      asset,
+      alt
+    }
+  }
+`;
+
+// Data fetching function for hero images
+export async function fetchHeroImages(): Promise<HeroImages> {
+  try {
+    const result = await client.fetch(
+      getHeroImages,
+      {},
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      },
+    );
+    return {
+      desktopImage: result?.desktopImage || null,
+      mobileImage: result?.mobileImage || null,
+    };
+  } catch (error) {
+    console.error("Error fetching hero images:", error);
+    return { desktopImage: null, mobileImage: null };
   }
 }

@@ -1,9 +1,9 @@
 import { defineField, defineType } from "sanity";
 import { ImagesIcon } from "@sanity/icons";
 
-export const aboutCarousel = defineType({
-  name: "aboutCarousel",
-  title: "Home Page Carousel Images",
+export const aboutPageImages = defineType({
+  name: "aboutPageImages",
+  title: "About Page Images",
   type: "document",
   icon: ImagesIcon,
   fields: [
@@ -11,13 +11,14 @@ export const aboutCarousel = defineType({
       name: "title",
       title: "Title",
       type: "string",
-      initialValue: "Home Page Carousel",
+      initialValue: "About Page Images",
       readOnly: true,
       hidden: true,
     }),
     defineField({
       name: "images",
-      title: "Carousel Images",
+      title: "Images",
+      description: "Drag and drop to reorder images",
       type: "array",
       of: [
         {
@@ -46,7 +47,7 @@ export const aboutCarousel = defineType({
     prepare(selection) {
       const { images } = selection;
       return {
-        title: "Home Page Carousel Images",
+        title: "About Page Images",
         subtitle: `${images?.length || 0} image(s)`,
         media: images?.[0],
       };

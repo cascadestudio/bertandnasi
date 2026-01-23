@@ -3,7 +3,7 @@ import Marquee from "@/components/home/Marquee";
 import AboutSection from "@/components/home/AboutSection";
 import CalendarSection from "@/components/home/CalendarSection";
 import ReviewsSection from "@/components/home/ReviewsSection";
-import { fetchFeaturedReviews, fetchAboutCarouselImages } from "@/sanity/lib/queries";
+import { fetchFeaturedReviews, fetchAboutCarouselImages, fetchHeroImages } from "@/sanity/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -56,14 +56,15 @@ export const metadata: Metadata = {
 };
 
 export default async function HomeFrench() {
-  const [reviews, carouselImages] = await Promise.all([
+  const [reviews, carouselImages, heroImages] = await Promise.all([
     fetchFeaturedReviews(),
     fetchAboutCarouselImages(),
+    fetchHeroImages(),
   ]);
 
   return (
     <main>
-      <HeroSection />
+      <HeroSection images={heroImages} />
       <Marquee pageName="home" sticky={false} />
       <AboutSection carouselImages={carouselImages} />
       <CalendarSection />

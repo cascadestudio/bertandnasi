@@ -1,7 +1,8 @@
 import Marquee from "@/components/home/Marquee";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { fetchAllTeamMembers } from "@/sanity/lib/queries";
+import { fetchAllTeamMembers, fetchAboutPageImages } from "@/sanity/lib/queries";
+import { getImageUrl } from "@/lib/sanityImage";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -40,7 +41,10 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPageFrench() {
-  const teamMembers = await fetchAllTeamMembers();
+  const [teamMembers, aboutImages] = await Promise.all([
+    fetchAllTeamMembers(),
+    fetchAboutPageImages(),
+  ]);
 
   return (
     <div>
@@ -78,15 +82,18 @@ export default async function AboutPageFrench() {
             </div>
           </div>
 
-          {/* Image */}
-          <div className="px-5 py-6">
-            <Image
-              src="/images/about.jpg"
-              alt="Bert & Nasi"
-              width={400}
-              height={400}
-              className="w-full h-auto object-cover"
-            />
+          {/* Images */}
+          <div className="px-5 py-6 space-y-4">
+            {aboutImages.map((image, index) => (
+              <Image
+                key={index}
+                src={getImageUrl(image.asset, 800)}
+                alt={image.alt}
+                width={400}
+                height={400}
+                className="w-full h-auto object-cover"
+              />
+            ))}
           </div>
 
           {/* Team */}
@@ -142,16 +149,19 @@ export default async function AboutPageFrench() {
             </div>
           </div>
 
-          {/* Middle Column - Image */}
+          {/* Middle Column - Images */}
           <div className="flex flex-col relative border-r-4 border-[var(--color-green)]">
-            <div className="flex items-start justify-start p-5">
-              <Image
-                src="/images/about.jpg"
-                alt="Bert & Nasi"
-                width={400}
-                height={400}
-                className="w-full h-auto object-cover"
-              />
+            <div className="flex flex-col items-start justify-start p-5 space-y-4">
+              {aboutImages.map((image, index) => (
+                <Image
+                  key={index}
+                  src={getImageUrl(image.asset, 800)}
+                  alt={image.alt}
+                  width={400}
+                  height={400}
+                  className="w-full h-auto object-cover"
+                />
+              ))}
             </div>
           </div>
 
