@@ -482,3 +482,39 @@ export async function fetchAllTeamMembers(): Promise<TeamMember[]> {
     return [];
   }
 }
+
+// About Carousel Image type definition
+export interface AboutCarouselImage {
+  asset: {
+    _ref: string;
+    _type: string;
+  };
+  alt: string;
+}
+
+// Query to get about carousel images
+export const getAboutCarouselImages = groq`
+  *[_type == "aboutCarousel"][0] {
+    images[] {
+      asset,
+      alt
+    }
+  }
+`;
+
+// Data fetching function for about carousel images
+export async function fetchAboutCarouselImages(): Promise<AboutCarouselImage[]> {
+  try {
+    const result = await client.fetch(
+      getAboutCarouselImages,
+      {},
+      {
+        next: { revalidate: 3600 }, // Cache for 1 hour
+      }
+    );
+    return result?.images || [];
+  } catch (error) {
+    console.error("Error fetching about carousel images:", error);
+    return [];
+  }
+}

@@ -6,31 +6,32 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { getLocale } from "@/lib/locale";
 import { uiLabels, getLabel } from "@/lib/translations";
+import { getImageUrl } from "@/lib/sanityImage";
+import type { AboutCarouselImage } from "@/sanity/lib/queries";
 
-const carouselImages = [
-  {
-    src: "/images/carousel-image-1.png",
-    alt: "Bert and Nasi performing, jumping on stage",
-  },
-  {
-    src: "/images/carousel-image-2.jpg",
-    alt: "Performer with curtains and dramatic lighting",
-  },
-];
+interface AboutSectionProps {
+  carouselImages?: AboutCarouselImage[];
+}
 
-export default function AboutSection() {
+export default function AboutSection({ carouselImages = [] }: AboutSectionProps) {
   const pathname = usePathname();
   const locale = getLocale(pathname);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const hasImages = carouselImages.length > 0;
+
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length);
+    if (hasImages) {
+      setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length);
+    }
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) =>
-      prev === 0 ? carouselImages.length - 1 : prev - 1
-    );
+    if (hasImages) {
+      setCurrentImageIndex((prev) =>
+        prev === 0 ? carouselImages.length - 1 : prev - 1
+      );
+    }
   };
 
   return (
@@ -61,13 +62,15 @@ export default function AboutSection() {
         {/* Image Carousel - Spans 3 columns */}
         <div className="col-span-7 md:col-span-3 relative lg:border-l-4 lg:border-[var(--color-green)] lg:p-5 lg:pr-0">
           <div className="relative aspect-[4/3] overflow-hidden">
-            <Image
-              src={carouselImages[currentImageIndex].src}
-              alt={carouselImages[currentImageIndex].alt}
-              fill
-              className="object-cover transition-opacity duration-500"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+            {hasImages && (
+              <Image
+                src={getImageUrl(carouselImages[currentImageIndex].asset, 800)}
+                alt={carouselImages[currentImageIndex].alt}
+                fill
+                className="object-cover transition-opacity duration-500"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            )}
           </div>
         </div>
 
