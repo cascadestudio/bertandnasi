@@ -47,6 +47,11 @@ export default function AboutSection({ carouselImages = [] }: AboutSectionProps)
           <Link
             href={locale === "fr" ? "/fr/about" : "/about"}
             className="inline-flex items-center font-mono gap-2 text-[var(--color-green)] hover:opacity-80 transition-opacity font-bold text-sm"
+            aria-label={
+              locale === "fr"
+                ? "En savoir plus sur Bert et Nasi"
+                : "Learn more about Bert and Nasi"
+            }
           >
             <Image
               src="/icons/link-arrow.svg"
