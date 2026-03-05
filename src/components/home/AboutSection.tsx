@@ -13,7 +13,9 @@ interface AboutSectionProps {
   carouselImages?: AboutCarouselImage[];
 }
 
-export default function AboutSection({ carouselImages = [] }: AboutSectionProps) {
+export default function AboutSection({
+  carouselImages = [],
+}: AboutSectionProps) {
   const pathname = usePathname();
   const locale = getLocale(pathname);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -29,7 +31,7 @@ export default function AboutSection({ carouselImages = [] }: AboutSectionProps)
   const prevImage = () => {
     if (hasImages) {
       setCurrentImageIndex((prev) =>
-        prev === 0 ? carouselImages.length - 1 : prev - 1
+        prev === 0 ? carouselImages.length - 1 : prev - 1,
       );
     }
   };
