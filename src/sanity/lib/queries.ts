@@ -188,6 +188,27 @@ export const getUpcomingEvents = groq`
   }
 `;
 
+// Query to get last 3 past events (fallback when no upcoming events)
+export const getLastPastEvents = groq`
+  *[_type == "calendar" && dates[0] < now()] | order(dates[0] desc) [0...3] {
+    _id,
+    _createdAt,
+    _updatedAt,
+    show-> {
+      _id,
+      title,
+      slug,
+      mainImage
+    },
+    dates,
+    venue,
+    location,
+    locationFr,
+    ticketUrl,
+    additionalImages
+  }
+`;
+
 // Query to get all calendar events
 export const getAllCalendarEvents = groq`
   *[_type == "calendar"] | order(dates[0] desc) {
@@ -255,18 +276,25 @@ export async function fetchShowById(id: string): Promise<Show> {
   }
 }
 
-export async function fetchUpcomingEvents(): Promise<CalendarEvent[]> {
+export async function fetchUpcomingEvents(): Promise<{ events: CalendarEvent[]; isPast: boolean }> {
   try {
-    return await client.fetch(
+    const upcoming = await client.fetch<CalendarEvent[]>(
       getUpcomingEvents,
       {},
-      {
-        next: { revalidate: 1800 }, // Cache for 30 minutes
-      },
+      { next: { revalidate: 1800 } },
     );
+    if (upcoming.length > 0) {
+      return { events: upcoming, isPast: false };
+    }
+    const past = await client.fetch<CalendarEvent[]>(
+      getLastPastEvents,
+      {},
+      { next: { revalidate: 1800 } },
+    );
+    return { events: past, isPast: true };
   } catch (error) {
     console.error("Error fetching upcoming events:", error);
-    return [];
+    return { events: [], isPast: false };
   }
 }
 

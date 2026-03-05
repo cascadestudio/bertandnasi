@@ -2,7 +2,7 @@ import { fetchUpcomingEvents } from "@/sanity/lib/queries";
 import CalendarEventRow from "@/components/calendar/CalendarEventRow";
 
 export default async function CalendarSection() {
-  const events = await fetchUpcomingEvents();
+  const { events } = await fetchUpcomingEvents();
 
   if (events.length === 0) {
     return null;
