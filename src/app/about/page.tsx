@@ -48,13 +48,12 @@ export default async function AboutPage() {
           <div className="flex-1 py-6 px-5">
             <div className="text-left space-y-6">
               <p className="text-black text-base leading-relaxed">
-                Bert and Nasi are a contemporary performance duo that met in
-                2015 and have since created an entire repertoire of shows in the
-                midst of a period of national and international austerity. Their
-                work, in turn, is stripped back and minimalist, whilst dealing
-                with complex ideas and emotions. Their shows lie somewhere
-                between performance, dance and theatre but if you had to pin
-                them down on it, they&apos;d probably say it&apos;s theatre.
+                Bertrand Lesca and Nasi Voutsas (Bert and Nasi) have being
+                making work as a duo for 10 years. They are like the estranged
+                love twins of David Lynch, Andy Kaufman, Bert and Ernie, and
+                Buster Keaton. Something of their duo manages to be modern and
+                new whilst evoking a dynamic that harks back to early beginnings
+                of the great clowns.
               </p>
               <p className="text-black text-base leading-relaxed">
                 Together they have performed their shows on the international
@@ -109,14 +108,12 @@ export default async function AboutPage() {
             <div className="flex items-start justify-start pl-8 pr-5 pt-5 pb-8">
               <div className="text-left space-y-6 max-w-lg">
                 <p className="text-black text-base leading-relaxed">
-                  Bert and Nasi are a contemporary performance duo that met in
-                  2015 and have since created an entire repertoire of shows in
-                  the midst of a period of national and international austerity.
-                  Their work, in turn, is stripped back and minimalist, whilst
-                  dealing with complex ideas and emotions. Their shows lie
-                  somewhere between performance, dance and theatre but if you
-                  had to pin them down on it, they&apos;d probably say it&apos;s
-                  theatre.
+                  Bertrand Lesca and Nasi Voutsas (Bert and Nasi) have being
+                  making work as a duo for 10 years. They are like the estranged
+                  love twins of David Lynch, Andy Kaufman, Bert and Ernie, and
+                  Buster Keaton. Something of their duo manages to be modern and
+                  new whilst evoking a dynamic that harks back to early
+                  beginnings of the great clowns.
                 </p>
                 <p className="text-black text-base leading-relaxed">
                   Together they have performed their shows on the international

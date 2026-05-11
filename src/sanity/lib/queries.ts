@@ -211,7 +211,7 @@ export const getLastPastEvents = groq`
 
 // Query to get all calendar events
 export const getAllCalendarEvents = groq`
-  *[_type == "calendar"] | order(dates[0] desc) {
+  *[_type == "calendar"] | order(dates[0] asc) {
     _id,
     _createdAt,
     _updatedAt,
