@@ -26,9 +26,26 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
     return Array.from(years).sort((a, b) => b - a);
   }, [events]);
 
-  // Default to the earliest year with events
+  // Find the next upcoming event (events are sorted ascending by first date);
+  // fall back to the most recent event when nothing is upcoming.
+  const targetDate = useMemo(() => {
+    if (events.length === 0) return null;
+    const now = new Date();
+    const upcoming = events.find((event) => new Date(event.dates[0]) >= now);
+    const target = upcoming ?? events[events.length - 1];
+    return new Date(target.dates[0]);
+  }, [events]);
+
+  const targetYear = targetDate?.getFullYear() ?? null;
+  const targetMonthKey = targetDate
+    ? `${targetDate.getFullYear()}-${String(targetDate.getMonth()).padStart(2, "0")}`
+    : null;
+
+  // Default to the year of the upcoming (or most recent) show
   const [selectedYear, setSelectedYear] = useState<number>(
-    availableYears[0] || new Date().getFullYear()
+    (targetYear && availableYears.includes(targetYear)
+      ? targetYear
+      : availableYears[0]) || new Date().getFullYear()
   );
 
   // Filter events by selected year
@@ -59,24 +76,29 @@ export default function CalendarAccordion({ events }: CalendarAccordionProps) {
     {} as Record<string, { monthName: string; events: CalendarEvent[] }>
   );
 
-  // Sort months by date (most recent first)
+  // Sort months by date (oldest first)
   const sortedMonths = Object.entries(eventsByMonth).sort(([a], [b]) =>
     a.localeCompare(b)
   );
 
   const [openMonths, setOpenMonths] = useState<Set<string>>(new Set());
 
-  // Get the first month key for dependency tracking
+  // Open the month of the upcoming show when it falls in the selected year,
+  // otherwise fall back to the first month of that year.
   const firstMonthKey = sortedMonths.length > 0 ? sortedMonths[0][0] : null;
+  const defaultOpenMonthKey =
+    targetMonthKey && sortedMonths.some(([key]) => key === targetMonthKey)
+      ? targetMonthKey
+      : firstMonthKey;
 
-  // Reset open month when year changes (open first month of selected year)
+  // Reset open month when year changes
   useEffect(() => {
-    if (firstMonthKey) {
-      setOpenMonths(new Set([firstMonthKey]));
+    if (defaultOpenMonthKey) {
+      setOpenMonths(new Set([defaultOpenMonthKey]));
     } else {
       setOpenMonths(new Set());
     }
-  }, [firstMonthKey]);
+  }, [defaultOpenMonthKey]);
 
   const toggleMonth = (monthKey: string) => {
     if (openMonths.has(monthKey)) {
