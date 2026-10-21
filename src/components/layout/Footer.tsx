@@ -90,9 +90,9 @@ export default function Footer() {
             </a>
             <p>© Bertandnasi. {currentYear}</p>
             <a
-              href="https://cascadestudio.fr"
+              href="https://www.cascadestudio.fr/credit/bertandnasi"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="hover:text-[var(--color-green)] transition-colors"
             >
               {getLabel(uiLabels.websiteBy, locale)}
@@ -177,9 +177,9 @@ export default function Footer() {
             </a>
             <p>© Bertandnasi. {currentYear}</p>
             <a
-              href="https://cascadestudio.fr"
+              href="https://www.cascadestudio.fr/credit/bertandnasi"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="hover:text-[var(--color-green)] transition-colors"
             >
               {getLabel(uiLabels.websiteBy, locale)}

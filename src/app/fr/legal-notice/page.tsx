@@ -74,9 +74,9 @@ export default function LegalNoticePageFrench() {
               <p>
                 <strong>Conception et développement du site :</strong>{" "}
                 <a
-                  href="https://cascadestudio.fr"
+                  href="https://www.cascadestudio.fr/credit/bertandnasi"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="text-[var(--color-green)] hover:underline"
                 >
                   Cascade Studio
