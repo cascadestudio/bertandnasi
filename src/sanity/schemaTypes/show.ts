@@ -15,6 +15,13 @@ export const show = defineType({
       validation: (Rule) => Rule.required().max(100),
     },
     {
+      name: "marqueeText",
+      title: "Marquee text",
+      type: "string",
+      description:
+        "Text of the scrolling banner on the show page. Leave empty to show the show title.",
+    },
+    {
       name: "slug",
       title: "Slug",
       type: "slug",
