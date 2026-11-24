@@ -90,11 +90,7 @@ export default function ShowDetailClient({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Marquee
-        customText={
-          locale === "fr" ? "Pour les curieux" : "Just in Case You're Curious…"
-        }
-      />
+      <Marquee customText={show.marqueeText || show.title} />
 
       {/* Mobile Layout */}
       <div className="lg:hidden flex flex-col">
