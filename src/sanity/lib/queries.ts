@@ -8,6 +8,7 @@ export interface Show {
   _createdAt: string;
   _updatedAt: string;
   title: string;
+  marqueeText?: string;
   slug: {
     current: string;
   };
@@ -60,6 +61,7 @@ export const getAllShows = groq`
     _createdAt,
     _updatedAt,
     title,
+    marqueeText,
     slug,
     description,
     descriptionFr,
@@ -87,6 +89,7 @@ export const getShowBySlug = groq`
     _createdAt,
     _updatedAt,
     title,
+    marqueeText,
     slug,
     description,
     descriptionFr,
@@ -114,6 +117,7 @@ export const getShowById = groq`
     _createdAt,
     _updatedAt,
     title,
+    marqueeText,
     slug,
     description,
     descriptionFr,
